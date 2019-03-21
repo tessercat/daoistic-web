@@ -164,6 +164,8 @@ class Command(BaseCommand):
 
         # Get and create ctext book/chapter data.
         for data_glob in glob.glob(os.path.join(data_dir, 'ctext', '*.md')):
+            if data_glob == 'README.md':
+                continue
             title_data = _get_title_data(
                 os.path.join(data_dir, 'ctext', data_glob)
             )

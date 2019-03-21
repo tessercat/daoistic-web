@@ -1,6 +1,6 @@
 """ Project URL Configuration. """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 
 admin.site.site_header = 'Daoistic administration'

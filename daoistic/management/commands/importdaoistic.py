@@ -151,7 +151,7 @@ class Command(BaseCommand):
         """ Import daoistic data. """
         data_dir = os.path.join(settings.BASE_DIR, 'var', 'daoistic')
 
-        # Get dnd create daoistic.md book/chapter data.
+        # Get and create daoistic.md book/chapter data.
         title_data = {
             'title': '道德經',
             'subtitle': 'Dao De Jing',

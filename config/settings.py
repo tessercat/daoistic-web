@@ -99,6 +99,19 @@ DATABASES = {
 }
 
 
+# Cache
+# https://docs.djangoproject.com/en/2.1/topics/cache/
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.' + (
+            'dummy.DummyCache' if DEBUG else 'memcached.MemcachedCache'
+        ),
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 

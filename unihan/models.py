@@ -1,4 +1,4 @@
-""" Unihan models module. """
+""" Unihan app models module. """
 from django.db import models
 
 

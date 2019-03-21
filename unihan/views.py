@@ -6,7 +6,7 @@ from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 from unihan.forms import DictionaryForm, DumpForm
 from unihan.models import UnihanCharacter
-from unihan.tools import get_char_map
+from unihan.api import unihan_map
 
 
 MAX_LOOKUPS = 50
@@ -56,7 +56,7 @@ class DumpView(FormView):
                 max_lookups = False
             else:
                 max_lookups = MAX_LOOKUPS
-            context['char_map'] = get_char_map(
+            context['char_map'] = unihan_map(
                 context['dump_data'], max_lookups,
             )
         else:
@@ -92,5 +92,5 @@ class CharDetailView(DetailView):
         hz_data.update([hz for hz in char.semantic_variants])
         hz_data.update([hz for hz in char.simplified_variants])
         hz_data.update([hz for hz in char.traditional_variants])
-        context['char_map'] = get_char_map(''.join(hz_data))
+        context['char_map'] = unihan_map(''.join(hz_data))
         return context

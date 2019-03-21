@@ -1,4 +1,4 @@
-""" Daoistic admin module. """
+""" Daoistic app admin module. """
 from django.contrib import admin
 from django.utils import timezone
 from daoistic.models import Book, Chapter

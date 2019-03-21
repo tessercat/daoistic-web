@@ -1,4 +1,4 @@
-""" Daoistic models module. """
+""" Daoistic app models module. """
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -62,5 +62,5 @@ class Chapter(models.Model):
 
     def __str__(self):
         if self.title:
-            return '%d %s' % (self.number, self.title)
+            return '%s %s' % (self.number, self.title)
         return str(self.number)

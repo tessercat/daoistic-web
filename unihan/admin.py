@@ -1,4 +1,4 @@
-""" Unihan admin module. """
+""" Unihan app admin module. """
 from django.contrib import admin
 from unihan.models import UnihanCharacter, UnihanRadical
 
@@ -69,4 +69,5 @@ class RadicalAdmin(admin.ModelAdmin):
         return False
 
     def mandarin(self, obj):
+        """ For list display. """
         return obj.character.mandarin

@@ -1,4 +1,4 @@
-""" WSGI project config. """
+""" Puptel project WSGI config. """
 import os
 from django.core.wsgi import get_wsgi_application
 

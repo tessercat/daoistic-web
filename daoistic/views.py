@@ -14,7 +14,7 @@ from django.views.generic.base import TemplateView
 from daoistic.decorators import cache_public
 from daoistic.models import Book, Chapter
 from unihan.models import UnihanCharacter
-from unihan.tools import get_char_map
+from unihan.api import unihan_map
 
 
 # Map to strip hanzi punctuation.
@@ -89,7 +89,7 @@ class ComparisonView(TemplateView):
         hz_data = set()
         for chapter in context['chapter_list']:
             hz_data.update([hz for hz in chapter.hanzi])
-        context['char_map'] = get_char_map(''.join(hz_data))
+        context['char_map'] = unihan_map(''.join(hz_data))
         return context
 
 class NavJsonView(TemplateView):
@@ -392,7 +392,7 @@ class StudyDetailView(DetailView):
                         ])
                 stanzas.append(line_data)
         chapter.stanzas = stanzas
-        chapter.char_map = get_char_map(''.join(hz_chars))
+        chapter.char_map = unihan_map(''.join(hz_chars))
         chapter.copyright_year = chapter.last_update.year
 
     def get_context_data(self, **kwargs):
@@ -488,7 +488,7 @@ class StudyListView(ListView):
         hz_data = set()
         for chapter in context['object_list']:
             hz_data.update([hz for hz in chapter.hanzi_summary])
-        context['char_map'] = get_char_map(''.join(hz_data))
+        context['char_map'] = unihan_map(''.join(hz_data))
         return context
 
     def get_queryset(self):

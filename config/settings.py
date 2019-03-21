@@ -1,4 +1,4 @@
-""" Django settings module. """
+""" Puptel project settings module. """
 import ast
 import os
 

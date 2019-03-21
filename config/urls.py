@@ -1,4 +1,4 @@
-""" Project URL Configuration. """
+""" Puptel project URL config module. """
 from django.contrib import admin
 from django.urls import include, path
 

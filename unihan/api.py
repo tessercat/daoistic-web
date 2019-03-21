@@ -1,10 +1,10 @@
-""" Unihan tools methods. """
+""" A Module interface to the unihan app. """
 from unihan.models import UnihanCharacter
 
 
-def get_char_map(text, max_lookups=False):
-    """ Return a map of chars to db objects, possibly limiting the number
-    of db lookups. """
+def unihan_map(text, max_lookups=False):
+    """ Return a map of unihan characters to db objects, possibly
+    limiting the number of db lookups. """
     lookups = 0
     objects = {}
     for char in text:

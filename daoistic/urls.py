@@ -1,4 +1,4 @@
-""" Daoistic URLs module. """
+""" Daoistic app URLs module. """
 from django.urls import path
 from daoistic import views
 

@@ -1,0 +1,39 @@
+    <div class="container-fluid mb-4">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="Pager">
+            <ul class="pagination flex-wrap">
+              {% if page_number == 1 %}
+              <li class="page-item disabled" title="Previous">
+                <a class="page-link text-dark" href="#" tabindex="-1">上</a>
+              </li>
+              {% else %}
+              <li class="page-item" title="Previous">
+                <a class="page-link text-dark" href="/{{ pager_type }}/page/{{ page_number|add:"-1" }}">上</a>
+              </li>
+              {% endif %}
+              {% for _ in "123456789" %}
+              {% if forloop.counter == page_number %}
+              <li class="page-item active">
+                <a class="page-link" href="/{{ pager_type }}/page/{{ forloop.counter }}">{{ forloop.counter }}<span class="sr-only">(current)</span></a>
+              </li>
+              {% else %}
+              <li class="page-item">
+                <a class="page-link text-dark" href="/{{ pager_type }}/page/{{ forloop.counter }}">{{ forloop.counter }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+              {% if page_number == 9 %}
+              <li class="page-item disabled" title="Next">
+                <a class="page-link text-dark" href="#" tabindex="-1">下</a>
+              </li>
+              {% else %}
+              <li class="page-item" title="Next">
+                <a class="page-link text-dark" href="/{{ pager_type }}/page/{{ page_number|add:"1" }}">下</a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>

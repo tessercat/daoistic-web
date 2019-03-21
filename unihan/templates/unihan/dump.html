@@ -1,0 +1,52 @@
+{% extends "daoistic/base.html" %}
+{% load unihan_extras %}
+
+    {% block content_style %}
+    <style type="text/css" media="screen">
+      .badge-hanzi { text-align: center; }
+      .btn-hanzi { display: contents; font-size: inherit; cursor: pointer; }
+      .char-hanzi { font-size: 1.4em; }
+      .dump-box { font-size: 1.4rem; }
+      textarea { resize: both; }
+    </style>
+    {% endblock %}
+
+{% block page_title %}Unihan Dump{% endblock %}
+
+          {% block navbar_links %}
+          <li class="nav-item">
+            <a class="nav-link" href="/unihan/dictionary" title="Unihan Dictionary">Dictionary</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/unihan/dump" title="Unihan Dump">Dump<span class="sr-only">(current)</span></a>
+          </li>
+          {% endblock %}
+
+    {% block content %}
+    <div class="container-fluid mt-4 mb-5">
+      <div class="row">
+        <div class="col">
+          {% if dump_data %}
+          <div class="dump-box mb-5">
+{{ dump_data|buttonify:char_map|linebreaksbr }}
+          </div>
+          {% endif %}
+          <div>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+{{ form.hanzi }}
+              </div>
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+{% block footer %}
+{% include "unihan/modal.html" %}
+{% endblock %}
+
+{% block scripts %}<script src="/static/unihan/js/modal.js"></script>{% endblock %}

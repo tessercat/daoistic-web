@@ -1,0 +1,47 @@
+{% extends "daoistic/base.html" %}
+
+    {% block content_style %}
+    <style type="text/css" media="screen">
+      .badge-hanzi { text-align: center; }
+      .char-hanzi { font-size: 1.4em; }
+      .list-group { max-width: 400px; }
+    </style>
+    {% endblock %}
+
+{% block page_title %}Unihan Dictionary{% endblock %}
+
+          {% block navbar_links %}
+          <li class="nav-item active">
+            <a class="nav-link" href="/unihan/dictionary" title="Unihan Dictionary">Dictionary<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/unihan/dump" title="Unihan Dump">Dump</a>
+          </li>
+          {% endblock %}
+
+    {% block content %}
+    <div class="container-fluid mt-4 mb-5">
+      <div class="row">
+        <div class="col">
+          <div>
+            <form action="" method="POST" class="form-inline">
+              {% csrf_token %}
+              <button type="submit" class="form-group btn btn-dark">Search</button>
+              <div class="form-group ml-2">{{ form.search }}</div>
+            </form>
+          </div>
+          <div class="mt-4">
+            {% if form.search.errors %}
+            <ul class="list-group">
+              {% for error in form.search.errors %}
+              <li class="list-group-item">{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% elif form.is_valid %}
+            {% include "unihan/char_info.html" with char=char objects=objects %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}

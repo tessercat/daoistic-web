@@ -1,0 +1,42 @@
+{% extends "daoistic/studies.html" %}
+{% load unihan_extras %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+    {% block content_style %}
+    <style type="text/css" media="screen">
+      .card a:hover { text-decoration: none; }
+    </style>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container-fluid mt-4">
+      <div class="row">
+        {% for chapter in chapter_list %}
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="card mr-2 mb-4">
+            <a href="/studies/chapter/{{ chapter.number }}" class="text-dark">
+              <div class="card-body">
+                <h4 class="card-title">{{ chapter.title }}</h4>
+                <h6>Chapter {{ chapter.number }}</h6>
+                <h5>{{ chapter.hanzi_summary }}</h5>
+                <h6>{{ chapter.hanzi_summary|pinyinify:char_map }}</h6>
+                <h6>{{ chapter.english_summary }}</h6>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+
+{% block footer_style %}
+{% include "daoistic/pager_style.html" with pager_type="studies" %}
+{% endblock %}
+
+{% block footer %}
+{% include "daoistic/pager.html" with pager_type="studies" %}
+{% endblock %}
+
+{% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}

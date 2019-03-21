@@ -1,0 +1,51 @@
+{% load unihan_extras %}
+<div class="clearfix">
+  <span class="float-left mr-1 badge-hanzi">
+    <span class="char-hanzi">{{ char.utf8|buttonify }}</span><br />
+    <span class="badge badge-primary">{{ char.radical.utf8 }} + {{ char.residual_strokes }}</span>
+  </span>
+  <span class="float-left mr-1 badge-hanzi">
+    <span class="char-hanzi">{{ char.radical.utf8|buttonify:char_map }}</span><br />
+    <span class="badge badge-primary">Radical {{ char.radical.radical_number }}</span>
+  </span>
+  {% if char.traditional_variants %}<span class="float-left mr-1 badge-hanzi">
+    <span class="char-hanzi">{{ char.traditional_variants|buttonify:char_map }}</span><br />
+    <span class="badge badge-secondary">Traditional</span>
+  </span>{% endif %}
+  {% if char.simplified_variants %}<span class="float-left mr-1 badge-hanzi">
+    <span class="char-hanzi">{{ char.simplified_variants|buttonify:char_map }}</span><br />
+    <span class="badge badge-secondary">Simplified</span>
+  </span>{% endif %}
+  {% if char.semantic_variants %}<span class="float-left mr-1 badge-hanzi">
+    <span class="char-hanzi">{{ char.semantic_variants|buttonify:char_map }}</span><br />
+    <span class="badge badge-secondary">Semantic</span>
+  </span>{% endif %}
+</div>
+<div class="mt-3">
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      {% if user.is_authenticated %}
+      <a href="/search/{{ char.utf8 }}" title="Search all versions of the Daodejing" target="_blank">Search</a>
+      {% else %}
+      <a href="/search/道德經/{{ char.utf8 }}" title="Search the Daodejing" target="_blank">Search</a>
+      {% endif %}
+    </li>
+    <li class="list-inline-item">
+      <a href="https://ctext.org/dictionary.pl?if=en&char={{ char.utf8 }}" title="Search the ctext dictionary" target="_blank" rel="noopener noreferrer nofollow">Ctext</a>
+    </li>
+    <li class="list-inline-item">
+      <a href="http://www.mdbg.net/chindict/chindict.php?page=worddict&wdrst=1&wdqb={{ char.utf8 }}" title="Search CEDICT online" target="_blank" rel="noopener noreferrer nofollow">MDBG</a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://en.wiktionary.org/wiki/{{ char.utf8 }}" title="Search Wiktionary in English" target="_blank" rel="noopener noreferrer nofollow">Wiktionary</a>
+    </li>
+  </ul>
+</div>
+<div class="mt-3">
+  <dl class="row">
+    <dt class="col-sm-2">Mandarin:</dt>
+    <dd class="col-sm-10">{{ char.mandarin }}</dd>
+    <dt class="col-sm-2">Definition:</dt>
+    <dd class="col-sm-10">{{ char.definition }}</dd>
+  </dl>
+</div>

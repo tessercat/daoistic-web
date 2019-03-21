@@ -1,0 +1,20 @@
+{% extends "daoistic/base.html" %}
+
+          {% block navbar_links %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ poems_href }}" title="{{ poems_title }}">Poems</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ studies_href }}" title="{{ studies_title }}">Studies<span class="sr-only">(current)</span></a>
+          </li>
+          {% if user.is_authenticated and compare %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ compare_href }}" title="{{ compare_title }}">Compare</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="/about" title="About this site">About</a>
+          </li>
+          {% endblock %}
+
+{% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}

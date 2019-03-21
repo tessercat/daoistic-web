@@ -1,0 +1,47 @@
+{% extends "daoistic/studies.html" %}
+{% load unihan_extras %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+    {% block content_style %}
+    <style type="text/css" media="screen">
+      .copyright { font-size: 0.8em; }
+      .badge-hanzi { text-align: center; }
+      .btn-hanzi { display: contents; font-size: inherit; cursor: pointer; }
+      .char-hanzi { font-size: 1.4em; }
+      .line-hanzi { font-size: 1.4em; }
+    </style>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container-fluid">
+      <div class="row mt-3 mb-4">
+        <div class="col">
+
+<h4 class="mt-2">{{ chapter.title }}</h4>
+<h6 class="mb-3">Chapter {{ chapter.number }}</h6>
+<div class="mb-4" id="chapter-{{ chapter.number }}">
+{% for stanza in chapter.stanzas %}<div class="mb-4"><!-- stanza -->
+{% for line in stanza %}
+  <div class="line">
+    {% for data in line %}{% if forloop.counter == 1 %}<div class="mt-2 line-hanzi">{{ data|buttonify:chapter.char_map }}</div>
+    {% elif forloop.counter == 2 %}<div class="font-italic">{{ data|pinyinify:chapter.char_map }}</div>
+    {% elif forloop.counter == 3 %}<div class="mb-1">{{ data }}</div>
+  {% endif %}{% endfor %}</div>
+{% endfor %}
+</div><!-- /stanza -->
+{% endfor %}
+</div>
+<div class="copyright mb-2">© {{ chapter.copyright_year }} Peter Christensen, CC BY-NC-SA</div>
+
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+{% block footer %}
+{% include "unihan/modal.html" %}
+{% endblock %}
+
+    {% block scripts %}<script src="/static/unihan/js/modal.js"></script>
+    <script src="/static/daoistic/js/nav.js"></script>{% endblock %}

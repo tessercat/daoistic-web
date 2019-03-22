@@ -1,4 +1,4 @@
-""" Puptel project settings module. """
+""" Daoistic project settings module. """
 import ast
 import os
 

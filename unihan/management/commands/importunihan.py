@@ -236,7 +236,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """ Import unihan data. """
-        data_dir = os.path.join(settings.BASE_DIR, 'var', 'unihan12')
+        data_dir = os.path.join(settings.BASE_DIR, 'var', 'unihan')
 
         # Get radical data, a dict indexed by radical number.
         radical_data = _get_radical_data(

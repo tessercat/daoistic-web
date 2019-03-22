@@ -2,3 +2,4 @@ Django
 gunicorn
 markdown
 python-memcached
+requests

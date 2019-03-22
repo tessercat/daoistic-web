@@ -33,11 +33,18 @@ SERVER_EMAIL = SETTINGS.get('SERVER_EMAIL') or 'root@localhost'
 TIME_ZONE = SETTINGS.get('TIME_ZONE') or 'UTC'
 
 
-# Header definition
+# Header and cookie definition
+
+# Assume no port in nginx HTTP-X-FORWARDED-HOST for CSRF match.
+# https://stackoverflow.com/questions/27533011
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+SESSION_COOKIE_SECURE = True
+
 USE_X_FORWARDED_HOST = True
+
+USE_X_FORWARDED_PORT = True
 
 
 # Application definition
@@ -59,7 +66,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'puptel.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

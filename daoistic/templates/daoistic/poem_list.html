@@ -5,12 +5,13 @@
     {% block content_style %}
     <style type="text/css" media="screen">
       .card a:hover { text-decoration: none; }
+      .pagination { justify-content: center; }
     </style>
     {% endblock %}
 
     {% block content %}
-    <div class="container-fluid mt-4">
-      <div class="row">
+    <div class="container-fluid mt-4 text-center">
+      <div class="row justify-content-center">
         {% for chapter in chapter_list %}
         <div class="col-xs-12 col-sm-6 col-md-4">
           <div class="card mr-2 mb-4">

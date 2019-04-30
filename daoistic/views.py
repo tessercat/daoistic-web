@@ -174,7 +174,7 @@ class PoemDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """ Insert poem chapter data into index template. """
         context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Chapter %d | %s' % (
+        context['page_title'] = '%d %s' % (
             self.kwargs['chapter'], self.object.title,
         )
         page_number = ((self.kwargs['chapter'] - 1) / 9) + 1
@@ -398,7 +398,7 @@ class StudyDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """ Insert study chapter info into index template. """
         context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Chapter %d | %s' % (
+        context['page_title'] = '%d %s' % (
             self.kwargs['chapter'], self.object.title,
         )
         page_number = ((self.kwargs['chapter'] - 1) / 9) + 1

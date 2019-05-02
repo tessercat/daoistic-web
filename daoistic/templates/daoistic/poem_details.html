@@ -5,6 +5,7 @@
     {% block content_style %}
     <style type="text/css" media="screen">
       .copyright { font-size: 0.8em; }
+      .pagination { justify-content: center; }
     </style>
     {% endblock %}
 
@@ -24,5 +25,9 @@
       </div>
     </div>
     {% endblock %}
+
+{% block footer %}
+{% include "daoistic/details_pager.html" with pager_type="poems" %}
+{% endblock %}
 
 {% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}

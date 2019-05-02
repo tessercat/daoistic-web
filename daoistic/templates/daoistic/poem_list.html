@@ -30,11 +30,11 @@
     {% endblock %}
 
 {% block footer_style %}
-{% include "daoistic/pager_style.html" with pager_type="poems" %}
+{% include "daoistic/list_pager_style.html" %}
 {% endblock %}
 
 {% block footer %}
-{% include "daoistic/pager.html" with pager_type="poems" %}
+{% include "daoistic/list_pager.html" with pager_type="poems" %}
 {% endblock %}
 
 {% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}

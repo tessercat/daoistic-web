@@ -31,6 +31,51 @@ def _chapter_range(page):
         raise Http404()
     return low, high
 
+def _next_chapter(current):
+    """ Return the next published chapter or None. """
+
+    # Get the next in sequence.
+    chapter = Chapter.objects.filter(
+        book__title='道德經',
+        number__gt=current,
+        published=True,
+    ).order_by('number').first()
+    if chapter:
+        return chapter
+
+    # Wrap, search up from the bottom.
+    chapter = Chapter.objects.filter(
+        book__title='道德經',
+        number__gt=0,
+        published=True,
+    ).order_by('number').first()
+    if chapter:
+        return chapter
+
+    return None
+
+def _previous_chapter(current):
+    """ Return the previous published chapter or None. """
+
+    chapter = Chapter.objects.filter(
+        book__title='道德經',
+        number__lt=current,
+        published=True,
+    ).order_by('number').last()
+    if chapter:
+        return chapter
+
+    # Wrap, search down from the top.
+    chapter = Chapter.objects.filter(
+        book__title='道德經',
+        number__lt=82,
+        published=True,
+    ).order_by('number').last()
+    if chapter:
+        return chapter
+
+    return None
+
 @method_decorator(cache_public(60 * 15), name='dispatch')
 class AboutTemplateView(TemplateView):
     """ About-this-site view. """
@@ -102,25 +147,10 @@ class NavJsonView(TemplateView):
         if self.request.user.is_authenticated:
             return ((current - 1) + 1) % 81 + 1
 
-        # Get the next in sequence.
-        chapter = Chapter.objects.filter(
-            book__title='道德經',
-            number__gt=current,
-            published=True,
-        ).order_by('number').first()
-        if chapter:
-            return chapter.number
-
-        # Wrap, search up from the bottom.
-        chapter = Chapter.objects.filter(
-            book__title='道德經',
-            number__gt=0,
-            published=True,
-        ).order_by('number').first()
-        if chapter:
-            return chapter.number
-
-        # Found nothing.
+        # Return next or raise.
+        next_chapter = _next_chapter(current)
+        if next_chapter:
+            return next_chapter.number
         raise ValidationError('Bad nav request')
 
     def _get_previous(self, current):
@@ -130,25 +160,10 @@ class NavJsonView(TemplateView):
         if self.request.user.is_authenticated:
             return ((current - 1) + 81 - 1) % 81 + 1
 
-        # Get the previous in sequence.
-        chapter = Chapter.objects.filter(
-            book__title='道德經',
-            number__lt=current,
-            published=True,
-        ).order_by('number').last()
-        if chapter:
-            return chapter.number
-
-        # Wrap, search down from the top.
-        chapter = Chapter.objects.filter(
-            book__title='道德經',
-            number__lt=82,
-            published=True,
-        ).order_by('number').last()
-        if chapter:
-            return chapter.number
-
-        # Found nothing.
+        # Return previous or raise.
+        previous_chapter = _previous_chapter(current)
+        if previous_chapter:
+            return previous_chapter.number
         raise ValidationError('Bad nav request')
 
     def render_to_response(self, context, **response_kwargs):
@@ -177,7 +192,9 @@ class PoemDetailView(DetailView):
         context['page_title'] = '%d %s' % (
             self.kwargs['chapter'], self.object.title,
         )
-        page_number = ((self.kwargs['chapter'] - 1) / 9) + 1
+        page_number = int(((self.kwargs['chapter'] - 1) / 9) + 1)
+
+        # Menu data.
         if page_number == 1:
             context['brand_href'] = '/poems'
             context['brand_title'] = 'Poems home'
@@ -192,6 +209,19 @@ class PoemDetailView(DetailView):
             context['poems_title'] = 'Poems page %d' % page_number
             context['studies_href'] = '/studies/chapter/%d' % self.object.number
             context['studies_title'] = 'Studies chapter %d' % self.object.number
+
+        # Pager data.
+        context['page_number'] = page_number
+        next_chapter = _next_chapter(self.object.number)
+        context['next_title'] = '%d %s' % (
+            next_chapter.number, next_chapter.title
+        )
+        context['next_number'] = next_chapter.number
+        previous_chapter = _previous_chapter(self.object.number)
+        context['previous_title'] = '%d %s' % (
+            previous_chapter.number, previous_chapter.title
+        )
+        context['previous_number'] = previous_chapter.number
         return context
 
     def get_object(self, queryset=None):
@@ -401,7 +431,9 @@ class StudyDetailView(DetailView):
         context['page_title'] = '%d %s' % (
             self.kwargs['chapter'], self.object.title,
         )
-        page_number = ((self.kwargs['chapter'] - 1) / 9) + 1
+        page_number = int(((self.kwargs['chapter'] - 1) / 9) + 1)
+
+        # Menu data.
         if page_number == 1:
             context['brand_href'] = '/studies'
             context['brand_title'] = 'Studies home'
@@ -424,6 +456,19 @@ class StudyDetailView(DetailView):
             context['compare_title'] = (
                 'Compare chapter %d versions' % self.object.number
             )
+
+        # Pager data.
+        context['page_number'] = page_number
+        next_chapter = _next_chapter(self.object.number)
+        context['next_title'] = '%d %s' % (
+            next_chapter.number, next_chapter.title
+        )
+        context['next_number'] = next_chapter.number
+        previous_chapter = _previous_chapter(self.object.number)
+        context['previous_title'] = '%d %s' % (
+            previous_chapter.number, previous_chapter.title
+        )
+        context['previous_number'] = previous_chapter.number
         return context
 
     def get_object(self, queryset=None):

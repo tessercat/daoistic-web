@@ -33,11 +33,11 @@
     {% endblock %}
 
 {% block footer_style %}
-{% include "daoistic/pager_style.html" with pager_type="studies" %}
+{% include "daoistic/list_pager_style.html" with pager_type="studies" %}
 {% endblock %}
 
 {% block footer %}
-{% include "daoistic/pager.html" with pager_type="studies" %}
+{% include "daoistic/list_pager.html" with pager_type="studies" %}
 {% endblock %}
 
 {% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}

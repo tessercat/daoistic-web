@@ -10,6 +10,7 @@
       .btn-hanzi { display: contents; font-size: inherit; cursor: pointer; }
       .char-hanzi { font-size: 1.4em; }
       .line-hanzi { font-size: 1.4em; }
+      .pagination { justify-content: center; }
     </style>
     {% endblock %}
 
@@ -40,6 +41,7 @@
     {% endblock %}
 
 {% block footer %}
+{% include "daoistic/details_pager.html" with pager_type="studies" %}
 {% include "unihan/modal.html" %}
 {% endblock %}
 

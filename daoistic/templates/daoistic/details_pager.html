@@ -1,0 +1,19 @@
+    <div class="container-fluid mb-4">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="Pager">
+            <ul class="pagination flex-wrap">
+              <li class="page-item" title="Previous">
+                <a class="page-link text-dark" href="/{{ pager_type }}/chapter/{{ previous_number }}">{{ previous_title }}</a>
+              </li>
+	      <li class="page-item">
+                <a class="page-link text-dark" href="/{{ pager_type }}/page/{{ page_number }}">Page {{ page_number }}</a>
+              </li>
+	      <li class="page-item" title="Next">
+                <a class="page-link text-dark" href="/{{ pager_type }}/chapter/{{ next_number }}">{{ next_title }}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>

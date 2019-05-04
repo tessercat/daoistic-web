@@ -1,5 +1,9 @@
 {% extends "daoistic/poems.html" %}
 
+{% block open_graph %}
+{% include "daoistic/open_graph.html" %}
+{% endblock %}
+
 {% block page_title %}{{ page_title }}{% endblock %}
 
     {% block content_style %}

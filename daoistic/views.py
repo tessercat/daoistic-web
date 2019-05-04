@@ -22,6 +22,57 @@ HANZI_TMAP = dict.fromkeys(map(ord, '，。？'), None)
 MAX_SEARCH_CHARS = 2
 DDJ_TITLES = ('道德經', '郭店', '馬王堆甲', '馬王堆乙', '河上公', '王弼')
 
+def _add_english_summary(chapter):
+    """ Add a summary field to a chapter object. """
+    summary = chapter.english.split('\n', 1)[0].strip()
+    if summary.endswith(','):
+        summary = summary[:-1]
+    if not summary.endswith('.'):
+        summary += '.'
+    chapter.summary = summary
+
+def _add_hanzi_summary(chapter):
+    """ Add a hanzi summary field to the chapter object. """
+    hanzi = chapter.hanzi.split('\n', 1)[0].strip()
+    chapter.hanzi_summary = hanzi.translate(HANZI_TMAP)
+
+def _add_study_fields(chapter):
+    """ Add study-specific fields to a chapter object: a list of stanza data,
+    a dict that maps unihan characters to db objects, and the copyright year.
+
+    Stanzas contain lines that the template represents in three different
+    ways, hanzi, pinyin, and English. The template uses the db objects to
+    transform unihan characters for the hanzi/pinyin representations to
+    modal popup buttons and pinyin, respectively. """
+    hz_stanzas = re.split(
+        '\n{2,}', str(normalize_newlines(chapter.hanzi))
+    )
+    en_stanzas = re.split(
+        '\n{2,}', str(normalize_newlines(chapter.english))
+    )
+    stanzas = []
+    hz_chars = set()
+    if (
+            (en_stanzas and hz_stanzas)
+            and len(en_stanzas) == len(hz_stanzas)):
+        for stanza_num, _ in enumerate(hz_stanzas):
+            hz_lines = hz_stanzas[stanza_num].split('\n')
+            en_lines = en_stanzas[stanza_num].split('\n')
+            if len(en_lines) == len(hz_lines):
+                line_data = []
+                for line_num, _ in enumerate(hz_lines):
+                    hz_line = hz_lines[line_num].translate(HANZI_TMAP)
+                    hz_chars.update([hz for hz in hz_line])
+                    line_data.append([
+                        hz_line,
+                        hz_line,
+                        en_lines[line_num],
+                    ])
+            stanzas.append(line_data)
+    chapter.stanzas = stanzas
+    chapter.char_map = unihan_map(''.join(hz_chars))
+    chapter.copyright_year = chapter.last_update.year
+
 def _chapter_range(page):
     """ Return the poems to display on a page, from low to high. """
     if 1 <= page <= 9:
@@ -87,6 +138,9 @@ class AboutTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['brand_href'] = '/'
         context['brand_title'] = 'Home'
+        context['og_title'] = 'About Daoistic'
+        context['og_description'] = 'Describing the indescribable.'
+        context['og_url'] = '/about'
         about = os.path.join(
             settings.BASE_DIR, 'var', 'daoistic', 'about.md',
         )
@@ -210,6 +264,13 @@ class PoemDetailView(DetailView):
             context['studies_href'] = '/studies/chapter/%d' % self.object.number
             context['studies_title'] = 'Studies chapter %d' % self.object.number
 
+        # Open graph data.
+        context['og_title'] = 'Daoistic %d - %s' % (
+            self.object.number, self.object.title,
+        )
+        context['og_description'] = self.object.summary
+        context['og_url'] = '/poems/chapter/%d' % self.kwargs['chapter']
+
         # Pager data.
         context['page_number'] = page_number
         next_chapter = _next_chapter(self.object.number)
@@ -238,6 +299,7 @@ class PoemDetailView(DetailView):
                 number=self.kwargs['chapter'],
                 *filter_args,
             )
+            _add_english_summary(chapter)
         except Chapter.DoesNotExist:
             raise Http404()
 
@@ -253,16 +315,6 @@ class PoemListView(ListView):
     model = Chapter
     template_name = 'daoistic/poem_list.html'
 
-    @classmethod
-    def _add_summary(cls, chapter):
-        """ Add a summary field to a chapter. """
-        summary = chapter.english.split('\n', 1)[0].strip()
-        if summary.endswith(','):
-            summary = summary[:-1]
-        if not summary.endswith('.'):
-            summary += '.'
-        chapter.summary = summary
-
     def get_context_data(self, *, object_list=None, **kwargs):
         """ Insert poem page data into index template. """
         context = super().get_context_data(**kwargs)
@@ -272,12 +324,19 @@ class PoemListView(ListView):
         context['brand_title'] = 'Poems home'
         context['poems_href'] = '/poems'
         context['poems_title'] = 'Poems home'
+        og_desc = 'Describing the indescribable'
         if self.kwargs['page'] == 1:
+            context['og_title'] = 'Daoistic'
+            context['og_url'] = '/'
             context['studies_href'] = '/studies'
             context['studies_title'] = 'Studies home'
         else:
+            og_desc += ' chapters %d-%d' % self.kwargs['chapters']
+            context['og_title'] = 'Daoistic page %d' % self.kwargs['page']
+            context['og_url'] = '/poems/page/%d' % self.kwargs['page']
             context['studies_href'] = '/studies/page/%d' % self.kwargs['page']
             context['studies_title'] = 'Studies page %d' % self.kwargs['page']
+        context['og_description'] = og_desc + '.'
         return context
 
     def get_queryset(self):
@@ -291,7 +350,7 @@ class PoemListView(ListView):
             published=True,
         )
         for chapter in chapters:
-            PoemListView._add_summary(chapter)
+            _add_english_summary(chapter)
         return chapters
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
@@ -388,43 +447,6 @@ class StudyDetailView(DetailView):
     model = Chapter
     template_name = 'daoistic/study_details.html'
 
-    @classmethod
-    def _add_chapter_data(cls, chapter):
-        """ Return a list of stanza data and a dict that maps unihan
-        characters to db objects. Stanzas contain lines that the template
-        represents in three different ways, hanzi, pinyin, and English.
-        The template uses the db objects to transform unihan characters
-        for the hanzi/pinyin representations to modal popup buttons and
-        pinyin, respectively. """
-        hz_stanzas = re.split(
-            '\n{2,}', str(normalize_newlines(chapter.hanzi))
-        )
-        en_stanzas = re.split(
-            '\n{2,}', str(normalize_newlines(chapter.english))
-        )
-        stanzas = []
-        hz_chars = set()
-        if (
-                (en_stanzas and hz_stanzas)
-                and len(en_stanzas) == len(hz_stanzas)):
-            for stanza_num, _ in enumerate(hz_stanzas):
-                hz_lines = hz_stanzas[stanza_num].split('\n')
-                en_lines = en_stanzas[stanza_num].split('\n')
-                if len(en_lines) == len(hz_lines):
-                    line_data = []
-                    for line_num, _ in enumerate(hz_lines):
-                        hz_line = hz_lines[line_num].translate(HANZI_TMAP)
-                        hz_chars.update([hz for hz in hz_line])
-                        line_data.append([
-                            hz_line,
-                            hz_line,
-                            en_lines[line_num],
-                        ])
-                stanzas.append(line_data)
-        chapter.stanzas = stanzas
-        chapter.char_map = unihan_map(''.join(hz_chars))
-        chapter.copyright_year = chapter.last_update.year
-
     def get_context_data(self, **kwargs):
         """ Insert study chapter info into index template. """
         context = super().get_context_data(**kwargs)
@@ -456,6 +478,15 @@ class StudyDetailView(DetailView):
             context['compare_title'] = (
                 'Compare chapter %d versions' % self.object.number
             )
+
+        # Open graph data.
+        context['og_title'] = 'Daoistic %d - %s' % (
+            self.object.number, self.object.title,
+        )
+        context['og_description'] = '%s - %s' % (
+            self.object.hanzi_summary, self.object.summary,
+        )
+        context['og_url'] = '/studies/chapter/%d' % self.kwargs['chapter']
 
         # Pager data.
         context['page_number'] = page_number
@@ -489,7 +520,9 @@ class StudyDetailView(DetailView):
             raise Http404()
 
         # Add view-specific data to the object and return it.
-        StudyDetailView._add_chapter_data(chapter)
+        _add_study_fields(chapter)
+        _add_english_summary(chapter)
+        _add_hanzi_summary(chapter)
         return chapter
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
@@ -498,22 +531,6 @@ class StudyListView(ListView):
 
     model = Chapter
     template_name = 'daoistic/study_list.html'
-
-    @classmethod
-    def _add_chapter_data(cls, chapter):
-        """ Add a summary field to the chapter. """
-
-        # English summary.
-        english = chapter.english.split('\n', 1)[0].strip()
-        if english.endswith(','):
-            english = english[:-1]
-        if not english.endswith('.'):
-            english += '.'
-        chapter.english_summary = english
-
-        # Hanzi/pinyin summary.
-        hanzi = chapter.hanzi.split('\n', 1)[0].strip()
-        chapter.hanzi_summary = hanzi.translate(HANZI_TMAP)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """ Insert study page data into index template. """
@@ -524,12 +541,19 @@ class StudyListView(ListView):
         context['brand_title'] = 'Studies home'
         context['studies_href'] = '/studies'
         context['studies_title'] = 'Studies home'
+        og_desc = 'Describing the indescribable - studies'
         if self.kwargs['page'] == 1:
+            context['og_title'] = 'Daoistic'
+            context['og_url'] = '/studies'
             context['poems_href'] = '/poems'
             context['poems_title'] = 'Poems home'
         else:
+            og_desc += ' of chapters %d-%d' % self.kwargs['chapters']
+            context['og_title'] = 'Daoistic page %d' % self.kwargs['page']
+            context['og_url'] = '/studies/page/%d' % self.kwargs['page']
             context['poems_href'] = '/poems/page/%d' % self.kwargs['page']
             context['poems_title'] = 'Poems page %d' % self.kwargs['page']
+        context['og_description'] = og_desc + '.'
         hz_data = set()
         for chapter in context['object_list']:
             hz_data.update([hz for hz in chapter.hanzi_summary])
@@ -547,5 +571,6 @@ class StudyListView(ListView):
             published=True,
         )
         for chapter in chapters:
-            StudyListView._add_chapter_data(chapter)
+            _add_english_summary(chapter)
+            _add_hanzi_summary(chapter)
         return chapters

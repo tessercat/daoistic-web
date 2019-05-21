@@ -49,10 +49,10 @@ USE_X_FORWARDED_PORT = True
 
 # Application definition
 
-AUTH_USER_MODEL = 'puptel.User'
+AUTH_USER_MODEL = 'common.User'
 
 INSTALLED_APPS = [
-    'puptel.apps.PuptelConfig',
+    'common.apps.CommonConfig',
     'unihan.apps.UnihanConfig',
     'daoistic.apps.DaoisticConfig',
     'django.contrib.admin',
@@ -66,7 +66,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'puptel.middleware.FirewallMiddleware',
+    'common.middleware.FirewallMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

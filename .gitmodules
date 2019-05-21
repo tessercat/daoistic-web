@@ -1,3 +1,3 @@
-[submodule "puptel"]
-	path = puptel
-	url = git://localhost:9418/puptel-apps/puptel.git
+[submodule "common"]
+	path = common
+	url = git://localhost:9418/puptel-apps/common.git

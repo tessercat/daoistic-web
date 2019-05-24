@@ -11,7 +11,7 @@ from django.utils.html import linebreaks
 from django.utils.text import normalize_newlines
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
-from daoistic.decorators import cache_public
+from common.decorators import cache_public
 from daoistic.models import Book, Chapter
 from unihan.models import UnihanCharacter
 from unihan.api import unihan_map

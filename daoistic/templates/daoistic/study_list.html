@@ -1,4 +1,5 @@
 {% extends "daoistic/studies.html" %}
+{% load static %}
 {% load unihan_extras %}
 
 {% block open_graph %}
@@ -44,4 +45,4 @@
 {% include "daoistic/list_pager.html" with pager_type="studies" %}
 {% endblock %}
 
-{% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}
+{% block scripts %}<script src="{% static 'daoistic/js/nav.js' %}"></script>{% endblock %}

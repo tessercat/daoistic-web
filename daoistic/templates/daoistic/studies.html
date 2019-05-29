@@ -1,4 +1,5 @@
 {% extends "daoistic/base.html" %}
+{% load static %}
 
           {% block navbar_links %}
           <li class="nav-item">
@@ -17,4 +18,4 @@
           </li>
           {% endblock %}
 
-{% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}
+{% block scripts %}<script src="{% static 'daoistic/js/nav.js' %}"></script>{% endblock %}

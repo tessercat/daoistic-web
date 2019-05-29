@@ -1,4 +1,5 @@
 {% extends "daoistic/poems.html" %}
+{% load static %}
 
 {% block open_graph %}
 {% include "daoistic/open_graph.html" %}
@@ -34,4 +35,4 @@
 {% include "daoistic/details_pager.html" with pager_type="poems" %}
 {% endblock %}
 
-{% block scripts %}<script src="/static/daoistic/js/nav.js"></script>{% endblock %}
+{% block scripts %}<script src="{% static 'daoistic/js/nav.js' %}"></script>{% endblock %}

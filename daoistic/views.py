@@ -319,18 +319,19 @@ class PoemListView(ListView):
         """ Insert poem page data into index template. """
         context = super().get_context_data(**kwargs)
         context['page_number'] = self.kwargs['page']
-        context['page_title'] = 'Chapters %d-%d' % self.kwargs['chapters']
         context['brand_href'] = '/poems'
         context['brand_title'] = 'Poems home'
         context['poems_href'] = '/poems'
         context['poems_title'] = 'Poems home'
         og_desc = 'Describing the indescribable'
         if self.kwargs['page'] == 1:
+            context['page_title'] = 'Daoistic'
             context['og_title'] = 'Daoistic'
             context['og_url'] = '/'
             context['studies_href'] = '/studies'
             context['studies_title'] = 'Studies home'
         else:
+            context['page_title'] = 'Daoistic %d' % self.kwargs['page']
             og_desc += ' chapters %d-%d' % self.kwargs['chapters']
             context['og_title'] = 'Daoistic page %d' % self.kwargs['page']
             context['og_url'] = '/poems/page/%d' % self.kwargs['page']
@@ -536,18 +537,19 @@ class StudyListView(ListView):
         """ Insert study page data into index template. """
         context = super().get_context_data(**kwargs)
         context['page_number'] = self.kwargs['page']
-        context['page_title'] = 'Chapters %d-%d' % self.kwargs['chapters']
         context['brand_href'] = '/studies'
         context['brand_title'] = 'Studies home'
         context['studies_href'] = '/studies'
         context['studies_title'] = 'Studies home'
         og_desc = 'Describing the indescribable - studies'
         if self.kwargs['page'] == 1:
+            context['page_title'] = 'Daoistic'
             context['og_title'] = 'Daoistic'
             context['og_url'] = '/studies'
             context['poems_href'] = '/poems'
             context['poems_title'] = 'Poems home'
         else:
+            context['page_title'] = 'Daoistic %d' % self.kwargs['page']
             og_desc += ' of chapters %d-%d' % self.kwargs['chapters']
             context['og_title'] = 'Daoistic page %d' % self.kwargs['page']
             context['og_url'] = '/studies/page/%d' % self.kwargs['page']

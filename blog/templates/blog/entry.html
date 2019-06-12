@@ -1,0 +1,47 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block open_graph %}
+{% include "blog/entry_og.html" %}
+{% endblock %}
+
+        {% block navbar_right %}<a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog entries" href="/blog">Blog</a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" title="Blog entries" href="/blog">Blog</a>
+        </div>
+      </div>{% endblock %}
+
+{% block content_style %}
+    <style type="text/css" media="screen">
+      p { margin: 1rem; }
+      .is-family-serif { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+      #references { margin-top: 1rem; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="section">
+      <div class="container">
+        <h3 class="subtitle is-3 is-family-serif">{{ object.title }}</h3>
+        <figure class="image">
+          <img src="{% static static_img %}">
+        </figure>
+        <div class="is-size-5 has-text-black is-family-serif">
+{{ entry|safe }}
+        </div>
+        <div class="is-size-6">
+          © {{ object.last_update.year }} Peter Christensen, CC BY-NC-SA.
+          Last update {{ object.last_update }}.
+        </div>
+      </div>
+      {% if refs %}
+      <div id="references" class="container">
+        <ul>
+          {% for ref in refs %}<li>{{ ref|safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>{% endif %}
+    </section>
+{% endblock %}

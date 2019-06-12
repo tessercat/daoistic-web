@@ -9,5 +9,6 @@ admin.site.site_title = 'Daoistic'
 urlpatterns = [
     path('', include('daoistic.urls')),
     path('unihan/', include('unihan.urls')),
+    path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
 ]

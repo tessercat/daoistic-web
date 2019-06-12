@@ -181,10 +181,10 @@ class ComparisonView(TemplateView):
         context['chapter_list'] = self._get_chapter_list()
         context['brand_href'] = '/'
         context['brand_title'] = 'Home'
-        context['poems_href'] = '/poems/chapter/%d' % self.kwargs['chapter']
-        context['poems_title'] = 'Poems chapter %d' % self.kwargs['chapter']
-        context['studies_href'] = '/studies/chapter/%d' % self.kwargs['chapter']
-        context['studies_title'] = 'Studies chapter %d' % self.kwargs['chapter']
+        context['poems_href'] = '/poems/%d' % self.kwargs['chapter']
+        context['poems_title'] = 'Poem %d' % self.kwargs['chapter']
+        context['studies_href'] = '/studies/%d' % self.kwargs['chapter']
+        context['studies_title'] = 'Study %d' % self.kwargs['chapter']
         hz_data = set()
         for chapter in context['chapter_list']:
             hz_data.update([hz for hz in chapter.hanzi])
@@ -254,22 +254,22 @@ class PoemDetailView(DetailView):
             context['brand_title'] = 'Poems home'
             context['poems_href'] = '/poems'
             context['poems_title'] = 'Poems home'
-            context['studies_href'] = '/studies/chapter/%d' % self.object.number
-            context['studies_title'] = 'Studies chapter %d' % self.object.number
+            context['studies_href'] = '/studies/%d' % self.object.number
+            context['studies_title'] = 'Study %d' % self.object.number
         else:
             context['brand_href'] = '/poems/page/%d' % page_number
             context['brand_title'] = 'Poems page %d' % page_number
             context['poems_href'] = '/poems/page/%d' % page_number
             context['poems_title'] = 'Poems page %d' % page_number
-            context['studies_href'] = '/studies/chapter/%d' % self.object.number
-            context['studies_title'] = 'Studies chapter %d' % self.object.number
+            context['studies_href'] = '/studies/%d' % self.object.number
+            context['studies_title'] = 'Study %d' % self.object.number
 
         # Open graph data.
         context['og_title'] = 'Daoistic %d - %s' % (
             self.object.number, self.object.title,
         )
         context['og_description'] = self.object.summary
-        context['og_url'] = '/poems/chapter/%d' % self.kwargs['chapter']
+        context['og_url'] = '/poems/%d' % self.kwargs['chapter']
 
         # Pager data.
         context['page_number'] = page_number
@@ -332,7 +332,7 @@ class PoemListView(ListView):
             context['studies_title'] = 'Studies home'
         else:
             context['page_title'] = 'Daoistic %d' % self.kwargs['page']
-            og_desc += ' chapters %d-%d' % self.kwargs['chapters']
+            og_desc += ' %d-%d' % self.kwargs['chapters']
             context['og_title'] = 'Daoistic page %d' % self.kwargs['page']
             context['og_url'] = '/poems/page/%d' % self.kwargs['page']
             context['studies_href'] = '/studies/page/%d' % self.kwargs['page']
@@ -460,24 +460,22 @@ class StudyDetailView(DetailView):
         if page_number == 1:
             context['brand_href'] = '/studies'
             context['brand_title'] = 'Studies home'
-            context['poems_href'] = '/poems/chapter/%d' % self.object.number
-            context['poems_title'] = 'Poems chapter %d' % self.object.number
+            context['poems_href'] = '/poems/%d' % self.object.number
+            context['poems_title'] = 'Poem %d' % self.object.number
             context['studies_href'] = '/studies'
             context['studies_title'] = 'Studies home'
         else:
             context['brand_href'] = '/studies/page/%d' % page_number
             context['brand_title'] = 'Studies page %d' % page_number
-            context['poems_href'] = '/poems/chapter/%d' % self.object.number
-            context['poems_title'] = 'Poems chapter %d' % self.object.number
+            context['poems_href'] = '/poems/%d' % self.object.number
+            context['poems_title'] = 'Poem %d' % self.object.number
             context['studies_href'] = '/studies/page/%d' % page_number
             context['studies_title'] = 'Studies page %d' % page_number
         if self.request.user.is_authenticated:
             context['compare'] = True
-            context['compare_href'] = (
-                '/compare/chapter/%d' % self.object.number
-            )
+            context['compare_href'] = ('/compare/%d' % self.object.number)
             context['compare_title'] = (
-                'Compare chapter %d versions' % self.object.number
+                'Compare versions of %d' % self.object.number
             )
 
         # Open graph data.
@@ -487,7 +485,7 @@ class StudyDetailView(DetailView):
         context['og_description'] = '%s - %s' % (
             self.object.hanzi_summary, self.object.summary,
         )
-        context['og_url'] = '/studies/chapter/%d' % self.kwargs['chapter']
+        context['og_url'] = '/studies/%d' % self.kwargs['chapter']
 
         # Pager data.
         context['page_number'] = page_number
@@ -550,7 +548,7 @@ class StudyListView(ListView):
             context['poems_title'] = 'Poems home'
         else:
             context['page_title'] = 'Daoistic %d' % self.kwargs['page']
-            og_desc += ' of chapters %d-%d' % self.kwargs['chapters']
+            og_desc += ' of %d-%d' % self.kwargs['chapters']
             context['og_title'] = 'Daoistic page %d' % self.kwargs['page']
             context['og_url'] = '/studies/page/%d' % self.kwargs['page']
             context['poems_href'] = '/poems/page/%d' % self.kwargs['page']

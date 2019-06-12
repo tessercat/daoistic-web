@@ -16,13 +16,13 @@ function navigate(direction) {
             curr[3] = ((parseInt(curr[3]) - 1) + 1) % 9 + 1;
             window.location.href = curr.join("/");
         }
-    } else if (curr[2] == "chapter") {
+    } else if (curr[3] === undefined) {
         fetch(
-            ["", "nav", curr[3], direction].join("/")
+            ["", "nav", curr[2], direction].join("/")
         ).then(function(response) {
             return response.json();
         }).then(function(navData) {
-            curr[3] = navData.navTo;
+            curr[2] = navData.navTo;
             window.location.href = curr.join("/");
         }).catch(function(err) {
             console.log(err);

@@ -34,7 +34,7 @@
           <div class="row">
             <div class="col-12">
               {% if chapter.published or not chapter.published and user.is_authenticated %}
-              <a class="chapter-ref" href="/studies/chapter/{{ chapter.number }}" title="Chapter {{ chapter.number }} study">Chapter {{ chapter.number }}</a>
+              <a class="chapter-ref" href="/studies/{{ chapter.number }}" title="Chapter {{ chapter.number }} study">Chapter {{ chapter.number }}</a>
               {% else %}
               Chapter {{ chapter.number }}
               {% endif %}

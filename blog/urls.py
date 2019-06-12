@@ -4,5 +4,6 @@ from blog import views
 
 
 urlpatterns = [
-    path('<slug:slug>', views.EntryView.as_view()),
+    path('', views.EntryListView.as_view()),
+    path('<slug:slug>', views.EntryDetailView.as_view(), name='entry'),
 ]

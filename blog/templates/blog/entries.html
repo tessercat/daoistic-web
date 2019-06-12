@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+        {% block navbar_right %}<a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog entries" href="/blog">Blog</a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" title="Blog entries" href="/blog">Blog</a>
+        </div>
+      </div>{% endblock %}
+
+{% block content_style %}
+    <style type="text/css" media="screen">
+      .is-family-serif { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="section">
+      <div class="container">
+        {% for object in object_list %}
+        <article class="media">
+          <figure class="media-left">
+            <a class="image is-128x128" href="{% url 'entry' object.slug %}">
+              <img src="{% static object.static_img %}">
+            </a>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p class="is-size-4 is-marginless is-family-serif">{{ object.title }}</p>
+              <p>{{ object.last_update }}</p>
+              <p class="is-size-5 is-family-serif">{{ object.lede }}</p>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+{% endblock %}

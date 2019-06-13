@@ -25,7 +25,7 @@
     <section class="section">
       <div class="container">
         <h3 class="subtitle is-3 is-family-serif">{{ object.title }}</h3>
-        <figure class="image">
+        <figure class="image is-3by1">
           <img src="{% static static_img %}">
         </figure>
         <div class="is-size-5 has-text-black is-family-serif">
@@ -36,12 +36,12 @@
           Last update {{ object.last_update }}.
         </div>
       </div>
-      {% if refs %}
-      <div id="references" class="container">
-        <ul>
-          {% for ref in refs %}<li>{{ ref|safe }}</li>
+      <footer class="footer">
+        <div class="content has-text-centered is-dark">
+          {% for ref in refs %}<p>{{ ref|safe }}</p>
           {% endfor %}
-        </ul>
-      </div>{% endif %}
+          <p><a href="/blog" title="Blogging the unbloggable">Blog home</a></p>
+        </div>
+      </footer>
     </section>
 {% endblock %}

@@ -21,7 +21,7 @@
         {% for object in object_list %}
         <article class="media">
           <figure class="media-left">
-            <a class="image is-128x128" href="{% url 'entry' object.slug %}">
+            <a class="image is-128x128" title="Read {{ object.title }}" href="{% url 'entry' object.slug %}">
               <img src="{% static object.static_img %}">
             </a>
           </figure>

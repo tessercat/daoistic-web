@@ -5,11 +5,11 @@
 {% include "blog/entry_og.html" %}
 {% endblock %}
 
-        {% block navbar_right %}<a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog entries" href="/blog">Blog</a>
+        {% block navbar_right %}<a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog home" href="/blog">Blog</a>
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item" title="Blog entries" href="/blog">Blog</a>
+          <a class="navbar-item" title="Blog home" href="/blog">Blog</a>
         </div>
       </div>{% endblock %}
 
@@ -17,6 +17,7 @@
     <style type="text/css" media="screen">
       p { margin: 1rem; }
       .is-family-serif { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+      #title { padding-top: 2rem; }
       #references { margin-top: 1rem; }
     </style>
 {% endblock %}
@@ -24,10 +25,10 @@
 {% block content %}
     <section class="section">
       <div class="container">
-        <h3 class="subtitle is-3 is-family-serif">{{ object.title }}</h3>
         <figure class="image is-3by1">
           <img src="{% static static_img %}">
         </figure>
+        <h3 id="title" class="subtitle is-3 is-family-serif">{{ object.title }}</h3>
         <div class="is-size-5 has-text-black is-family-serif">
 {{ entry|safe }}
         </div>

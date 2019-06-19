@@ -45,7 +45,7 @@ and it’s impossible to see reason,
 when the accused are wronged
 and refuse to take responsibility,
 that’s when the master has to work even harder
-and his ministers get even more venal.
+and ministers get even more venal.
 
 So those who would guide
 the great craftsman’s blade

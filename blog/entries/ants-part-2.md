@@ -15,17 +15,17 @@ The way of the prince
 is to do nothing
 but to accomplish something,
 to stand for something
-but not to approve of anything.
+but not to decide anything.
 As soon as he does something,
-he gets criticized,
+he's criticized,
 and when he decides something,
-he gets courted.
+he's courted.
 If he can't take criticism,
 he can be coerced,
 and if he can't resist flattery,
-he can be convinced.
+he can be seduced.
 
-Ultimately,
+In either case,
 when the power to appoint is at the mercy of others,
 it’s impossible to maintain institutions.
 Since good foundations don’t crumble,
@@ -53,7 +53,7 @@ he doesn’t doubt their competence,
 doesn’t do the work for them.
 He respects rank,
 expects results,
-orders the government to run itself.
+orders the organization to run itself.
 He leads the way in ignorance,
 he's the boss to prevent abuse.
 

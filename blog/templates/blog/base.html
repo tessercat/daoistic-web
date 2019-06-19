@@ -11,10 +11,10 @@
     {% block content_style %}{% endblock %}
   </head>
   <body>
-    <nav class="navbar is-dark has-text-weight-bold is-size-4" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark has-text-weight-bold is-size-4" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" title="Home" href="/">
-          <img src="{% static 'daoistic/img/taijitu.svg' %}" width="30" height="30">
+          <img src="{% static 'daoistic/img/taijitu.svg' %}" width="30" height="30" alt="Taijitu logo">
           <span style="margin-left: 0.25rem;">Daoistic</span>
         </a>
         {% block navbar_right %}{% endblock %}

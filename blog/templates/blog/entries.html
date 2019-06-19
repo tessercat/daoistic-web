@@ -16,24 +16,24 @@
 {% endblock %}
 
 {% block content %}
-    <section class="section">
-      <div class="container">
-        {% for object in object_list %}
-        <article class="media">
-          <figure class="media-left">
-            <a class="image is-128x128" title="Read {{ object.title }}" href="{% url 'entry' object.slug %}">
-              <img src="{% static object.static_img %}">
-            </a>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p class="is-size-4 is-marginless is-family-serif">{{ object.title }}</p>
+    {% for object in object_list %}
+    <div class="card">
+      <div class="card-content">
+        <a class="has-text-dark" title="Read {{ object.title }}" href="{% url 'entry' object.slug %}">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-128x128">
+                <img src="{% static object.static_img %}" alt="Entry logo">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="is-size-4 is-family-serif">{{ object.title }}</p>
               <p>{{ object.last_update }}</p>
               <p class="is-size-5 is-family-serif">{{ object.lede }}</p>
             </div>
           </div>
-        </article>
-        {% endfor %}
+        </a>
       </div>
-    </section>
+    </div>
+    {% endfor %}
 {% endblock %}

@@ -35,14 +35,14 @@ and nothing less,
 is capable of sustaining them.
 
 When he keeps ego in check,
-they say he's stable.
+they say he's secure.
 When pressure doesn’t get to him,
 they say he's confident.
-Inwardly stable,
+Inwardly secure,
 outwardly confident,
 when does he act irresponsibly?
 Outwardly confident,
-inwardly stable,
+inwardly secure,
 when doesn’t he get results?
 
 Since he doesn’t manipulate them,
@@ -53,7 +53,7 @@ he doesn’t doubt their competence,
 doesn’t do the work for them.
 He respects rank,
 expects results,
-orders the organization to run itself.
+orders the government to run itself.
 He leads the way in ignorance,
 he's the boss to prevent abuse.
 

@@ -17,16 +17,16 @@ doesn’t trust the experts
 and likes doing it himself,
 his power erodes every day
 and he has only himself to blame.
-[Talking down to subordinates
-makes it impossible to communicate,
-and interference from authority
-makes it impossible to maintain control.]
+Micro-managing subordinates
+makes it impossible to get good advice,
+and coming down from the throne
+makes it impossible to stay in charge.
 If he’s not powerful enough to make them obey,
 not ruthless enough to make them pay,
 there’s no way for him to influence subordinates.
 
-With mirth and malice in their hearts,
-with envy and ambition on their sleeves,
+With gleeful malice in their hearts,
+with naked ambition for all to see,
 those who once knew their place
 stop doing the right thing
 and start pandering to superiors.

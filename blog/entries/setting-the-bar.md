@@ -20,11 +20,10 @@ teachers don’t lose control,
 builders don’t botch jobs,
 farmers don’t waste resources,
 merchants don’t lose money.
-
-We're happy with our lot in life,
+We're happy with our lot in life
 though we're organized differently
-and have different skills.
-We all do easy jobs
+and have different specialties.
+We do easy jobs
 and don’t get in each other’s way,
 make mistakes and get corrected,
 get it right and get credit.
@@ -49,13 +48,13 @@ doesn't have to control people.
 Since we don’t hold students
 to impossibly high standards,
 we shouldn’t expect institutions
-to live up to some utopian ideology.
+to live up to a utopian ideology.
 
 Since we shouldn’t rely exclusively on genius
 and basic literacy
 should be the norm,
 and since government institutions
-should be protected from fools
+should be protected from idiots 
 and armed forces
 should be subject to law,
 we don’t need mythic heroes of the past,

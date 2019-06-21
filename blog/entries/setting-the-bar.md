@@ -48,7 +48,7 @@ doesn't have to control people.
 Since we don’t hold students
 to impossibly high standards,
 we shouldn’t expect institutions
-to live up to utopian ideology.
+to live up to utopian ideologies.
 
 Since we shouldn’t rely exclusively on genius
 and basic literacy

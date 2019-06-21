@@ -8,7 +8,7 @@ A prince maintains his authority by doing nothing.
 He knows his place
 and builds trust by listening closely.
 Ministers conceal their power
-but don’t conspire.
+but don’t conspire against him.
 Instead,
 they control the boss by doing their job.
 
@@ -17,25 +17,25 @@ doesn’t trust the experts
 and likes doing it himself,
 his power erodes every day
 and he has only himself to blame.
-Micro-managing subordinates
+Micromanaging
 makes it impossible to get good advice,
-and coming down from the throne
+and abandoning the throne
 makes it impossible to stay in charge.
 If he’s not powerful enough to make them obey,
 not ruthless enough to make them pay,
 there’s no way for him to influence subordinates.
 
-With gleeful malice in their hearts,
-with naked ambition for all to see,
+When righteous anger forms in his heart,
+when he plays favourites in public,
 those who once knew their place
 stop doing the right thing
 and start pandering to superiors.
-When bureaucrats ignore the law
+When bureaucrats break the rules
 and do as they please,
 when they’re not rewarded for merit,
 not held accountable for corruption,
 that’s when the boss and his lackeys
-are at odds.
+are working against each other.
 
 When the prince and his ministers hate each other,
 when the administration is in chaos

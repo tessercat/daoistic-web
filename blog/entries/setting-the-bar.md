@@ -19,7 +19,7 @@ and merchants talk to each other about prices,
 teachers don’t lose control,
 builders don’t botch jobs,
 farmers don’t waste resources,
-merchants don’t lose money.
+and merchants don’t lose money.
 We're happy with our lot in life
 though we're organized differently
 and have different specialties.
@@ -48,13 +48,13 @@ doesn't have to control people.
 Since we don’t hold students
 to impossibly high standards,
 we shouldn’t expect institutions
-to live up to a utopian ideology.
+to live up to utopian ideology.
 
 Since we shouldn’t rely exclusively on genius
 and basic literacy
 should be the norm,
 and since government institutions
-should be protected from idiots 
+should be protected from stupidity
 and armed forces
 should be subject to law,
 we don’t need mythic heroes of the past,

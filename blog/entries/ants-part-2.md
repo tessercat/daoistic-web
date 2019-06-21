@@ -35,14 +35,14 @@ and nothing less,
 is capable of sustaining them.
 
 When he keeps ego in check,
-they say he's secure.
+they say he's content.
 When pressure doesn’t get to him,
 they say he's confident.
-Inwardly secure,
+Inwardly content,
 outwardly confident,
 when does he act irresponsibly?
 Outwardly confident,
-inwardly secure,
+inwardly content,
 when doesn’t he get results?
 
 Since he doesn’t manipulate them,

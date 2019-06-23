@@ -345,11 +345,13 @@ class PoemListView(ListView):
         if 'page'  not in self.kwargs:
             self.kwargs['page'] = 1
         self.kwargs['chapters'] = _chapter_range(self.kwargs['page'])
-        chapters = Chapter.objects.filter(
-            book__title='道德經',
-            number__range=self.kwargs['chapters'],
-            published=True,
-        )
+        filter_args = [
+            Q(book__title='道德經'),
+            Q(number__range=self.kwargs['chapters']),
+        ]
+        if not self.request.user.is_authenticated:
+            filter_args.append(Q(published=True))
+        chapters = Chapter.objects.filter(*filter_args)
         for chapter in chapters:
             _add_english_summary(chapter)
         return chapters
@@ -565,11 +567,13 @@ class StudyListView(ListView):
         if 'page' not in self.kwargs:
             self.kwargs['page'] = 1
         self.kwargs['chapters'] = _chapter_range(self.kwargs['page'])
-        chapters = Chapter.objects.filter(
-            book__title='道德經',
-            number__range=self.kwargs['chapters'],
-            published=True,
-        )
+        filter_args = [
+            Q(book__title='道德經'),
+            Q(number__range=self.kwargs['chapters']),
+        ]
+        if not self.request.user.is_authenticated:
+            filter_args.append(Q(published=True))
+        chapters = Chapter.objects.filter(*filter_args)
         for chapter in chapters:
             _add_english_summary(chapter)
             _add_hanzi_summary(chapter)

@@ -27,7 +27,7 @@ def _add_english_summary(chapter):
     summary = chapter.english.split('\n', 1)[0].strip()
     if summary.endswith(','):
         summary = summary[:-1]
-    if not summary.endswith('.'):
+    if not summary.endswith('.') and not summary.endswith('?'):
         summary += '.'
     chapter.summary = summary
 

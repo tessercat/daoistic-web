@@ -6,8 +6,8 @@ tradition is easy to follow,
 debt is easy to repay.
 
 He meant that
-being a student isn’t like being a politician,
-politicians aren’t teachers.
+being a student isn’t like being an administrator,
+administrators aren’t teachers.
 Teachers, farmers, builders, merchants,
 we all have different callings,
 separate concerns.
@@ -20,10 +20,10 @@ teachers don’t lose control,
 builders don’t botch jobs,
 farmers don’t waste resources,
 and merchants don’t lose money.
-We're happy with our lot in life
-though we're organized differently
-and have different specialties.
-We do easy jobs
+Happy with our lot in life,
+we look different,
+we have different skills,
+we do easy jobs
 and don’t get in each other’s way,
 make mistakes and get corrected,
 get it right and get credit.
@@ -36,12 +36,12 @@ doesn’t rely on them for much.
 Knowledgeable, ambitious,
 argumentative, eloquent,
 people know they’re talented,
-but even an enlightened master
+but an enlightened master
 doesn’t ask much of apprentices.
 
 Since a decadent society is abusive,
 out of touch with changing times,
-teachers are tyrants,
+its teachers are tyrants,
 but a healthy society
 doesn't have to control people.
 
@@ -50,11 +50,11 @@ to impossibly high standards,
 we shouldn’t expect our institutions
 to live up to utopian ideals.
 
-Since we shouldn’t rely exclusively on genius
+Since we shouldn’t rely too much on genius
 and basic literacy
 should be the norm,
 and since government institutions
-should be protected from stupidity
+should be protected from corruption
 and armed forces
 should be subject to law,
 we don’t need mythic heroes of the past,

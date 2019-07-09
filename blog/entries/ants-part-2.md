@@ -21,7 +21,7 @@ he's criticized,
 and when he decides something,
 he's courted.
 If he can't take criticism,
-he can be coerced,
+he can be bullied,
 and if he can't resist flattery,
 he can be seduced.
 
@@ -30,9 +30,8 @@ when the power to appoint is at the mercy of others,
 it’s impossible to maintain institutions.
 Since good foundations don’t crumble,
 promises to preserve them mean nothing.
-Only spiritual renewal,
-and nothing less,
-is capable of sustaining them.
+He can live up to them
+only through a complete change of heart.
 
 When he keeps ego in check,
 they say he's content.

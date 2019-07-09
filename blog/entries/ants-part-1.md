@@ -17,7 +17,7 @@ doesn’t trust the experts
 and likes doing it himself,
 his power erodes every day
 and he has only himself to blame.
-Micromanaging
+Getting involved
 makes it impossible to get good advice,
 and abandoning the throne
 makes it impossible to stay in charge.

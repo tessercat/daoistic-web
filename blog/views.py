@@ -48,7 +48,9 @@ class EntryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         obj = context['object']
         context['page_title'] = obj.title
-        entries_base = os.path.join(settings.BASE_DIR, 'blog', 'entries')
+        entries_base = os.path.join(
+            settings.BASE_DIR, 'var', 'daoistic', 'blog'
+        )
 
         # Entry markdown file to paragraphs.
         entry_file = os.path.join(entries_base, '%s.md' % obj.slug)

@@ -149,7 +149,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """ Import daoistic data. """
-        data_dir = os.path.join(settings.BASE_DIR, 'var', 'daoistic')
+        data_dir = os.path.join(settings.BASE_DIR, 'var', 'book')
 
         # Get and create daoistic.md book/chapter data.
         title_data = {

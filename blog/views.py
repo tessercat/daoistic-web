@@ -49,7 +49,7 @@ class EntryDetailView(DetailView):
         obj = context['object']
         context['page_title'] = obj.title
         entries_base = os.path.join(
-            settings.BASE_DIR, 'var', 'daoistic', 'blog'
+            settings.BASE_DIR, 'var', 'book', 'blog'
         )
 
         # Entry markdown file to paragraphs.

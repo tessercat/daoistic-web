@@ -142,7 +142,7 @@ class AboutTemplateView(TemplateView):
         context['og_description'] = 'Describing the indescribable.'
         context['og_url'] = '/about'
         about = os.path.join(
-            settings.BASE_DIR, 'var', 'daoistic', 'about.md',
+            settings.BASE_DIR, 'var', 'book', 'about.md',
         )
         with open(about) as about_fd:
             context['about'] = markdown.markdown(about_fd.read())

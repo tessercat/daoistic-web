@@ -38,7 +38,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """ Export daoistic data. """
         data_file = os.path.join(
-            settings.BASE_DIR, 'var', 'daoistic', 'daoistic.md'
+            settings.BASE_DIR, 'var', 'book', 'daoistic.md'
         )
         with open(data_file, 'w') as out:
             objs = Chapter.objects.filter(

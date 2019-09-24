@@ -2,9 +2,11 @@
 
 $family-serif: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 $white-ter: hsl(0, 0%, 96%) !default;
+$dark: hsl(0, 0%, 21%);
 
 $family-secondary: $family-serif;
 $footer-background-color: $white-ter;
+$link: $dark;
 
 @import "../bulma/sass/utilities/_all.sass";
 @import "../bulma/sass/base/_all.sass";

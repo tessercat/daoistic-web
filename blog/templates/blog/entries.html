@@ -1,18 +1,14 @@
 {% extends "blog/base.html" %}
 {% load static %}
 
-        {% block navbar_right %}<a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog home" href="/blog">Blog</a>
+{% block navbar_right %}
+        <a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog home" href="/blog">Blog</a>
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
           <a class="navbar-item" title="Blog home" href="/blog">Blog</a>
         </div>
-      </div>{% endblock %}
-
-{% block content_style %}
-    <style type="text/css" media="screen">
-      .is-family-serif { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
-    </style>
+      </div>
 {% endblock %}
 
 {% block content %}
@@ -27,9 +23,9 @@
               </figure>
             </div>
             <div class="media-content">
-              <p class="is-size-4 is-family-serif">{{ object.title }}</p>
+              <p class="is-size-4 is-family-secondary">{{ object.title }}</p>
               <p>{{ object.last_update }}</p>
-              <p class="is-size-5 is-family-serif">{{ object.lede }}</p>
+              <p class="is-size-5 is-family-secondary">{{ object.lede }}</p>
             </div>
           </div>
         </a>

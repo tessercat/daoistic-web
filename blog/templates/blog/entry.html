@@ -5,19 +5,14 @@
 {% include "blog/entry_og.html" %}
 {% endblock %}
 
-        {% block navbar_right %}<a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog home" href="/blog">Blog</a>
+{% block navbar_right %}
+        <a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog home" href="/blog">Blog</a>
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
           <a class="navbar-item" title="Blog home" href="/blog">Blog</a>
         </div>
-      </div>{% endblock %}
-
-{% block content_style %}
-    <style type="text/css" media="screen">
-      p { margin: 1rem; }
-      .is-family-serif { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
-    </style>
+      </div>
 {% endblock %}
 
 {% block content %}
@@ -27,8 +22,8 @@
       </figure>
     </header>
     <section class="section">
-      <h2 class="subtitle is-3 is-family-serif">{{ object.title }}</h2>
-      <div class="is-family-serif is-size-5">
+      <h2 class="subtitle is-3 is-family-secondary">{{ object.title }}</h2>
+      <div class="content is-family-secondary is-size-5">
 {{ entry|safe }}
       </div>
       <footer>
@@ -37,7 +32,7 @@
       </footer>
     </section>
     <footer class="footer has-text-centered is-dark">
-      <nav>
+      <nav class="content">
         {% for ref in refs %}<p>{{ ref|safe }}</p>
         {% endfor %}
         <p><a href="/blog" title="Blogging the unbloggable">Blog home</a></p>

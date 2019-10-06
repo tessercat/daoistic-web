@@ -1,0 +1,8 @@
+Django
+gunicorn
+markdown
+python-memcached
+requests
+flake8
+pylint
+pylint-django

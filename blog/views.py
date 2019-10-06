@@ -16,7 +16,7 @@ class EntryListView(ListView):
     model = Entry
     template_name = 'blog/entries.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Blogging the unbloggable'
@@ -28,6 +28,7 @@ class EntryListView(ListView):
         for entry in entries:
             entry.static_img = 'blog/img/%s-128.jpg' % entry.slug
         return entries
+
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
 class EntryDetailView(DetailView):
@@ -48,18 +49,24 @@ class EntryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         obj = context['object']
         context['page_title'] = obj.title
-        entries_base = os.path.join(
-            settings.BASE_DIR, 'var', 'book', 'blog'
+        entry_base = os.path.join(
+            settings.BASE_DIR, 'var', 'book', 'blog', obj.slug,
         )
 
-        # Entry markdown file to paragraphs.
-        entry_file = os.path.join(entries_base, '%s.md' % obj.slug)
-        with open(entry_file) as entry_fd:
-            context['entry'] = markdown.markdown(entry_fd.read())
+        # Entry content.
+        content_file = os.path.join(entry_base, 'content.md')
+        with open(content_file) as content_fd:
+            context['content'] = markdown.markdown(content_fd.read())
+
+        # Entry notes.
+        notes_file = os.path.join(entry_base, 'notes.md')
+        if os.path.isfile(notes_file):
+            with open(notes_file) as notes_fd:
+                context['notes'] = markdown.markdown(notes_fd.read())
 
         # Refs file to list of links, one per line.
         context['refs'] = []
-        refs_file = os.path.join(entries_base, '%s.refs' % obj.slug)
+        refs_file = os.path.join(entry_base, 'refs.html')
         if os.path.isfile(refs_file):
             with open(refs_file) as refs_fd:
                 for ref in refs_fd.readlines():

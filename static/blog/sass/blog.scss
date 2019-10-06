@@ -4,10 +4,6 @@ $family-secondary: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 $footer-background-color: hsl(0, 0%, 96%);
 $link: hsl(0, 0%, 21%);
 
-.footer a:hover {
-  text-decoration: underline;
-}
-
 @import "../bulma/sass/utilities/_all.sass";
 @import "../bulma/sass/base/_all.sass";
 @import "../bulma/sass/components/card.sass";
@@ -18,3 +14,21 @@ $link: hsl(0, 0%, 21%);
 @import "../bulma/sass/elements/title.sass";
 @import "../bulma/sass/layout/footer.sass";
 @import "../bulma/sass/layout/section.sass";
+
+section .content p {
+  font-family: $family-secondary;
+  font-size: $size-large;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.lede {
+  font-family: $family-secondary;
+  font-size: $size-medium;
+}
+.media-content h1 {
+  font-size: $size-large;
+}
+.notes p {
+  font-style: italic;
+}

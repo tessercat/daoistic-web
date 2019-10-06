@@ -22,10 +22,16 @@
       </figure>
     </header>
     <section class="section">
-      <h2 class="subtitle is-3 is-family-secondary">{{ object.title }}</h2>
-      <div class="content is-family-secondary is-size-5">
-{{ entry|safe }}
+      <div class="content">
+      <h1>{{ object.title }}</h1>
+{{ content|safe }}
       </div>
+      {% if notes %}
+      <div class="content notes">
+      <h3>Notes</h3>
+{{ notes|safe }}
+      </div>
+      {% endif %}
       <footer>
         © {{ object.last_update.year }} Peter Christensen, CC BY-NC-SA.
         Last update {{ object.last_update }}.

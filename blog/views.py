@@ -9,6 +9,7 @@ from blog.models import Entry
 from common.decorators import cache_public
 
 
+# pylint: disable=too-many-ancestors
 @method_decorator(cache_public(60 * 15), name='dispatch')
 class EntryListView(ListView):
     """ Entry index grid view. """
@@ -16,6 +17,7 @@ class EntryListView(ListView):
     model = Entry
     template_name = 'blog/entries.html'
 
+    # pylint: disable=arguments-differ
     def get_context_data(self, **kwargs):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)

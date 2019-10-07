@@ -15,10 +15,11 @@ def _create_book(book_data):
         subtitle=book_data['subtitle'],
     )
 
+
 def _create_chapters(book_obj, book_data):
     """ Create chapter objects with the book object reference and a list
     of chapter data . """
-    batch_size = 50 # SQLite 999 variable limit.
+    batch_size = 50  # SQLite 999 variable limit.
     values = iter(book_data)
     while True:
         batch = list(islice(values, batch_size))
@@ -37,6 +38,7 @@ def _create_chapters(book_obj, book_data):
                 title=chapter.get('title') or '',
             ))
         Chapter.objects.bulk_create(objs, batch_size)
+
 
 def _get_title_data(data_file):
     """ Extract and return title/subtitle data. """
@@ -75,6 +77,7 @@ def _get_title_data(data_file):
         'title': title,
         'subtitle': subtitle,
     }
+
 
 def _get_book_data(data_file):
     """ Extract and return book data. """
@@ -140,6 +143,7 @@ def _get_book_data(data_file):
                 chapter['last_update'], '%B %d, %Y',
             ).date()
     return book_data
+
 
 class Command(BaseCommand):
     """ A command to import daoistic db data. """

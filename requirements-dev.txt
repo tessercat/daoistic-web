@@ -22,8 +22,9 @@ pylint-django==2.0.11
 pylint-plugin-utils==0.6  # via pylint-django
 pylint==2.4.2
 python-memcached==1.59
-pytz==2019.2              # via django
+pytz==2019.3              # via django
 requests==2.22.0
+sh==1.12.14
 six==1.12.0               # via astroid, python-memcached
 sqlparse==0.3.0           # via django
 typed-ast==1.4.0          # via astroid
@@ -31,4 +32,4 @@ urllib3==1.25.6           # via requests
 wrapt==1.11.2             # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
-# setuptools==41.2.0        # via markdown
+# setuptools==41.4.0        # via markdown

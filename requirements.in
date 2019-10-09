@@ -3,3 +3,4 @@ gunicorn
 markdown
 python-memcached
 requests
+sh

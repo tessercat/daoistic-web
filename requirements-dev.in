@@ -3,6 +3,7 @@ gunicorn
 markdown
 python-memcached
 requests
+sh
 flake8
 pylint
 pylint-django

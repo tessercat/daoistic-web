@@ -4,6 +4,15 @@
 {% include "daoistic/open_graph.html" %}
 {% endblock %}
 
+    {% block content_style %}
+    <style type="text/css" media="screen">
+      .content p {
+        font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        font-size: 1.25rem;
+      }
+    </style>
+    {% endblock %}
+
 {% block page_title %}About Daoistic{% endblock %}
 
           {% block navbar_links %}
@@ -21,7 +30,7 @@
     {% block content %}
     <div class="container-fluid mt-4 mb-5">
       <div class="row">
-        <div class="col">
+        <div class="col content">
             {{ about|safe }}
         </div>
       </div>

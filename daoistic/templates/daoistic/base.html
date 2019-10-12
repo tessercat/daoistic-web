@@ -13,7 +13,7 @@
   </head>
   <body>
     <nav class="navbar static-top navbar-expand-sm navbar-dark bg-dark">
-      <a class="navbar-brand" href="{{ brand_href }}" title="{{ brand_title }}">
+      <a class="navbar-brand font-weight-bold" href="{{ brand_href }}" title="{{ brand_title }}">
           <img src="{% static 'daoistic/img/taijitu.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="Taijitu">
           Daoistic
       </a>
@@ -21,7 +21,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto font-weight-bold">
           {% block navbar_links %}{% endblock %}
         </ul>
       </div>

@@ -11,6 +11,10 @@
     <style type="text/css" media="screen">
       .card a:hover { text-decoration: none; }
       .pagination { justify-content: center; }
+      .english {
+        font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        font-size: 1.25rem;
+      }
     </style>
     {% endblock %}
 
@@ -24,7 +28,7 @@
               <div class="card-body">
                 <h4 class="card-title">{{ chapter.title }}</h4>
                 <h6>Chapter {{ chapter.number }}</h6>
-                <h6>{{ chapter.summary }}</h6>
+                <p class="english">{{ chapter.summary }}</p>
               </div>
             </a>
           </div>

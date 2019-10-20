@@ -1,0 +1,3 @@
+[submodule "firewall"]
+	path = firewall
+	url = git://localhost:9400/stack/firewall/app.git

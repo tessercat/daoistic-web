@@ -1,0 +1,13 @@
+{% extends "book/base.html" %}
+
+          {% block navbar_links %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ poems_href }}" title="{{ poems_title }}">Poems<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ studies_href }}" title="{{ studies_title }}">Studies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about" title="About this site">About</a>
+          </li>
+          {% endblock %}

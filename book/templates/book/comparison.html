@@ -1,0 +1,52 @@
+{% extends "book/base.html" %}
+{% load static %}
+{% load unihan_extras %}
+
+    {% block content_style %}
+    <style type="text/css" media="screen">
+      .badge-hanzi { text-align: center; }
+      .btn-hanzi { display: contents; font-size: inherit; cursor: pointer; }
+      .chapter-hanzi { font-size: 1.4em; }
+      .char-hanzi { font-size: 1.4em; }
+    </style>
+    {% endblock %}
+
+{% block page_title %}Chapter {{ chapter_number }} comparison{% endblock %}
+
+          {% block navbar_links %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ poems_href }}" title="{{ poems_title }}">Poems</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ studies_href }}" title="{{ studies_title }}">Studies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about" title="About this site">About</a>
+          </li>
+          {% endblock %}
+
+    {% block content %}
+    <div class="container-fluid mt-4 mb-4">
+      <div class="row">
+        <div class="col">
+          <h4 class="mb-4">Chapter {{ chapter_number }} comparison</h4>
+          {% for chapter in chapter_list %}
+          <div class="row">
+            <div class="col-12">
+              {{ chapter.book.title }}
+            </div>
+            <div class="col-12 chapter-hanzi mb-4">
+{{ chapter.hanzi|buttonify:char_map }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+{% block footer %}
+{% include "unihan/modal.html" %}
+{% endblock %}
+
+{% block scripts %}<script src="{% static 'unihan/js/modal.js' %}"></script>{% endblock %}

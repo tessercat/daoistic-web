@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page_title }}</title>
     {% block open_graph %}{% endblock %}
-    <link rel="icon" type="image/png" href="{% static 'daoistic/img/favicon.png' %}"/>
-    <link rel="apple-touch-icon" href="{% static 'daoistic/img/touch-icon-152.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'book/img/favicon.png' %}"/>
+    <link rel="apple-touch-icon" href="{% static 'book/img/touch-icon-152.png' %}">
     <link rel="stylesheet" href="{% static 'blog/css/blog.min.css' %}">
   </head>
   <body>
     <nav class="navbar is-link has-text-weight-bold is-size-4" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" title="Home" href="/">
-          <img src="{% static 'daoistic/img/taijitu.svg' %}" width="30" height="30" alt="Taijitu logo">
+          <img src="{% static 'book/img/taijitu.svg' %}" width="30" height="30" alt="Taijitu logo">
           <span style="margin-left: 0.25rem;">Daoistic</span>
         </a>
         {% block navbar_right %}{% endblock %}

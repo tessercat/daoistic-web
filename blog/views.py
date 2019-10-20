@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 import markdown
 from blog.models import Entry
-from common.decorators import cache_public
+from user.decorators import cache_public
 
 
 # pylint: disable=too-many-ancestors

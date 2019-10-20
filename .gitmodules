@@ -1,3 +1,0 @@
-[submodule "common"]
-	path = common
-	url = git://localhost:9400/stack-common.git

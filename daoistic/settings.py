@@ -52,6 +52,7 @@ USE_X_FORWARDED_PORT = True
 AUTH_USER_MODEL = 'user.User'
 
 INSTALLED_APPS = [
+    'firewall.apps.FirewallConfig',
     'unihan.apps.UnihanConfig',
     'book.apps.BookConfig',
     'user.apps.UserConfig',

@@ -13,24 +13,24 @@ with open(os.path.join(BASE_DIR, 'var', 'settings.py')) as settings_file:
 
 # Required custom settings
 
+ADMINS = SETTINGS['ADMINS']
+
+ALLOWED_HOSTS = SETTINGS['ALLOWED_HOSTS']
+
+DEBUG = False
+
+FIREWALL_API_PORT = SETTINGS['FIREWALL_API_PORT']
+
 SECRET_KEY = SETTINGS['SECRET_KEY']
+
+SERVER_EMAIL = SETTINGS['SERVER_EMAIL']
+
+TIME_ZONE = SETTINGS['TIME_ZONE']
 
 
 # Other custom settings
 
-ADMINS = SETTINGS.get('ADMINS') or (('Host admin', 'root@localhost'),)
-
-ALLOWED_HOSTS = SETTINGS.get('ALLOWED_HOSTS') or []
-
-DEBUG = SETTINGS.get('DEBUG') or False
-
-EMAIL_SUBJECT_PREFIX = '[Daoistic] '
-
-FIREWALL_API_PORT = SETTINGS.get('FIREWALL_API_PORT') or 8200
-
-SERVER_EMAIL = SETTINGS.get('SERVER_EMAIL') or 'root@localhost'
-
-TIME_ZONE = SETTINGS.get('TIME_ZONE') or 'UTC'
+EMAIL_SUBJECT_PREFIX = '[daoistic] '
 
 
 # Header and cookie definition
@@ -76,7 +76,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'daoistic.urls'
+ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
     {
@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'daoistic.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 
 # Database

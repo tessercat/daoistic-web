@@ -11,6 +11,7 @@ from unihan.api import unihan_map
 
 MAX_LOOKUPS = 50
 
+
 class DictionaryView(FormView):
     """ Unihan dictionary view. """
 
@@ -34,6 +35,7 @@ class DictionaryView(FormView):
     def get_success_url(self):
         """ Return to the same page. """
         return ''
+
 
 class DumpView(FormView):
     """ Unihan dump view. """
@@ -64,6 +66,7 @@ class DumpView(FormView):
             context['char_map'] = {}
         return context
 
+
 @method_decorator(cache_page(60 * 15), name='dispatch')
 class CharDetailView(DetailView):
     """ Unihan character detail view. """
@@ -89,8 +92,8 @@ class CharDetailView(DetailView):
         char = context['object']
         context['char'] = char
         hz_data = set([char.utf8, char.radical.utf8])
-        hz_data.update([hz for hz in char.semantic_variants])
-        hz_data.update([hz for hz in char.simplified_variants])
-        hz_data.update([hz for hz in char.traditional_variants])
+        hz_data.update(char.semantic_variants)
+        hz_data.update(char.simplified_variants)
+        hz_data.update(char.traditional_variants)
         context['char_map'] = unihan_map(''.join(hz_data))
         return context

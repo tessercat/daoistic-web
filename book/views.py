@@ -5,7 +5,14 @@ import markdown
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from django.http import Http404, JsonResponse
+from django.http import (
+    Http404,
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+    HttpResponseNotFound,
+    JsonResponse
+)
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.html import linebreaks
 from django.utils.text import normalize_newlines
@@ -15,6 +22,38 @@ from user.decorators import cache_public
 from book.models import Book, Chapter
 from unihan.models import UnihanCharacter
 from unihan.api import unihan_map
+
+
+# Error views.
+
+def bad_request(request):
+    """ Custom 400. """
+    return HttpResponseBadRequest(render(
+        request,
+        'book/40X.html',
+        {'brand_href': '/', 'code': 400, 'message': 'Bad Request'},
+        content_type='text/html',
+    ))
+
+
+def page_not_found(request):
+    """ Custom 404. """
+    return HttpResponseNotFound(render(
+        request,
+        'book/40X.html',
+        {'brand_href': '/', 'code': 404, 'message': 'Not Found'},
+        content_type='text/html',
+    ))
+
+
+def permission_denied(request, reason='', template_name='book/40X.html'):
+    """ Custom 403. """
+    return HttpResponseForbidden(render(
+        request,
+        template_name,
+        {'brand_href': '/', 'code': 403, 'message': 'Forbidden'},
+        content_type='text/html',
+    ))
 
 
 # Map to strip hanzi punctuation.
@@ -65,7 +104,7 @@ def _add_study_fields(chapter):
                 line_data = []
                 for line_num, _ in enumerate(hz_lines):
                     hz_line = hz_lines[line_num].translate(HANZI_TMAP)
-                    hz_chars.update([hz for hz in hz_line])
+                    hz_chars.update(hz_line)
                     line_data.append([
                         hz_line,
                         hz_line,
@@ -195,7 +234,7 @@ class ComparisonView(TemplateView):
         context['studies_title'] = 'Study %d' % self.kwargs['chapter']
         hz_data = set()
         for chapter in context['chapter_list']:
-            hz_data.update([hz for hz in chapter.hanzi])
+            hz_data.update(chapter.hanzi)
         context['char_map'] = unihan_map(''.join(hz_data))
         return context
 
@@ -573,7 +612,7 @@ class StudyListView(ListView):
         context['og_description'] = og_desc + '.'
         hz_data = set()
         for chapter in context['object_list']:
-            hz_data.update([hz for hz in chapter.hanzi_summary])
+            hz_data.update(chapter.hanzi_summary)
         context['char_map'] = unihan_map(''.join(hz_data))
         return context
 

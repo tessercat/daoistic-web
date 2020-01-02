@@ -52,7 +52,10 @@ class DumpView(FormView):
         context = super().get_context_data(**kwargs)
         context['brand_href'] = '/'
         context['brand_title'] = 'Home'
-        if context.get('form') and context['form'].is_valid():
+        context['form'].fields['hanzi'].widget.attrs.update({
+            'class': 'form-control',
+        })
+        if context['form'].is_valid():
             context['dump_data'] = context['form'].cleaned_data['hanzi']
             if self.request.user.is_authenticated:
                 max_lookups = False

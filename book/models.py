@@ -15,6 +15,7 @@ def validate_chapter_number(value):
     except AssertionError:
         raise ValidationError(err)
 
+
 class Book(models.Model):
     """ A verion of the Dao De Jing. """
 
@@ -27,6 +28,7 @@ class Book(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.title, self.subtitle)
+
 
 class Chapter(models.Model):
     """ A chapter of a version of the Dao De Jing. """
@@ -59,6 +61,10 @@ class Chapter(models.Model):
         default='',
         max_length=100,
     )
+
+    def get_absolute_url(self):
+        """ Return the chapter url. """
+        return '/poems/%i' % self.number
 
     def __str__(self):
         if self.title:

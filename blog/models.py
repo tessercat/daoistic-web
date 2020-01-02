@@ -25,5 +25,9 @@ class Entry(models.Model):
         max_length=100,
     )
 
+    def get_absolute_url(self):
+        """ Return the blog url. """
+        return '/blog/%s' % self.slug
+
     def __str__(self):
         return self.title

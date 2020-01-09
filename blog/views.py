@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView
 import markdown
 from blog.models import Entry
 from user.decorators import cache_public
+from unihan.api import unihan_map
 
 
 # pylint: disable=too-many-ancestors
@@ -26,7 +27,11 @@ class EntryListView(ListView):
 
     def get_queryset(self):
         """ Return entries for the grid. """
-        entries = Entry.objects.filter(published=True).order_by('-last_update')
+        if self.request.user.is_authenticated:
+            entries = Entry.objects.all().order_by('-last_update')
+        else:
+            entries = Entry.objects.filter(
+                published=True).order_by('-last_update')
         for entry in entries:
             entry.static_img = 'blog/img/%s-128.jpg' % entry.slug
         return entries
@@ -58,7 +63,9 @@ class EntryDetailView(DetailView):
         # Entry content.
         content_file = os.path.join(entry_base, 'content.md')
         with open(content_file) as content_fd:
-            context['content'] = markdown.markdown(content_fd.read())
+            content = content_fd.read()
+        context['content'] = markdown.markdown(content)
+        context['char_map'] = unihan_map(content)
 
         # Entry notes.
         notes_file = os.path.join(entry_base, 'notes.md')

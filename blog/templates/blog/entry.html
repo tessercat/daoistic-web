@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load static %}
+{% load static blog_extras %}
 
 {% block open_graph %}
 {% include "blog/entry_og.html" %}
@@ -22,13 +22,13 @@
       </figure>
     </header>
     <section class="section">
-      <div class="content">
-{{ content|safe }}
+      <div class="content interpretation">
+{{ content|buttonify:char_map|safe }}
       </div>
       {% if notes %}
       <div class="content notes">
       <h3>Notes</h3>
-{{ notes|safe }}
+{{ notes|buttonify:char_map|safe }}
       </div>
       {% endif %}
       <footer>

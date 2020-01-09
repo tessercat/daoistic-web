@@ -1,0 +1,24 @@
+.ctext-link {
+  font-size: 1.25rem;
+  color: #4a4a4a;
+}
+.ctext-link a {
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.interpretation p {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1.5rem;
+}
+.lede {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1.25rem;
+}
+.media-content h1 {
+  font-size: 1.5rem;
+}
+.notes {
+  font-size: 1.25rem;
+}

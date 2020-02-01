@@ -1,5 +1,6 @@
 """ Blog views module. """
 import os
+import string
 from django.conf import settings
 from django.http import Http404
 from django.utils.decorators import method_decorator
@@ -28,10 +29,10 @@ class EntryListView(ListView):
     def get_queryset(self):
         """ Return entries for the grid. """
         if self.request.user.is_authenticated:
-            entries = Entry.objects.all().order_by('-last_update')
+            entries = Entry.objects.all().order_by('-pk')
         else:
             entries = Entry.objects.filter(
-                published=True).order_by('-last_update')
+                published=True).order_by('-pk')
         for entry in entries:
             entry.static_img = 'blog/img/%s-128.jpg' % entry.slug
         return entries
@@ -43,6 +44,10 @@ class EntryDetailView(DetailView):
 
     model = Entry
     template_name = 'blog/entry.html'
+
+    @staticmethod
+    def _stripped(content):
+        """ Return content stripped of non-ascii characters. """
 
     def get_object(self, queryset=None):
         """ Raise 404 for unpublished entries. """
@@ -60,18 +65,28 @@ class EntryDetailView(DetailView):
             settings.BASE_DIR, 'var', 'book', 'blog', obj.slug,
         )
 
-        # Entry content.
+        # Entry content. Strip non-printable for unauthenticated requests.
         content_file = os.path.join(entry_base, 'content.md')
         with open(content_file) as content_fd:
             content = content_fd.read()
+        if not self.request.user.is_authenticated and not obj.allow_hanzi:
+            printable = set(string.printable)
+            content = ''.join(filter(lambda char: char in printable, content))
         context['content'] = markdown.markdown(content)
-        context['char_map'] = unihan_map(content)
 
         # Entry notes.
+        context['notes'] = ''
         notes_file = os.path.join(entry_base, 'notes.md')
         if os.path.isfile(notes_file):
             with open(notes_file) as notes_fd:
                 context['notes'] = markdown.markdown(notes_fd.read())
+
+        # Char map for content/notes.
+        if self.request.user.is_authenticated or obj.allow_hanzi:
+            chars = content + context['notes']
+        else:
+            chars = context['notes']
+        context['char_map'] = unihan_map(chars)
 
         # Refs file to list of links, one per line.
         context['refs'] = []

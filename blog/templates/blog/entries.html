@@ -24,7 +24,7 @@
             </div>
             <div class="media-content">
               <h1>{{ object.title }}</h1>
-              <p>{{ object.last_update }}</p>
+              <p>Last update {{ object.last_update }}</p>
               <p class="lede">{{ object.lede }}</p>
             </div>
           </div>
@@ -32,4 +32,10 @@
       </div>
     </div>
     {% endfor %}
+    <footer class="footer has-text-centered is-dark">
+      <nav class="content">
+        <p><a href="/" title="Dao De Jing">Home</a></p>
+        <p><a href="/about" title="About Daoistic">About</a></p>
+      </nav>
+    </footer>
 {% endblock %}

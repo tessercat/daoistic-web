@@ -64,7 +64,7 @@ class Chapter(models.Model):
 
     def get_absolute_url(self):
         """ Return the chapter url. """
-        return '/poems/%i' % self.number
+        return '/studies/%i' % self.number
 
     def __str__(self):
         if self.title:

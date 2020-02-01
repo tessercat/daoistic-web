@@ -1,13 +1,16 @@
-section .content p {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  font-size: 1.5rem;
-}
 .ctext-link {
   font-size: 1.25rem;
   color: #4a4a4a;
 }
+.ctext-link a {
+  text-decoration: none;
+}
 .footer a:hover {
   text-decoration: underline;
+}
+.interpretation p {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1.5rem;
 }
 .lede {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -16,13 +19,6 @@ section .content p {
 .media-content h1 {
   font-size: 1.5rem;
 }
-.notes p {
-  font-style: italic;
-}
-.notes a {
-  text-decoration: underline;
-  color: #4a4a4a;
-}
-.notes a:hover {
-  text-decoration: none;
+.notes {
+  font-size: 1.25rem;
 }

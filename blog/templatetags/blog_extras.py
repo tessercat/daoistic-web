@@ -14,7 +14,7 @@ def buttonify(value, char_map=None):
     button = (
         '<a class="ctext-link" title="%s" '
         'target="_blank" rel="noopener noreferrer nofollow" '
-        'href="https://ctext.org/pre-qin-and-han?searchu=%s">%s</a>'
+        'href="https://ctext.org/dictionary.pl?if=en&char=%s">%s</a>'
     )
     converted = []
     for char in value:

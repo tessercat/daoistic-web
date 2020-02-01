@@ -13,6 +13,7 @@ class EntryAdmin(admin.ModelAdmin):
         'last_update',
         'slug',
         'published',
+        'allow_hanzi',
     )
     list_display = (
         'title',

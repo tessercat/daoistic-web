@@ -10,13 +10,18 @@ class Entry(models.Model):
         """ Model meta tweaks. """
         verbose_name_plural = 'Entries'
 
+    allow_hanzi = models.BooleanField(
+        default=False,
+    )
     last_update = models.DateField(
         default=date.today,
     )
     lede = models.CharField(
         max_length=250,
     )
-    published = models.BooleanField()
+    published = models.BooleanField(
+        default=False,
+    )
     slug = models.SlugField(
         max_length=15,
         unique=True,

@@ -6,16 +6,16 @@
 #
 certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
-django==2.2.10
-gunicorn==20.0.4
-idna==2.8                 # via requests
-markdown==3.2.1
-python-memcached==1.59
+django==2.2.11            # via -r requirements.in
+gunicorn==20.0.4          # via -r requirements.in
+idna==2.9                 # via requests
+markdown==3.2.1           # via -r requirements.in
+python-memcached==1.59    # via -r requirements.in
 pytz==2019.3              # via django
-requests==2.22.0
-sh==1.12.14
+requests==2.23.0          # via -r requirements.in
+sh==1.12.14               # via -r requirements.in
 six==1.14.0               # via python-memcached
-sqlparse==0.3.0           # via django
+sqlparse==0.3.1           # via django
 urllib3==1.25.8           # via requests
 
 # The following packages are considered to be unsafe in a requirements file:

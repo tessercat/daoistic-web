@@ -7,26 +7,26 @@
 astroid==2.3.3            # via pylint
 certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
-django==2.2.10
+django==2.2.11            # via -r requirements-dev.in
 entrypoints==0.3          # via flake8
-flake8==3.7.9
-gunicorn==20.0.4
-idna==2.8                 # via requests
+flake8==3.7.9             # via -r requirements-dev.in
+gunicorn==20.0.4          # via -r requirements-dev.in
+idna==2.9                 # via requests
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
-markdown==3.2.1
+markdown==3.2.1           # via -r requirements-dev.in
 mccabe==0.6.1             # via flake8, pylint
 pycodestyle==2.5.0        # via flake8
 pyflakes==2.1.1           # via flake8
-pylint-django==2.0.13
+pylint-django==2.0.14     # via -r requirements-dev.in
 pylint-plugin-utils==0.6  # via pylint-django
-pylint==2.4.4
-python-memcached==1.59
+pylint==2.4.4             # via -r requirements-dev.in, pylint-django, pylint-plugin-utils
+python-memcached==1.59    # via -r requirements-dev.in
 pytz==2019.3              # via django
-requests==2.22.0
-sh==1.12.14
+requests==2.23.0          # via -r requirements-dev.in
+sh==1.12.14               # via -r requirements-dev.in
 six==1.14.0               # via astroid, python-memcached
-sqlparse==0.3.0           # via django
+sqlparse==0.3.1           # via django
 typed-ast==1.4.1          # via astroid
 urllib3==1.25.8           # via requests
 wrapt==1.11.2             # via astroid

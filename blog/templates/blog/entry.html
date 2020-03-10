@@ -40,6 +40,11 @@
       <nav class="content">
         {% for ref in refs %}<p>{{ ref|safe }}</p>
         {% endfor %}
+        {% if is_study %}
+        <p><a title="Without ctext links" href="{% url 'plain' object.slug %}">Plain version</a></p>
+        {% else %}
+        <p><a title="With ctext links" href="{% url 'study' object.slug %}">Study version</a></p>
+        {% endif %}
         <p><a href="/blog" title="Blogging the unbloggable">Blog home</a></p>
       </nav>
     </footer>

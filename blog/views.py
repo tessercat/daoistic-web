@@ -24,6 +24,8 @@ class EntryListView(ListView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Blogging the unbloggable'
+        import logging
+        logging.getLogger('django.server').info(context)
         return context
 
     def get_queryset(self):
@@ -32,22 +34,19 @@ class EntryListView(ListView):
             entries = Entry.objects.all().order_by('-pk')
         else:
             entries = Entry.objects.filter(
-                published=True).order_by('-pk')
+                published=True
+            ).order_by('-pk')
         for entry in entries:
             entry.static_img = 'blog/img/%s-128.jpg' % entry.slug
         return entries
 
 
-@method_decorator(cache_public(60 * 15), name='dispatch')
 class EntryDetailView(DetailView):
     """ Blog entry view. """
 
     model = Entry
     template_name = 'blog/entry.html'
-
-    @staticmethod
-    def _stripped(content):
-        """ Return content stripped of non-ascii characters. """
+    is_study = False
 
     def get_object(self, queryset=None):
         """ Raise 404 for unpublished entries. """
@@ -61,6 +60,7 @@ class EntryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         obj = context['object']
         context['page_title'] = obj.title
+        context['is_study'] = self.is_study
         entry_base = os.path.join(
             settings.BASE_DIR, 'var', 'book', 'blog', obj.slug,
         )
@@ -69,7 +69,7 @@ class EntryDetailView(DetailView):
         content_file = os.path.join(entry_base, 'content.md')
         with open(content_file) as content_fd:
             content = content_fd.read()
-        if not self.request.user.is_authenticated and not obj.allow_hanzi:
+        if not self.is_study and not obj.allow_hanzi:
             printable = set(string.printable)
             content = ''.join(filter(lambda char: char in printable, content))
         context['content'] = markdown.markdown(content)
@@ -82,7 +82,7 @@ class EntryDetailView(DetailView):
                 context['notes'] = markdown.markdown(notes_fd.read())
 
         # Char map for content/notes.
-        if self.request.user.is_authenticated or obj.allow_hanzi:
+        if self.is_study or obj.allow_hanzi:
             chars = content + context['notes']
         else:
             chars = context['notes']
@@ -100,3 +100,15 @@ class EntryDetailView(DetailView):
         context['static_img'] = 'blog/img/%s.jpg' % obj.slug
 
         return context
+
+
+@method_decorator(cache_public(60 * 15), name='dispatch')
+class PlainDetailView(EntryDetailView):
+    """ Plain English view with no trailing hanzi. """
+
+
+@method_decorator(cache_public(60 * 15), name='dispatch')
+class StudyDetailView(EntryDetailView):
+    """ Study view with hanzi tailing English paragraphs. """
+
+    is_study = True

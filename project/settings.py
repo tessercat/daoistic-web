@@ -1,6 +1,7 @@
 """ Daoistic project settings module. """
 import ast
 import os
+import random
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -9,6 +10,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Load SETTINGS from a dict literal.
 with open(os.path.join(BASE_DIR, 'var', 'settings.py')) as settings_file:
     SETTINGS = ast.literal_eval(settings_file.read())
+
+# Load SECRET_KEY from file or write a new one. Django 2.2.
+SECRET_KEY_FILE = os.path.join(BASE_DIR, 'var', 'secret_key')
+if os.path.isfile(SECRET_KEY_FILE):
+    with open(SECRET_KEY_FILE) as secret_fd:
+        SECRET_KEY = secret_fd.read().strip()
+else:
+    SECRET_KEY = ''.join(random.choice(
+        'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    ) for _ in range(50))
+    with open(SECRET_KEY_FILE, 'w') as secret_fd:
+        secret_fd.write(SECRET_KEY)
 
 
 # Required custom settings
@@ -20,8 +33,6 @@ ALLOWED_HOSTS = SETTINGS['ALLOWED_HOSTS']
 DEBUG = False
 
 FIREWALL_API_PORT = SETTINGS['FIREWALL_API_PORT']
-
-SECRET_KEY = SETTINGS['SECRET_KEY']
 
 SERVER_EMAIL = SETTINGS['SERVER_EMAIL']
 

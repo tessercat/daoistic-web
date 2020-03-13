@@ -1,8 +1,8 @@
-Django<3
-gunicorn
-markdown
+Django
+daphne
 python-memcached
-requests
+httpx
+markdown
 sh
 flake8
 pylint

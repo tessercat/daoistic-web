@@ -18,18 +18,18 @@ def _add_calculated_fields(codepoint, fields, radical_data):
     fields['pCodepointInt'] = cp_int
 
     # Add radicali/sort fields.
-    rs_parts = fields['kRSUnicode'].split()[0].split('.') # First entry only.
+    rs_parts = fields['kRSUnicode'].split()[0].split('.')  # First entry only.
     rad_num = rs_parts[0]
     rad_num_int = int(rs_parts[0].rstrip('\''))
     stroke_count = int(rs_parts[1])
-    fields['kDefaultSortKey'] = _get_sort_key(
-        cp_int, rad_num_int, stroke_count,
-    )
     fields['pAdditionalStrokesInt'] = stroke_count
     fields['pIsRadicalSimplified'] = rs_parts[0].endswith('\'')
     fields['pRadicalCodepoint'] = radical_data[rad_num]['pCodepoint']
     fields['pRadicalNumber'] = rad_num
     fields['pRadicalNumberInt'] = rad_num_int
+    fields['kDefaultSortKey'] = _get_sort_key(
+        cp_int, fields['pIsRadicalSimplified'], rad_num_int, stroke_count,
+    )
 
     # Add traditional variants field.
     if 'kTraditionalVariant' in fields:
@@ -61,12 +61,13 @@ def _add_calculated_fields(codepoint, fields, radical_data):
     if variants:
         fields['pSemanticVariants'] = ''.join(variants)
 
+
 def _create_chars(char_data, radical_objs):
     """ Bulk create character objects from raw character data for
     non-radical characters. The radicals data is a dict of UnihanRadical
     objects indexed by codepoint string (U+XXXX). """
     count = 0
-    batch_size = 50 # SQLite 999 variable limit.
+    batch_size = 50  # SQLite 999 variable limit.
     values = iter(char_data.values())
     while True:
         batch = list(islice(values, batch_size))
@@ -92,15 +93,16 @@ def _create_chars(char_data, radical_objs):
         UnihanCharacter.objects.bulk_create(objs, batch_size)
     print('Created %d character records' % count)
 
+
 def _create_radicals(radical_char_data, radical_data):
     """ Bulk create character and radical objects only for radicals
     and return a dict mapping codepoint string (U+XXXX) to UnihanRadical
     objects. """
 
     # Create UnihanCharacter objects for each radical.
-    batch_size = 50 # SQLite 999 variable limit.
+    batch_size = 50  # SQLite 999 variable limit.
     values = iter(radical_char_data)
-    char_objs = {} # Indexed by codepoint string.
+    char_objs = {}  # Indexed by codepoint string.
     while True:
         batch = list(islice(values, batch_size))
         if not batch:
@@ -124,7 +126,7 @@ def _create_radicals(radical_char_data, radical_data):
 
     # Create UnihanRadical objects for each radical.
     values = iter(radical_data.values())
-    radical_objs = {} # Indexed by codepoint string.
+    radical_objs = {}  # Indexed by codepoint string.
     while True:
         batch = list(islice(values, batch_size))
         if not batch:
@@ -151,6 +153,7 @@ def _create_radicals(radical_char_data, radical_data):
     print('Created %d character and radical records.' % len(radical_objs))
     return radical_objs
 
+
 def _get_char_data(data_file):
     """ Read the data file and return a dict mapping codepoint strings
     to a dict of fields and their values. """
@@ -168,6 +171,7 @@ def _get_char_data(data_file):
         lines_read, os.path.basename(data_file)
     ))
     return data
+
 
 def _get_radical_data(data_file):
     """ Return a dict of dicts of radical data indexed by radical number
@@ -192,33 +196,55 @@ def _get_radical_data(data_file):
                 data[rad_num] = radical
     return data
 
-def _get_sort_key(codepoint, radical_int, stroke_count):
-    """ Take integer values for codepoint, radical number and stroke count
-    and return integer kDefaultSortKey sort order key defined in tr38. """
 
-    # Codepoint representation in binary.
+def _get_sort_key(codepoint, is_simplified, radical_int, stroke_count):
+    """ Return integer kDefaultSortKey sort order key defined in tr38. """
+
+    # Codepoint bits.
+    cp_bits = bin(codepoint)[2:].zfill(19)[0:19]
+
+    # CJK Unified Ideograph block bits.
     if 0x4E00 <= codepoint <= 0x9FFF:
-        cp_rep = codepoint - 0x4E00
-    elif 0x3400 <= codepoint <= 0x4DFF:
-        cp_rep = codepoint + 0x1E00
-    elif 0x20000 <= codepoint <= 0x2F7FF:
-        cp_rep = codepoint - 0x19400
+        block = 0
+    elif 0x3400 <= codepoint <= 0x4DBF:
+        block = 1
+    elif 0x20000 <= codepoint <= 0x2A6DF:
+        block = 2
+    elif 0x2A700 <= codepoint <= 0x2B73F:
+        block = 3
+    elif 0x2B740 <= codepoint <= 0x2B81F:
+        block = 4
+    elif 0x2B820 <= codepoint <= 0x2CEAF:
+        block = 5
+    elif 0x2CEB0 <= codepoint <= 0x2EBEF:
+        block = 6
+    elif 0x30000 <= codepoint <= 0x313F4:
+        block = 7
     elif 0xF900 <= codepoint <= 0xFAFF:
-        cp_rep = codepoint + 0xFD00
-    elif 0x2F800 <= codepoint <= 0x2FFFF:
-        cp_rep = codepoint - 0x10000
+        block = 253
+    elif 0x2F800 <= codepoint <= 0x2FA1F:
+        block = 254
     else:
-        raise ValueError('Sort range not found for %d' % codepoint)
-    cp_rep = bin(cp_rep)[2:].zfill(17)[0:17]
+        raise ValueError('CJK block not found for %d' % codepoint)
+    bl_bits = bin(block)[2:].zfill(7)[0:7]
 
-    # Radical and residual strokes reps in binary.
+    # Simplified/traditional radical bits.
+    s_bits = '0000'
+    if is_simplified:
+        s_bits = '0001'
+
+    # First residual stroke bits.
+    f_bits = '0000'
+
+    # Residual stroke count bits.
     if stroke_count < 0:
         stroke_count = 0
-    res_rep = bin(stroke_count)[2:].zfill(6)[0:6]
-    rad_rep = bin(radical_int)[2:].zfill(8)[0:8]
+    res_bits = bin(stroke_count)[2:].zfill(7)[0:7]
+    rad_bits = bin(radical_int)[2:].zfill(7)[0:7]
 
     # Return an int from the binary string.
-    return int(cp_rep + res_rep + rad_rep, 2)
+    return int(cp_bits + bl_bits + s_bits + f_bits + res_bits + rad_bits, 2)
+
 
 def _get_variants(variant_data):
     """ Return a set of Unicode chrs derived from variant data. """
@@ -227,6 +253,7 @@ def _get_variants(variant_data):
         var = var.split('<')[0]
         chars.add(chr(int(var.split('+', 1)[1], 16)))
     return chars
+
 
 class Command(BaseCommand):
     """ A command to import unihan db data. """

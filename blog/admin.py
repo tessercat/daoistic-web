@@ -10,6 +10,7 @@ class EntryAdmin(admin.ModelAdmin):
     fields = (
         'title',
         'lede',
+        'first_published',
         'last_update',
         'slug',
         'published',
@@ -17,8 +18,9 @@ class EntryAdmin(admin.ModelAdmin):
     )
     list_display = (
         'title',
+        'first_published',
         'last_update',
         'slug',
         'published',
     )
-    ordering = ('-last_update',)
+    ordering = ('-first_published',)

@@ -31,11 +31,11 @@ class EntryListView(ListView):
     def get_queryset(self):
         """ Return entries for the grid. """
         if self.request.user.is_authenticated:
-            entries = Entry.objects.all().order_by('-pk')
+            entries = Entry.objects.all().order_by('-first_published')
         else:
             entries = Entry.objects.filter(
                 published=True
-            ).order_by('-pk')
+            ).order_by('-first_published')
         for entry in entries:
             entry.static_img = 'blog/img/%s-128.jpg' % entry.slug
         return entries

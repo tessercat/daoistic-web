@@ -51,12 +51,14 @@ class Command(BaseCommand):
 
     def _create_entry(self, slug):
         """ Create a new blog entry. """
+        first_published = self._first_published(slug)
         last_update = self._last_update(slug)
         if last_update:
             lede = self._lede(slug)
             published = lede is not None
             title = self._title(slug)
             entry = Entry.objects.create(
+                first_published=first_published,
                 last_update=last_update,
                 lede=lede,
                 published=published,
@@ -66,12 +68,18 @@ class Command(BaseCommand):
             self._cp_static(slug)
             print('Created', entry)
 
-    def _git_log_date(self, slug, filename):
+    def _git_log_date(self, slug, filename, reverse=False):
         """ Return a datetime for the file from git log. """
-        result = self.git.log(
-            '-1', '--format=%ad', '--date=raw', '--',
-            'blog/%s/%s' % (slug, filename)
-        )
+        cmd = [
+            '--format=%ad', '--date=raw', '--',
+            'blog/%s/%s' % (slug, filename),
+        ]
+        if reverse:
+            cmd.insert(0, '--reverse')
+            result = sh.head(self.git.log(cmd), -1)
+        else:
+            cmd.insert(0, '-1')
+            result = self.git.log(cmd)
         if result:
             parts = result.stdout.decode().strip().split()
             return datetime.fromtimestamp(
@@ -85,6 +93,10 @@ class Command(BaseCommand):
             )
         return None
 
+    def _first_published(self, slug):
+        """ Return a datetime object for first_published field or None. """
+        return self._git_log_date(slug, 'content.md', True)
+
     def _last_update(self, slug):
         """ Return a datetime object for last_update field or None. """
         content_date = self._git_log_date(slug, 'content.md')
@@ -93,9 +105,7 @@ class Command(BaseCommand):
             if content_date > notes_date:
                 return content_date
             return notes_date
-        if content_date:
-            return content_date
-        return None
+        return content_date
 
     def _lede(self, slug):
         """ Return a string for the lede field. """

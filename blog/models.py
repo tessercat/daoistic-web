@@ -13,6 +13,9 @@ class Entry(models.Model):
     allow_hanzi = models.BooleanField(
         default=False,
     )
+    first_published = models.DateField(
+        default=date.today,
+    )
     last_update = models.DateField(
         default=date.today,
     )

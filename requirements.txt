@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements.in
 #
-asgiref==3.2.5            # via daphne
+asgiref==3.2.5            # via daphne, django
 attrs==19.3.0             # via automat, service-identity, twisted
 autobahn==20.3.1          # via daphne
 automat==20.2.0           # via twisted
@@ -14,7 +14,7 @@ chardet==3.0.4            # via httpx
 constantly==15.1.0        # via twisted
 cryptography==2.8         # via autobahn, pyopenssl, service-identity
 daphne==2.4.1             # via -r requirements.in
-django==2.2.11            # via -r requirements.in
+django==3.0.4             # via -r requirements.in
 h11==0.9.0                # via httpx
 h2==3.2.0                 # via httpx
 hpack==3.0.0              # via h2

@@ -1,3 +1,0 @@
-[submodule "firewall"]
-	path = firewall
-	url = https://github.com/puptel/firewall-app.git

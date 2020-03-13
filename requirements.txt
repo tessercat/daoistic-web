@@ -4,19 +4,44 @@
 #
 #    pip-compile requirements.in
 #
-certifi==2019.11.28       # via requests
-chardet==3.0.4            # via requests
+asgiref==3.2.5            # via daphne
+attrs==19.3.0             # via automat, service-identity, twisted
+autobahn==20.3.1          # via daphne
+automat==20.2.0           # via twisted
+certifi==2019.11.28       # via httpx
+cffi==1.14.0              # via cryptography
+chardet==3.0.4            # via httpx
+constantly==15.1.0        # via twisted
+cryptography==2.8         # via autobahn, pyopenssl, service-identity
+daphne==2.4.1             # via -r requirements.in
 django==2.2.11            # via -r requirements.in
-gunicorn==20.0.4          # via -r requirements.in
-idna==2.9                 # via requests
+h11==0.9.0                # via httpx
+h2==3.2.0                 # via httpx
+hpack==3.0.0              # via h2
+hstspreload==2020.3.12    # via httpx
+httpx==0.12.0             # via -r requirements.in
+hyperframe==5.2.0         # via h2
+hyperlink==19.0.0         # via twisted
+idna==2.9                 # via httpx, hyperlink, twisted
+incremental==17.5.0       # via twisted
 markdown==3.2.1           # via -r requirements.in
+pyasn1-modules==0.2.8     # via service-identity
+pyasn1==0.4.8             # via pyasn1-modules, service-identity
+pycparser==2.20           # via cffi
+pyhamcrest==2.0.2         # via twisted
+pyopenssl==19.1.0         # via twisted
 python-memcached==1.59    # via -r requirements.in
 pytz==2019.3              # via django
-requests==2.23.0          # via -r requirements.in
+rfc3986==1.3.2            # via httpx
+service-identity==18.1.0  # via twisted
 sh==1.12.14               # via -r requirements.in
-six==1.14.0               # via python-memcached
+six==1.14.0               # via automat, cryptography, pyopenssl, python-memcached, txaio
+sniffio==1.1.0            # via httpx
 sqlparse==0.3.1           # via django
-urllib3==1.25.8           # via requests
+twisted[tls]==19.10.0     # via daphne
+txaio==20.1.1             # via autobahn
+urllib3==1.25.8           # via httpx
+zope.interface==4.7.2     # via twisted
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

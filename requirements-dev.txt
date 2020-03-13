@@ -4,32 +4,57 @@
 #
 #    pip-compile requirements-dev.in
 #
+asgiref==3.2.5            # via daphne, django
 astroid==2.3.3            # via pylint
-certifi==2019.11.28       # via requests
-chardet==3.0.4            # via requests
-django==2.2.11            # via -r requirements-dev.in
+attrs==19.3.0             # via automat, service-identity, twisted
+autobahn==20.3.1          # via daphne
+automat==20.2.0           # via twisted
+certifi==2019.11.28       # via httpx
+cffi==1.14.0              # via cryptography
+chardet==3.0.4            # via httpx
+constantly==15.1.0        # via twisted
+cryptography==2.8         # via autobahn, pyopenssl, service-identity
+daphne==2.4.1             # via -r requirements-dev.in
+django==3.0.4             # via -r requirements-dev.in
 entrypoints==0.3          # via flake8
 flake8==3.7.9             # via -r requirements-dev.in
-gunicorn==20.0.4          # via -r requirements-dev.in
-idna==2.9                 # via requests
+h11==0.9.0                # via httpx
+h2==3.2.0                 # via httpx
+hpack==3.0.0              # via h2
+hstspreload==2020.3.12    # via httpx
+httpx==0.12.0             # via -r requirements-dev.in
+hyperframe==5.2.0         # via h2
+hyperlink==19.0.0         # via twisted
+idna==2.9                 # via httpx, hyperlink, twisted
+incremental==17.5.0       # via twisted
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.3  # via astroid
 markdown==3.2.1           # via -r requirements-dev.in
 mccabe==0.6.1             # via flake8, pylint
+pyasn1-modules==0.2.8     # via service-identity
+pyasn1==0.4.8             # via pyasn1-modules, service-identity
 pycodestyle==2.5.0        # via flake8
+pycparser==2.20           # via cffi
 pyflakes==2.1.1           # via flake8
+pyhamcrest==2.0.2         # via twisted
 pylint-django==2.0.14     # via -r requirements-dev.in
 pylint-plugin-utils==0.6  # via pylint-django
 pylint==2.4.4             # via -r requirements-dev.in, pylint-django, pylint-plugin-utils
+pyopenssl==19.1.0         # via twisted
 python-memcached==1.59    # via -r requirements-dev.in
 pytz==2019.3              # via django
-requests==2.23.0          # via -r requirements-dev.in
+rfc3986==1.3.2            # via httpx
+service-identity==18.1.0  # via twisted
 sh==1.12.14               # via -r requirements-dev.in
-six==1.14.0               # via astroid, python-memcached
+six==1.14.0               # via astroid, automat, cryptography, pyopenssl, python-memcached, txaio
+sniffio==1.1.0            # via httpx
 sqlparse==0.3.1           # via django
+twisted[tls]==19.10.0     # via daphne
+txaio==20.1.1             # via autobahn
 typed-ast==1.4.1          # via astroid
-urllib3==1.25.8           # via requests
+urllib3==1.25.8           # via httpx
 wrapt==1.11.2             # via astroid
+zope.interface==4.7.2     # via twisted
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

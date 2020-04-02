@@ -5,7 +5,7 @@ from book import views
 
 urlpatterns = [
     path('', views.PoemListView.as_view()),
-    path('about', views.AboutTemplateView.as_view()),
+    path('about', views.AboutTemplateView.as_view(), name='about'),
     path(
         'compare/<int:chapter>',
         views.ComparisonView.as_view(),

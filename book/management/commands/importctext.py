@@ -1,5 +1,4 @@
-""" Management utility to create book and chapter tables. """
-from datetime import date, datetime
+""" Management utility to create book and chapter tables for ctext data. """
 import glob
 from itertools import islice
 import os
@@ -8,17 +7,8 @@ from django.conf import settings
 from book.models import Book, Chapter
 
 
-def _create_book(book_data):
-    """ Create a book object and return it. """
-    return Book.objects.create(
-        title=book_data['title'],
-        subtitle=book_data['subtitle'],
-    )
-
-
 def _create_chapters(book_obj, book_data):
-    """ Create chapter objects with the book object reference and a list
-    of chapter data . """
+    """ Create chapter objects from the book object and chapter data list. """
     batch_size = 50  # SQLite 999 variable limit.
     values = iter(book_data)
     while True:
@@ -29,12 +19,11 @@ def _create_chapters(book_obj, book_data):
         for chapter in batch:
             objs.append(Chapter(
                 book=book_obj,
-                english=chapter.get('english') or '',
+                english='',
                 hanzi=chapter.get('hanzi') or '',
-                last_update=chapter.get('last_update') or date.today(),
-                notes=chapter.get('notes') or '',
+                notes='',
                 number=chapter['number'],
-                published=chapter.get('published') or False,
+                published=False,
                 title=chapter.get('title') or '',
             ))
         Chapter.objects.bulk_create(objs, batch_size)
@@ -94,10 +83,7 @@ def _get_book_data(data_file):
             if line_data:
                 chapter_data[current_state] = line_data
         states.update({
-            'english': new_state == 'english',
             'hanzi': new_state == 'hanzi',
-            'last_update': new_state == 'last_update',
-            'notes': new_state == 'notes',
             'title': new_state == 'title',
         })
         return new_state
@@ -114,18 +100,8 @@ def _get_book_data(data_file):
                     book_data.append(chapter_data)
                 chapter_data = {'number': int(line.strip().split()[-1])}
                 current_data = []
-            elif line.startswith('## Published'):
-                state = change_state(state, 'last_update')
-                chapter_data['published'] = '(yes)' in line
-                current_data = []
-            elif line.startswith('## English'):
-                state = change_state(state, 'english')
-                current_data = []
             elif line.startswith('## Hanzi'):
                 state = change_state(state, 'hanzi')
-                current_data = []
-            elif line.startswith('## Notes'):
-                state = change_state(state, 'notes')
                 current_data = []
             else:
                 if True in states.values():
@@ -136,45 +112,29 @@ def _get_book_data(data_file):
         if chapter_data:
             book_data.append(chapter_data)
 
-    # Clean up last update data and return.
-    for chapter in book_data:
-        if 'last_update' in chapter:
-            chapter['last_update'] = datetime.strptime(
-                chapter['last_update'], '%B %d, %Y',
-            ).date()
     return book_data
 
 
 class Command(BaseCommand):
-    """ A command to import book db data. """
+    """ A command to import ctext book data. """
 
-    help = 'Used to import book db data.'
+    help = 'Used to import ctext book data.'
     requires_migrations_checks = True
 
     def handle(self, *args, **options):
-        """ Import book data. """
+        """ Get and create ctext book/chapter data. """
         data_dir = os.path.join(settings.BASE_DIR, 'var', 'book')
-
-        # Get and create book.md book/chapter data.
-        title_data = {
-            'title': '道德經',
-            'subtitle': 'Dao De Jing',
-        }
-        book_obj = _create_book(title_data)
-        book_data = _get_book_data(
-            os.path.join(data_dir, 'book.md')
-        )
-        _create_chapters(book_obj, book_data)
-
-        # Get and create ctext book/chapter data.
         for data_glob in glob.glob(os.path.join(data_dir, 'ctext', '*.md')):
             if data_glob.endswith('README.md'):
                 continue
             title_data = _get_title_data(
                 os.path.join(data_dir, 'ctext', data_glob)
             )
-            book_obj = _create_book(title_data)
             book_data = _get_book_data(
                 os.path.join(data_dir, 'ctext', data_glob)
+            )
+            book_obj = Book.objects.create(
+                title=title_data['title'],
+                subtitle=title_data['subtitle'],
             )
             _create_chapters(book_obj, book_data)

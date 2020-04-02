@@ -45,7 +45,10 @@ class Chapter(models.Model):
         blank=True,
         default='',
     )
-    last_update = models.DateField(
+    last_english_update = models.DateField(
+        default=date.today,
+    )
+    last_hanzi_update = models.DateField(
         default=date.today,
     )
     notes = models.TextField(

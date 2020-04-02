@@ -113,6 +113,10 @@ def _add_study_fields(chapter):
             stanzas.append(line_data)
     chapter.stanzas = stanzas
     chapter.char_map = unihan_map(''.join(hz_chars))
+    if chapter.last_english_update > chapter.last_hanzi_update:
+        chapter.last_update = chapter.last_english_update
+    else:
+        chapter.last_update = chapter.last_hanzi_update
     chapter.copyright_year = chapter.last_update.year
 
 
@@ -354,6 +358,7 @@ class PoemDetailView(DetailView):
 
         # Add view-specific data to the object and return it.
         chapter.english_html = linebreaks(chapter.english)
+        chapter.last_update = chapter.last_english_update
         chapter.copyright_year = chapter.last_update.year
         return chapter
 

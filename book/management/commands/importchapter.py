@@ -1,7 +1,7 @@
 """ Management utility to import 道德經 chapters. """
 import argparse
 import ast
-from datetime import datetime, timedelta, timezone
+from datetime import date
 import os
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -26,7 +26,7 @@ class Command(BaseCommand):
             filename,
         )
 
-    def _git_log_date(self, chapter, filename):
+    def _date(self, chapter, filename):
         """ Return git log datetime for a file. """
         cmd = [
             '-1', '--format=%ad', '--date=raw', '--',
@@ -35,15 +35,7 @@ class Command(BaseCommand):
         result = self.git.log(cmd)
         if result:
             parts = result.stdout.decode().strip().split()
-            return datetime.fromtimestamp(
-                int(parts[0]),
-                timezone(
-                    timedelta(
-                        hours=int(parts[1][0:3]),
-                        minutes=int(parts[1][3:5])
-                    )
-                ),
-            )
+            return date.fromtimestamp(int(parts[0]))
         raise ValueError('Bad log date')
 
     def _meta(self, chapter):
@@ -90,34 +82,30 @@ class Command(BaseCommand):
         if created:
             print('Created Dao De Jing book.')
 
-        # Get chapter object.
+        # Update or create chapter objects.
         for chapter in options['chapter']:
-            meta = self._meta(chapter)
-            english = self._text(chapter, 'english.md')
-            english_update = self._git_log_date(chapter, 'english.md')
-            hanzi = self._text(chapter, 'hanzi.md')
-            hanzi_update = self._git_log_date(chapter, 'hanzi.md')
-            notes = self._text(chapter, 'notes.md')
-            _, created = Chapter.objects.update_or_create(
-                number=chapter,
-                title=meta['title'],
-                published=meta['published'],
-                english=english,
-                last_english_update=english_update,
-                hanzi=hanzi,
-                last_hanzi_update=hanzi_update,
-                notes=notes,
-                defaults={
-                    'number': chapter,
-                    'book': book_obj,
-                    'title': meta['title'],
-                    'published': meta['published'],
-                    'english': english,
-                    'last_english_update': english_update,
-                    'hanzi': hanzi,
-                    'last_hanzi_update': hanzi_update,
-                    'notes': notes,
-                },
-            )
-            if created:
+            data = self._meta(chapter)
+            data['english'] = self._text(chapter, 'english.md')
+            data['last_english_update'] = self._date(chapter, 'english.md')
+            data['hanzi'] = self._text(chapter, 'hanzi.md')
+            data['last_hanzi_update'] = self._date(chapter, 'hanzi.md')
+            data['notes'] = self._text(chapter, 'notes.md')
+            try:
+                chapter_obj = Chapter.objects.get(
+                    book__title='道德經',
+                    number=chapter,
+                )
+                changed = False
+                for key, value in data.items():
+                    if getattr(chapter_obj, key) != value:
+                        setattr(chapter_obj, key, value)
+                        changed = True
+                if changed:
+                    chapter_obj.save()
+                    print('Changed Dao De Jing chapter %d.' % chapter)
+            except Chapter.DoesNotExist:
+                data['book'] = book_obj
+                data['number'] = chapter
+                chapter_obj = Chapter(**data)
+                chapter_obj.save()
                 print('Created Dao De Jing chapter %d.' % chapter)

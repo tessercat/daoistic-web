@@ -24,8 +24,6 @@ class EntryListView(ListView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Blogging the unbloggable'
-        import logging
-        logging.getLogger('django.server').info(context)
         return context
 
     def get_queryset(self):
@@ -37,7 +35,7 @@ class EntryListView(ListView):
                 published=True
             ).order_by('-first_published')
         for entry in entries:
-            entry.static_img = 'blog/img/%s-128.jpg' % entry.slug
+            entry.static_card = 'blog/img/%s-128.jpg' % entry.slug
         return entries
 
 
@@ -97,7 +95,8 @@ class EntryDetailView(DetailView):
                     context['refs'].append(ref.strip())
 
         # Static image links.
-        context['static_img'] = 'blog/img/%s.jpg' % obj.slug
+        context['static_header'] = 'blog/img/%s.jpg' % obj.slug
+        context['static_card'] = 'blog/img/%s-128.jpg' % obj.slug
 
         return context
 

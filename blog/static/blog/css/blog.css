@@ -5,6 +5,9 @@
 .ctext-link a {
   text-decoration: none;
 }
+.footer a {
+  color: #103465;
+}
 .footer a:hover {
   text-decoration: underline;
 }

@@ -14,17 +14,18 @@ chardet==3.0.4            # via httpx
 constantly==15.1.0        # via twisted
 cryptography==2.9.2       # via autobahn, pyopenssl, service-identity
 daphne==2.5.0             # via -r requirements.in
-django==3.0.5             # via -r requirements.in
+django==3.0.6             # via -r requirements.in
 h11==0.9.0                # via httpx
 h2==3.2.0                 # via httpx
 hpack==3.0.0              # via h2
-hstspreload==2020.4.28    # via httpx
+hstspreload==2020.5.5     # via httpx
 httpx==0.12.1             # via -r requirements.in
 hyperframe==5.2.0         # via h2
 hyperlink==19.0.0         # via twisted
 idna==2.9                 # via httpx, hyperlink, twisted
+importlib-metadata==1.6.0  # via markdown
 incremental==17.5.0       # via twisted
-markdown==3.2.1           # via -r requirements.in
+markdown==3.2.2           # via -r requirements.in
 pyasn1-modules==0.2.8     # via service-identity
 pyasn1==0.4.8             # via pyasn1-modules, service-identity
 pycparser==2.20           # via cffi
@@ -41,6 +42,7 @@ sqlparse==0.3.1           # via django
 twisted[tls]==20.3.0      # via daphne
 txaio==20.4.1             # via autobahn
 urllib3==1.25.9           # via httpx
+zipp==3.1.0               # via importlib-metadata
 zope.interface==5.1.0     # via twisted
 
 # The following packages are considered to be unsafe in a requirements file:

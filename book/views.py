@@ -79,8 +79,7 @@ def _add_hanzi_summary(chapter):
 
 
 def _add_study_fields(chapter):
-    """ Add study-specific fields to a chapter object: a list of stanza data,
-    a dict that maps unihan characters to db objects, and the copyright year.
+    """ Add study-specific fields to a chapter object.
 
     Stanzas contain lines that the template represents in three different
     ways, hanzi, pinyin, and English. The template uses the db objects to
@@ -117,7 +116,6 @@ def _add_study_fields(chapter):
         chapter.last_update = chapter.last_english_update
     else:
         chapter.last_update = chapter.last_hanzi_update
-    chapter.copyright_year = chapter.last_update.year
 
 
 def _chapter_range(page):
@@ -359,7 +357,6 @@ class PoemDetailView(DetailView):
         # Add view-specific data to the object and return it.
         chapter.english_html = linebreaks(chapter.english)
         chapter.last_update = chapter.last_english_update
-        chapter.copyright_year = chapter.last_update.year
         return chapter
 
 

@@ -97,7 +97,9 @@ class Command(BaseCommand):
                 )
                 changed = False
                 for key, value in data.items():
-                    if getattr(chapter_obj, key) != value:
+                    if (
+                            hasattr(chapter_obj, key)
+                            and getattr(chapter_obj, key) != value):
                         setattr(chapter_obj, key, value)
                         changed = True
                 if changed:

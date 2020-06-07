@@ -24,6 +24,7 @@ def _create_chapters(book_obj, book_data):
                 notes='',
                 number=chapter['number'],
                 published=False,
+                publish_notes=False,
                 title=chapter.get('title') or '',
             ))
         Chapter.objects.bulk_create(objs, batch_size)

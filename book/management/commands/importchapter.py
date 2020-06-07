@@ -90,6 +90,7 @@ class Command(BaseCommand):
             data['hanzi'] = self._text(chapter, 'hanzi.md')
             data['last_hanzi_update'] = self._date(chapter, 'hanzi.md')
             data['notes'] = self._text(chapter, 'notes.md')
+            data['publish_notes'] = False
             try:
                 chapter_obj = Chapter.objects.get(
                     book__title='道德經',

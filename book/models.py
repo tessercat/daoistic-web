@@ -59,6 +59,7 @@ class Chapter(models.Model):
         validators=[validate_chapter_number],
     )
     published = models.BooleanField()
+    publish_notes = models.BooleanField()
     title = models.CharField(
         blank=True,
         default='',

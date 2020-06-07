@@ -36,7 +36,11 @@
               {{ chapter.book.title }}
             </div>
             <div class="col-12 chapter-hanzi mb-4">
+{% if chapter.book.title == "道德經" %}
 {{ chapter.hanzi|buttonify:char_map }}
+{% else %}
+{{ chapter.hanzi|buttonify:char_map|linebreaksbr }}
+{% endif %}
             </div>
           </div>
           {% endfor %}

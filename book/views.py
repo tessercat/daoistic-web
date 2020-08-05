@@ -272,10 +272,15 @@ class NavJsonView(TemplateView):
 
     def render_to_response(self, context, **response_kwargs):
         """ Render new nav URL as a JSON response. """
+        # Starting in 3.1 this context arg is a SimpleLazyObject.
+        try:
+            current = int(str(context['current']))
+        except (KeyError, ValueError):
+            raise ValidationError('Bad current chapter')
         if context['direction'] == 'next':
-            nav_to = self._get_next(context['current'])
+            nav_to = self._get_next(current)
         elif context['direction'] == 'previous':
-            nav_to = self._get_previous(context['current'])
+            nav_to = self._get_previous(current)
         else:
             raise ValidationError('Bad nav direction')
         return JsonResponse(

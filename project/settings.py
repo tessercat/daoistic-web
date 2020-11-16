@@ -43,7 +43,7 @@ TIME_ZONE = SETTINGS['TIME_ZONE']
 
 EMAIL_SUBJECT_PREFIX = '[daoistic] '
 
-CSRF_FAILURE_VIEW = 'daoisitic.views.permission_denied'
+CSRF_FAILURE_VIEW = 'book.views.permission_denied'
 
 
 # Header and cookie definition

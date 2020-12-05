@@ -74,10 +74,11 @@ class EntryDetailView(DetailView):
 
         # Entry notes.
         context['notes'] = ''
-        notes_file = os.path.join(entry_base, 'notes.md')
-        if os.path.isfile(notes_file):
-            with open(notes_file) as notes_fd:
-                context['notes'] = markdown.markdown(notes_fd.read())
+        if self.is_study:
+            notes_file = os.path.join(entry_base, 'notes.md')
+            if os.path.isfile(notes_file):
+                with open(notes_file) as notes_fd:
+                    context['notes'] = markdown.markdown(notes_fd.read())
 
         # Char map for content/notes.
         if self.is_study or obj.allow_hanzi:

@@ -19,19 +19,22 @@ class Command(BaseCommand):
     blog_dir = os.path.join(book_dir, 'blog')
     img_dir = os.path.join(settings.BASE_DIR, 'blog', 'static', 'blog', 'img')
 
-    def _cp_static(self, slug):
+    def _cp_static(self, slug, jpg, resolution=None):
         """ Copy card and header images to the blog app's static dir. """
+        src = os.path.join(self.blog_dir, slug, '%s.jpg' % jpg)
+        if resolution:
+            dst = os.path.join(self.img_dir, '%s-%d.jpg' % (slug, resolution))
+        else:
+            dst = os.path.join(self.img_dir, '%s.jpg' % slug)
         changed = False
-        src = os.path.join(self.blog_dir, slug, 'card.jpg')
-        dst = os.path.join(self.img_dir, '%s-128.jpg' % slug)
-        if not filecmp.cmp(src, dst):
-            copyfile(src, dst)
+        try:
+            if not filecmp.cmp(src, dst):
+                changed = True
+        except FileNotFoundError:
             changed = True
-        src = os.path.join(self.blog_dir, slug, 'header.jpg')
-        dst = os.path.join(self.img_dir, '%s.jpg' % slug)
-        if not filecmp.cmp(src, dst):
+        if changed:
             copyfile(src, dst)
-            changed = True
+            print('Copied %s' % dst)
         return changed
 
     def _create(self, slug):
@@ -50,7 +53,8 @@ class Command(BaseCommand):
                 slug=slug,
                 title=title,
             )
-            self._cp_static(slug)
+            self._cp_static(entry.slug, 'header')
+            self._cp_static(entry.slug, 'card', 128)
             print('Created', entry.slug)
 
     def _date(self, slug, filename, reverse=False):
@@ -117,6 +121,8 @@ class Command(BaseCommand):
         if changed:
             entry.save()
             print('Updated', entry.slug)
+        self._cp_static(entry.slug, 'header')
+        self._cp_static(entry.slug, 'card', 128)
 
     def handle(self, *args, **options):
         """ Import blog data. """

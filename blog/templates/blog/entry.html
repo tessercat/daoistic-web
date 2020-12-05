@@ -42,9 +42,9 @@
         {% for ref in refs %}<p>{{ ref|safe }}</p>
         {% endfor %}
         {% if not object.allow_hanzi and is_study %}
-        <p><a title="Without ctext links" href="{% url 'plain' object.slug %}">Plain version</a></p>
+        <p><a title="Without notes or ctext links" href="{% url 'plain' object.slug %}">Plain version</a></p>
         {% elif not object.allow_hanzi %}
-        <p><a title="With ctext links" href="{% url 'study' object.slug %}">Study version</a></p>
+        <p><a title="With notes and ctext links" href="{% url 'study' object.slug %}">Study version</a></p>
         {% endif %}
         <p><a href="/blog" title="Blogging the unbloggable">Blog home</a></p>
       </nav>

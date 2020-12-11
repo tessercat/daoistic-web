@@ -37,17 +37,3 @@ $(window).on('keydown', function(ev) {
         navigate("previous");
     }
 });
-/* Swipe navigation. */
-$(window).on('touchstart', function(ev) {
-    window.startX = ev.originalEvent.changedTouches[0].pageX;
-    window.startY = ev.originalEvent.changedTouches[0].pageY;
-}).on('touchend', function(ev) {
-    var diffY = startY - ev.originalEvent.changedTouches[0].pageY;
-    if (Math.abs(diffY) > 25) { return true; }
-    var diffX = startX - ev.originalEvent.changedTouches[0].pageX;
-    if (diffX > 100) {
-        navigate("next");
-    } else if (diffX < -100) {
-        navigate("previous");
-    }
-});

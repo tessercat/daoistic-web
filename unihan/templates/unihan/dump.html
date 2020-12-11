@@ -4,7 +4,12 @@
     {% block content_style %}
     <style type="text/css" media="screen">
       .badge-hanzi { text-align: center; }
-      .btn-hanzi { display: contents; font-size: inherit; cursor: pointer; }
+      .btn-hanzi {
+        user-select: auto;
+        display: contents;
+        font-size: inherit;
+        cursor: pointer;
+      }
       .char-hanzi { font-size: 1.4em; }
       .dump-box { font-size: 1.4rem; }
       textarea { resize: both; }

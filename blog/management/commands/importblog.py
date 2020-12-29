@@ -39,17 +39,16 @@ class Command(BaseCommand):
 
     def _create(self, slug):
         """ Create a new blog entry. """
-        first_published = self._first_published(slug)
-        last_update = self._last_update(slug)
+        first_published = self._date(slug, 'content.md', True)
+        last_update = self._date(slug, 'content.md')
         if last_update:
             lede = self._lede(slug)
-            published = lede is not None
             title = self._title(slug)
             entry = Entry.objects.create(
                 first_published=first_published,
                 last_update=last_update,
                 lede=lede,
-                published=published,
+                published=False,
                 slug=slug,
                 title=title,
             )
@@ -75,20 +74,6 @@ class Command(BaseCommand):
             return date.fromtimestamp(int(parts[0]))
         return None
 
-    def _first_published(self, slug):
-        """ Return a date object for first_published field or None. """
-        return self._date(slug, 'content.md', True)
-
-    def _last_update(self, slug):
-        """ Return a date object for last_update field or None. """
-        content_date = self._date(slug, 'content.md')
-        notes_date = self._date(slug, 'notes.md')
-        if content_date and notes_date:
-            if content_date > notes_date:
-                return content_date
-            return notes_date
-        return content_date
-
     def _lede(self, slug):
         """ Return a string for the lede field. """
         path = os.path.join(self.blog_dir, slug, 'lede.md')
@@ -108,10 +93,9 @@ class Command(BaseCommand):
     def _update(self, entry):
         """ Update an existing blog entry. """
         data = {}
-        data['last_update'] = self._last_update(entry.slug)
+        data['last_update'] = self._date(entry.slug, 'content.md')
         if data['last_update']:
             data['lede'] = self._lede(entry.slug)
-            data['published'] = data['lede'] is not None
             data['title'] = self._title(entry.slug)
         changed = False
         for key, value in data.items():

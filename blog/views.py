@@ -63,13 +63,17 @@ class EntryDetailView(DetailView):
             settings.BASE_DIR, 'var', 'book', 'blog', obj.slug,
         )
 
-        # Entry content. Strip non-printable for unauthenticated requests.
+        # Entry content.
         content_file = os.path.join(entry_base, 'content.md')
         with open(content_file) as content_fd:
-            content = content_fd.read()
-        if not self.is_study and not obj.allow_hanzi:
-            printable = set(string.printable)
-            content = ''.join(filter(lambda char: char in printable, content))
+            if self.is_study or obj.allow_hanzi:
+                content = content_fd.read()
+            else:
+                content = []
+                for line in content_fd.readlines():
+                    if line[0] in string.printable:
+                        content.append(line)
+                content = ''.join(content)
         context['content'] = markdown.markdown(content)
 
         # Entry notes.

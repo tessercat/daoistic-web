@@ -7,21 +7,21 @@
 asgiref==3.3.1            # via daphne, django
 astroid==2.4.2            # via pylint
 attrs==20.3.0             # via automat, service-identity, twisted
-autobahn==20.7.1          # via daphne
+autobahn==20.12.3         # via daphne
 automat==20.2.0           # via twisted
-certifi==2020.11.8        # via httpx
+certifi==2020.12.5        # via httpx
 cffi==1.14.4              # via cryptography
 constantly==15.1.0        # via twisted
-cryptography==3.2.1       # via autobahn, pyopenssl, service-identity
+cryptography==3.3.1       # via autobahn, pyopenssl, service-identity
 daphne==3.0.1             # via -r requirements-dev.in
 django==3.1.4             # via -r requirements-dev.in
 flake8==3.8.4             # via -r requirements-dev.in
 h11==0.11.0               # via httpcore
 httpcore==0.12.2          # via httpx
 httpx==0.16.1             # via -r requirements-dev.in
-hyperlink==20.0.1         # via twisted
+hyperlink==20.0.1         # via autobahn, twisted
 idna==2.10                # via hyperlink, rfc3986, twisted
-importlib-metadata==3.1.1  # via flake8, markdown
+importlib-metadata==3.3.0  # via flake8, markdown
 incremental==17.5.0       # via twisted
 isort==5.6.4              # via pylint
 lazy-object-proxy==1.4.3  # via astroid
@@ -36,9 +36,9 @@ pyhamcrest==2.0.2         # via twisted
 pylint-django==2.3.0      # via -r requirements-dev.in
 pylint-plugin-utils==0.6  # via pylint-django
 pylint==2.6.0             # via -r requirements-dev.in, pylint-django, pylint-plugin-utils
-pyopenssl==20.0.0         # via twisted
+pyopenssl==20.0.1         # via twisted
 python-memcached==1.59    # via -r requirements-dev.in
-pytz==2020.4              # via django
+pytz==2020.5              # via django
 rfc3986[idna2008]==1.4.0  # via httpx
 service-identity==18.1.0  # via twisted
 sh==1.14.1                # via -r requirements-dev.in
@@ -47,8 +47,9 @@ sniffio==1.2.0            # via httpcore, httpx
 sqlparse==0.4.1           # via django
 toml==0.10.2              # via pylint
 twisted[tls]==20.3.0      # via daphne
-txaio==20.4.1             # via autobahn
+txaio==20.12.1            # via autobahn
 typed-ast==1.4.1          # via astroid
+typing-extensions==3.7.4.3  # via importlib-metadata
 wrapt==1.12.1             # via astroid
 zipp==3.4.0               # via importlib-metadata
 zope.interface==5.2.0     # via twisted

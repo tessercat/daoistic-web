@@ -59,7 +59,7 @@ def permission_denied(request, reason='', template_name='book/40X.html'):
 # Map to strip hanzi punctuation.
 HANZI_TMAP = dict.fromkeys(map(ord, '，。？'), None)
 MAX_SEARCH_CHARS = 2
-DDJ_TITLES = ('道德經', '郭店', '馬王堆甲', '馬王堆乙', '河上公', '王弼')
+DDJ_TITLES = ('道德經', '郭店', '王弼', '河上公', '馬王堆甲', '馬王堆乙')
 
 
 def _add_english_summary(chapter):

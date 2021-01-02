@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 title=title,
             )
             self._cp_static(entry.slug, 'header')
-            self._cp_static(entry.slug, 'card', 128)
+            self._cp_static(entry.slug, 'card', 120)
             print('Created', entry.slug)
 
     def _date(self, slug, filename, reverse=False):
@@ -106,7 +106,7 @@ class Command(BaseCommand):
             entry.save()
             print('Updated', entry.slug)
         self._cp_static(entry.slug, 'header')
-        self._cp_static(entry.slug, 'card', 128)
+        self._cp_static(entry.slug, 'card', 120)
 
     def handle(self, *args, **options):
         """ Import blog data. """

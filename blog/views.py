@@ -35,7 +35,7 @@ class EntryListView(ListView):
                 published=True
             ).order_by('-first_published')
         for entry in entries:
-            entry.static_card = 'blog/img/%s-128.jpg' % entry.slug
+            entry.static_card = 'blog/img/%s-120.jpg' % entry.slug
         return entries
 
 
@@ -101,7 +101,7 @@ class EntryDetailView(DetailView):
 
         # Static image links.
         context['static_header'] = 'blog/img/%s.jpg' % obj.slug
-        context['static_card'] = 'blog/img/%s-128.jpg' % obj.slug
+        context['static_card'] = 'blog/img/%s-120.jpg' % obj.slug
 
         return context
 

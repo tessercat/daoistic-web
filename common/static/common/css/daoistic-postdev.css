@@ -338,7 +338,7 @@ template {
   display: none;
 }
 
-/* Daoistic is much obliged to Tania Rascia's MIT-licensed primitive-ui. */
+/* Primitives from Tania Rascia's MIT-licensed primitive-ui. */
 html {
   box-sizing: border-box;
 }
@@ -455,20 +455,27 @@ a:hover, a:active, a:focus {
   border-bottom: 3px solid #6ab0f3;
 }
 
+/* Daoistic main */
 main {
   max-width: 825px;
   margin-left: auto;
   margin-right: auto;
 }
 
-main.default {
+main.padded {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
+main p.error {
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
 main footer {
   margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   font-size: 0.9rem;
   text-align: center;
 }
@@ -491,12 +498,15 @@ main footer ul li {
 }
 
 @media (min-width: 600px) {
+  main p.error {
+    font-size: 1.4rem;
+  }
   main footer {
     font-size: 1rem;
   }
 }
 
-/* Daoistic cards */
+/* Daoistic list of cards */
 main.cards {
   line-height: normal;
 }
@@ -514,93 +524,97 @@ main.cards header section.subtitle {
   font-style: italic;
 }
 
-main.cards article {
+/* Daoistic blog entry card */
+article.card {
   display: flex;
   padding: 2rem 0;
   border-bottom: 4px solid #2d2d31;
 }
 
-main.cards article section.card-image a:hover, main.cards article section.card-image a:active, main.cards article section.card-image a:focus {
-  border-bottom: 0;
-}
-
-main.cards article section.card-figure figure {
+article.card section.figure figure {
   height: 50px;
   width: 50px;
   margin-top: 0.2rem;
   margin-right: 1rem;
 }
 
-main.cards article section.card-figure img {
+article.card section.figure img {
   max-width: 100%;
   border-radius: 5px;
 }
 
-main.cards article section.card-details a {
+article.card section.image a:hover, article.card section.image a:active, article.card section.image a:focus {
+  border-bottom: 0;
+}
+
+article.card section.details a {
   font-size: 1.1rem;
 }
 
-main.cards article section.card-details p.date {
+article.card section.details p.date {
   font-size: 0.8rem;
+  padding-top: 0.2rem;
 }
 
 @media (min-width: 600px) {
-  main.cards article section.card-figure figure {
+  article.card section.figure figure {
     height: 100px;
     width: 100px;
   }
-  main.cards article section.card-figure img {
+  article.card section.figure img {
     border-radius: 10px;
   }
-  main.cards article section.card-details a {
+  article.card section.details a {
     font-size: 1.4rem;
   }
-  main.cards article section.card-details p.date {
+  article.card section.details p.date {
     font-size: 0.9rem;
+    padding-top: 0.3rem;
   }
 }
 
-/* Daoistic entry */
-main.entry header figure {
+/* Daoistic entry header image */
+header.entry-header figure {
   height: 0;
   overflow: hidden;
   padding-bottom: 33.333%;
   position: relative;
 }
 
-main.entry header figure img {
+header.entry-header figure img {
   width: 100%;
   height: auto;
 }
 
-main.entry article {
+/* Daoistic entry */
+article.entry {
   max-width: 100%;
   padding: 0 1rem;
 }
 
-main.entry article a.hanzi {
+article.entry a.hanzi {
   font-weight: inherit;
   color: inherit;
 }
 
-main.entry article a.hanzi:hover, main.entry article a.hanzi:active, main.entry article a.hanzi:focus {
+article.entry a.hanzi:hover, article.entry a.hanzi:active, article.entry a.hanzi:focus {
   border-bottom: inherit;
 }
 
-main.entry article section.entry p {
+article.entry section.content p {
   font-size: 1.1rem;
   font-family: serif;
 }
 
-main.entry article section.copyright {
+article.entry section.copyright {
   font-size: 0.8rem;
 }
 
 @media (min-width: 600px) {
-  main.entry article section.entry p {
+  article.entry section.content p {
     font-size: 1.35rem;
   }
-  main.entry article section.copyright {
+  article.entry section.copyright {
     font-size: 0.9rem;
   }
 }

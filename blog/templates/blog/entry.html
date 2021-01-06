@@ -1,51 +1,45 @@
-{% extends "blog/base.html" %}
+{% extends "common/base.html" %}
 {% load static blog_extras %}
 
 {% block open_graph %}
-{% include "blog/entry_og.html" %}
-{% endblock %}
-
-{% block navbar_right %}
-        <a class="navbar-item is-hidden-desktop" style="margin-left: auto;" title="Blog home" href="/blog">Blog</a>
-      </div>
-      <div class="navbar-menu">
-        <div class="navbar-end">
-          <a class="navbar-item" title="Blog home" href="/blog">Blog</a>
-        </div>
-      </div>
+{% include "blog/open_graph.html" %}
 {% endblock %}
 
 {% block content %}
-    <header>
-      <figure class="image is-3by1">
-        <img src="{% static static_header %}" alt="">
-      </figure>
-    </header>
-    <section class="section">
-      <div class="content interpretation">
+    <main>
+      <header class="entry-header">
+        <figure>
+          <img src="{% static 'blog/img/'|add:header_img %}" alt="{{ header_img }}">
+        </figure>
+      </header>
+      <article class="entry">
+        <section class="content">
 {{ content|buttonify:char_map|safe }}
-      </div>
-      {% if notes %}
-      <div class="content notes">
-      <h2>Notes</h2>
+        </section>
+        <section class="copyright">
+          © {{ object.first_published.year }} Peter Christensen, CC BY-NC-SA 4.0.
+          Last update {{ object.last_update }}.
+        </section>
+        {% if notes %}
+        <section class="notes">
+          <h2>Notes</h2>
 {{ notes|buttonify:char_map|safe }}
-      </div>
-      {% endif %}
-      <footer>
-        © {{ object.last_update.year }} Peter Christensen, CC BY-NC-SA 4.0.
-        Last update {{ object.last_update }}.
-      </footer>
-    </section>
-    <footer class="footer has-text-centered is-dark">
-      <nav class="content">
-        {% for ref in refs %}<p>{{ ref|safe }}</p>
-        {% endfor %}
-        {% if not object.allow_hanzi and is_study %}
-        <p><a title="Without notes or ctext links" href="{% url 'plain' object.slug %}">Plain version</a></p>
-        {% elif not object.allow_hanzi %}
-        <p><a title="With notes and ctext links" href="{% url 'study' object.slug %}">Study version</a></p>
+        </section>
         {% endif %}
-        <p><a href="/blog" title="Blogging the unbloggable">Blog home</a></p>
-      </nav>
-    </footer>
+      </article>
+      <footer>
+        <nav>
+          <ul>
+            {% for link in ref_links %}<li>{{ link|safe }}</li>
+            {% endfor %}
+            {% if not object.allow_hanzi and is_study %}
+            <li><a title="Without notes or hanzi" href="{% url 'entry' object.slug %}">Plain</a></li>
+            {% elif not object.allow_hanzi %}
+            <li><a title="With notes and hanzi" href="{% url 'study' object.slug %}">Study</a></li>
+            {% endif %}
+            <li><a href="/" title="Daoistic home">Home</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
 {% endblock %}

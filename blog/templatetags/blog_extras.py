@@ -12,7 +12,7 @@ def buttonify(value, char_map=None):
     """ Convert unihan characters to buttons based on objects in the
     char_map, leaving non-unihan characters as-is. """
     button = (
-        '<a class="ctext-link" title="%s" '
+        '<a class="hanzi" title="%s" '
         'target="_blank" rel="noopener noreferrer nofollow" '
         'href="https://ctext.org/dictionary.pl?if=en&char=%s">%s</a>'
     )

@@ -232,7 +232,7 @@ class ComparisonView(TemplateView):
         context['brand_title'] = 'Home'
         context['poems_href'] = '/poems/%d' % self.kwargs['chapter']
         context['poems_title'] = 'Poem %d' % self.kwargs['chapter']
-        context['studies_href'] = '/studies/%d' % self.kwargs['chapter']
+        context['studies_href'] = '/%d/study' % self.kwargs['chapter']
         context['studies_title'] = 'Study %d' % self.kwargs['chapter']
         hz_data = set()
         for chapter in context['chapter_list']:

@@ -30,8 +30,6 @@ ADMINS = SETTINGS['ADMINS']
 
 ALLOWED_HOSTS = SETTINGS['ALLOWED_HOSTS']
 
-DEBUG = False
-
 FIREWALL_API_PORT = SETTINGS['FIREWALL_API_PORT']
 
 SERVER_EMAIL = SETTINGS['SERVER_EMAIL']
@@ -41,9 +39,15 @@ TIME_ZONE = SETTINGS['TIME_ZONE']
 
 # Other custom settings
 
+CSRF_FAILURE_VIEW = 'common.views.custom403'
+
+DEBUG = False
+
 EMAIL_SUBJECT_PREFIX = '[daoistic] '
 
-CSRF_FAILURE_VIEW = 'book.views.permission_denied'
+# PROTECTED_PATHS = (
+#     '/metrics',
+# )
 
 
 # Header and cookie definition
@@ -62,13 +66,11 @@ USE_X_FORWARDED_PORT = True
 
 # Application definition
 
-AUTH_USER_MODEL = 'user.User'
-
 INSTALLED_APPS = [
+    # 'django_prometheus',
     'firewall.apps.FirewallConfig',
+    'common.apps.CommonConfig',
     'unihan.apps.UnihanConfig',
-    'book.apps.BookConfig',
-    'user.apps.UserConfig',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -80,14 +82,17 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # 'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'common.middleware.ProtectedPathsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'firewall.middleware.FirewallMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'

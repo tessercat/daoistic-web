@@ -401,19 +401,19 @@ h1 {
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
 }
 
 h3 {
-  font-size: 1.4rem;
-}
-
-h4 {
   font-size: 1.3rem;
 }
 
+h4 {
+  font-size: 1.15rem;
+}
+
 h5 {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 @media (min-width: 600px) {
@@ -426,19 +426,19 @@ h5 {
     margin-top: 2.5rem;
   }
   h1 {
-    font-size: 1.9rem;
-  }
-  h2 {
     font-size: 1.8rem;
   }
+  h2 {
+    font-size: 1.65rem;
+  }
   h3 {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
   h4 {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
   }
   h5 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -453,6 +453,17 @@ a:hover, a:active, a:focus {
   -webkit-text-decoration-color: #6ab0f3;
           text-decoration-color: #6ab0f3;
   border-bottom: 3px solid #6ab0f3;
+}
+
+main {
+  max-width: 825px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main.default {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 main footer {
@@ -487,10 +498,20 @@ main footer ul li {
 
 /* Daoistic cards */
 main.cards {
-  padding: 3rem 1rem 0;
-  max-width: 825px;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: normal;
+}
+
+main.cards header {
+  padding: 2rem 0;
+  border-bottom: 4px solid #2d2d31;
+}
+
+main.cards header h1 {
+  margin: initial;
+}
+
+main.cards header section.subtitle {
+  font-style: italic;
 }
 
 main.cards article {
@@ -506,12 +527,17 @@ main.cards article section.card-image a:hover, main.cards article section.card-i
 main.cards article section.card-figure figure {
   height: 50px;
   width: 50px;
+  margin-top: 0.2rem;
   margin-right: 1rem;
 }
 
 main.cards article section.card-figure img {
   max-width: 100%;
   border-radius: 5px;
+}
+
+main.cards article section.card-details a {
+  font-size: 1.1rem;
 }
 
 main.cards article section.card-details p.date {
@@ -526,18 +552,15 @@ main.cards article section.card-details p.date {
   main.cards article section.card-figure img {
     border-radius: 10px;
   }
+  main.cards article section.card-details a {
+    font-size: 1.4rem;
+  }
   main.cards article section.card-details p.date {
     font-size: 0.9rem;
   }
 }
 
 /* Daoistic entry */
-main.entry {
-  max-width: 825px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 main.entry header figure {
   height: 0;
   overflow: hidden;

@@ -1,0 +1,21 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+    <main class="padded cards">
+      <header>
+        <h1>Daoistic</h1>
+        <section class="subtitle">Blogging the unbloggable</section>
+      </header>
+      {% for object in object_list %}
+      {% include "blog/card.html" with object=object %}
+      {% endfor %}
+      <footer>
+        <nav>
+          <ul>
+            <li><a href="/about" title="Read about Daoistic">About Daoistic</a></li>
+            <li><a href="/archive" title="Archive index">All entries</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
+{% endblock %}

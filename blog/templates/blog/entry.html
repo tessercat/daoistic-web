@@ -1,5 +1,5 @@
 {% extends "common/base.html" %}
-{% load static blog_extras %}
+{% load static unihan %}
 
 {% block open_graph %}
 {% include "blog/open_graph.html" %}
@@ -13,17 +13,26 @@
         </figure>
       </header>
       <article class="entry">
+        <h1>{{ object.title }}</h1>
         <section class="content">
-{{ content|buttonify:char_map|safe }}
+{{ content|linkify:char_map }}
         </section>
         <section class="copyright">
           © {{ object.first_published.year }} Peter Christensen, CC BY-NC-SA 4.0.
           Last update {{ object.last_update }}.
         </section>
         {% if notes %}
+        <h2>Notes</h2>
         <section class="notes">
-          <h2>Notes</h2>
-{{ notes|buttonify:char_map|safe }}
+{{ notes|linkify:char_map }}
+        </section>
+        {% endif %}
+        {% if char_map %}
+        <h2>Vocabulary</h2>
+        <section class="chars">
+          {% for object in char_map.values %}
+{% include "unihan/char.html" with object=object %}
+          {% endfor %}
         </section>
         {% endif %}
       </article>
@@ -32,10 +41,10 @@
           <ul>
             {% for link in ref_links %}<li>{{ link|safe }}</li>
             {% endfor %}
-            {% if not object.allow_hanzi and is_study %}
-            <li><a title="Without notes or hanzi" href="{% url 'entry' object.slug %}">Plain</a></li>
-            {% elif not object.allow_hanzi %}
-            <li><a title="With notes and hanzi" href="{% url 'study' object.slug %}">Study</a></li>
+            {% if link == 'plain' %}
+            <li><a title="Without vocabulary or notes" href="{% url 'entry' object.slug %}">Plain</a></li>
+            {% elif link == 'study' %}
+            <li><a title="With vocabulary and notes" href="{% url 'study' object.slug %}">Study</a></li>
             {% endif %}
             <li><a href="/" title="Daoistic home">Home</a></li>
           </ul>

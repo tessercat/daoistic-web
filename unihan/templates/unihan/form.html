@@ -1,0 +1,43 @@
+{% extends "common/base.html" %}
+{% load static unihan %}
+
+    {% block content %}
+    <main class="padded">
+      <header>
+        <h1>Unihan lookup</h1>
+      </header>
+      <article class="lookup">
+        {% if form_data or form.errors %}
+        <section class="output">
+          {% if form_data %}
+{{ form_data|linkify:char_map|linebreaksbr }}
+          {% elif form.errors %}
+          {{ form.errors.field }}
+          {% endif %}
+        </section>
+        {% endif %}
+        <section class="form">
+          <form action="" method="POST">
+            {% csrf_token %}
+{{ form.field }}
+            <input type="submit" value="Submit">
+          </form>
+        </section>
+        {% if char_map %}
+        <h2>Vocabulary</h2>
+        <section class="chars">
+          {% for object in char_map.values %}
+{% include "unihan/char.html" with object=object %}
+          {% endfor %}
+        </section>
+        {% endif %}
+      </article>
+      <footer>
+        <nav>
+          <ul>
+            <li><a href="/" title="Daoistic home">Home</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
+    {% endblock %}

@@ -1,6 +1,5 @@
 """ Blog views module. """
 import os
-import string
 import markdown
 from django.conf import settings
 from django.http import Http404
@@ -10,7 +9,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
 from common.views import css_file
 from common.decorators import cache_public
-from unihan.api import unihan_map
+from unihan.views import is_candidate, unihan_map
 from blog.models import Entry
 
 
@@ -44,6 +43,7 @@ class BlogView(ListView):
         return entries
 
 
+@method_decorator(cache_public(60 * 15), name='dispatch')
 class ArchiveIndexView(ListView):
     """ Chronological view of archive dirs and unarchived entries. """
     model = Entry
@@ -75,6 +75,7 @@ class ArchiveIndexView(ListView):
         return entries
 
 
+@method_decorator(cache_public(60 * 15), name='dispatch')
 class ArchiveView(TemplateView):
     """ Chronological view of an archive dir's entries. """
     template_name = 'blog/archive.html'
@@ -88,6 +89,7 @@ class ArchiveView(TemplateView):
         return context
 
 
+@method_decorator(cache_public(60 * 15), name='dispatch')
 class EntryView(DetailView):
     """ Blog entry view. """
 
@@ -108,45 +110,59 @@ class EntryView(DetailView):
         obj = context['object']
         context['page_title'] = obj.title
         context['css_file'] = css_file()
-        if self.request.resolver_match.url_name == 'study':
-            context['is_study'] = True
-        else:
-            context['is_study'] = False
-        entry_base = os.path.join(
+        entry_dir = os.path.join(
             settings.BASE_DIR, 'var', 'data', 'blog', obj.slug,
         )
 
-        # Entry content.
-        content_file = os.path.join(entry_base, 'content.md')
-        with open(content_file) as content_fd:
-            if context['is_study'] or obj.allow_hanzi:
-                content = content_fd.read()
-            else:
-                content = []
-                for line in content_fd.readlines():
-                    if line[0] in string.printable:
-                        content.append(line)
-                content = ''.join(content)
-        context['content'] = markdown.markdown(content)
+        # Set basic state variables.
+        char_data = ''
+        strip_content = True
+        publish_notes = False
+        publish_vocabulary = False
+        context['link'] = 'study'
+        if obj.allow_hanzi:
+            strip_content = False
+            context['link'] = None
+            publish_vocabulary = True
+        if self.request.resolver_match.url_name == 'study':
+            if obj.allow_hanzi:
+                raise Http404()
+            strip_content = False
+            context['link'] = 'plain'
+            publish_notes = True
+            publish_vocabulary = True
 
-        # Entry notes.
-        context['notes'] = ''
-        if context['is_study']:
-            notes_file = os.path.join(entry_base, 'notes.md')
+        # Read notes.
+        if publish_notes:
+            notes_file = os.path.join(entry_dir, 'notes.md')
             if os.path.isfile(notes_file):
                 with open(notes_file) as notes_fd:
-                    context['notes'] = markdown.markdown(notes_fd.read())
+                    notes = notes_fd.read()
+                    if publish_vocabulary:
+                        char_data += notes
+                    context['notes'] = markdown.markdown(notes)
 
-        # Char map for content/notes.
-        if context['is_study'] or obj.allow_hanzi:
-            chars = content + context['notes']
-        else:
-            chars = context['notes']
-        context['char_map'] = unihan_map(chars)
+        # Read content.
+        content_file = os.path.join(entry_dir, 'content.md')
+        lines = []
+        with open(content_file) as content_fd:
+            for line in content_fd.readlines():
+                if strip_content and is_candidate(line[0]):
+                    continue
+                lines.append(line)
+        content = ''.join(lines[2:])  # Remove title lines.
+        context['content'] = markdown.markdown(content)
+        if publish_vocabulary and not strip_content:
+            char_data = content + char_data
+
+        # Process the character map.
+        context['char_map'] = None
+        if publish_vocabulary:
+            context['char_map'] = unihan_map(char_data, False)
 
         # Refs file to list of links, one per line.
         context['ref_links'] = []
-        refs_file = os.path.join(entry_base, 'refs.html')
+        refs_file = os.path.join(entry_dir, 'refs.html')
         if os.path.isfile(refs_file):
             with open(refs_file) as refs_fd:
                 for ref in refs_fd.readlines():

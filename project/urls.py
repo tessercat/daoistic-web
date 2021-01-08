@@ -15,6 +15,6 @@ urlpatterns = [
     # path('', include('django_prometheus.urls')),
     path('', include('blog.urls')),
     path('', include('common.urls')),
-    path('unihan/', include('unihan.urls')),
+    path('unihan', include('unihan.urls')),
     path('admin/', admin.site.urls),
 ]

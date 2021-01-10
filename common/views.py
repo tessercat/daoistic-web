@@ -85,7 +85,7 @@ def custom404(request, exception):
 
 class AboutView(TemplateView):
     """ About Daoistic view. """
-    template_name = 'blog/about.html'
+    template_name = 'common/about.html'
 
     def get_context_data(self, **kwargs):
         """ Insert data into template context. """

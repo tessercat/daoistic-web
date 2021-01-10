@@ -37,6 +37,13 @@ SERVER_EMAIL = SETTINGS['SERVER_EMAIL']
 TIME_ZONE = SETTINGS['TIME_ZONE']
 
 
+# Default custom settings
+
+CSS_FILE = None
+
+UNIHAN_SCRIPT = None
+
+
 # Other custom settings
 
 CSRF_FAILURE_VIEW = 'common.views.custom403'

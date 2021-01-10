@@ -16,6 +16,10 @@ from common.decorators import cache_public
 
 def css_file():
     """ Return the name of the hashed css file. """
+    if settings.CSS_FILE:
+        import logging
+        logging.getLogger('django.server').info(settings.CSS_FILE)
+        return settings.CSS_FILE
     pattern = 'daoistic.?????.css'
     app_dir = os.path.join(
         settings.BASE_DIR,
@@ -23,12 +27,15 @@ def css_file():
     )
     for filename in os.listdir(app_dir):
         if fnmatch(filename, pattern):
+            settings.CSS_FILE = filename
             return filename
     return None
 
 
 def unihan_script():
     """ Return the name of the hashed script file. """
+    if settings.UNIHAN_SCRIPT:
+        return settings.UNIHAN_SCRIPT
     pattern = 'daoistic.?????.js'
     app_dir = os.path.join(
         settings.BASE_DIR,
@@ -36,6 +43,7 @@ def unihan_script():
     )
     for filename in os.listdir(app_dir):
         if fnmatch(filename, pattern):
+            settings.UNIHAN_SCRIPT = filename
             return filename
     return None
 

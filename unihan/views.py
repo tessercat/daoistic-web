@@ -2,7 +2,7 @@
 import string
 from django import forms
 from django.views.generic.edit import FormView
-from common.views import css_file
+from common.views import css_file, unihan_script
 from unihan.models import UnihanCharacter
 
 
@@ -54,6 +54,7 @@ class UnihanFormView(FormView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Unihan lookup'
         context['css_file'] = css_file()
+        context['unihan_script'] = unihan_script()
         if context['form'].is_valid():
             context['form_data'] = context['form'].cleaned_data['field']
             if self.request.user.is_authenticated:

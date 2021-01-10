@@ -27,6 +27,19 @@ def css_file():
     return None
 
 
+def unihan_script():
+    """ Return the name of the hashed script file. """
+    pattern = 'daoistic.?????.js'
+    app_dir = os.path.join(
+        settings.BASE_DIR,
+        'common', 'static', 'common', 'js'
+    )
+    for filename in os.listdir(app_dir):
+        if fnmatch(filename, pattern):
+            return filename
+    return None
+
+
 @method_decorator(cache_public(60 * 15), name='dispatch')
 def custom400(request, exception):
     """ Custom 400. """

@@ -28,13 +28,14 @@
         </section>
         {% endif %}
         {% if char_map %}
-        <h2>Vocabulary</h2>
-        <section class="chars">
+        <h2 class="v-toggle">Vocabulary</h2>
+        <section class="chars v-toggle">
           {% for object in char_map.values %}
 {% include "unihan/char.html" with object=object %}
           {% endfor %}
         </section>
         {% endif %}
+        <section id="definition"></section>
       </article>
       <footer>
         <nav>
@@ -51,4 +52,5 @@
         </nav>
       </footer>
     </main>
+    <script defer src="{% static 'common/js/'|add:unihan_script %}"></script>
 {% endblock %}

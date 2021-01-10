@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.utils.formats import date_format
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
-from common.views import css_file
+from common.views import css_file, unihan_script
 from common.decorators import cache_public
 from unihan.views import is_candidate, unihan_map
 from blog.models import Entry
@@ -110,6 +110,7 @@ class EntryView(DetailView):
         obj = context['object']
         context['page_title'] = obj.title
         context['css_file'] = css_file()
+        context['unihan_script'] = unihan_script()
         entry_dir = os.path.join(
             settings.BASE_DIR, 'var', 'data', 'blog', obj.slug,
         )

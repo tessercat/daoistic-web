@@ -43,7 +43,7 @@ class UnihanForm(forms.Form):
 class UnihanFormView(FormView):
     """ Unihan lookup view. """
     form_class = UnihanForm
-    template_name = 'unihan/form.html'
+    template_name = 'unihan/lookup.html'
 
     def form_valid(self, form):
         """ Return the same form. Copied from form_invalid. """
@@ -58,10 +58,10 @@ class UnihanFormView(FormView):
         if context['form'].is_valid():
             context['form_data'] = context['form'].cleaned_data['field']
             if self.request.user.is_authenticated:
-                context['char_map'] = unihan_map(context['form_data'], False)
+                context['unihan_map'] = unihan_map(context['form_data'], False)
             else:
-                context['char_map'] = unihan_map(context['form_data'])
+                context['unihan_map'] = unihan_map(context['form_data'])
         else:
             context['form_data'] = ''
-            context['char_map'] = {}
+            context['unihan_map'] = {}
         return context

@@ -7,11 +7,20 @@
         <h1>Unihan lookup</h1>
       </header>
       <article class="lookup">
+        <section class="intro">
+          <p>
+          Submit text containing CJK characters and explore.
+          The form limits the number of unique lookups per request to 100.
+          Vocabulary data is derived from the
+          <a href="https://www.unicode.org/reports/tr38/" title="tr38">Unicode Han Database</a>
+          (Unihan).
+          </p>
+        </section>
         <section id="definition"></section>
         {% if form_data or form.errors %}
         <section class="output">
           {% if form_data %}
-{{ form_data|linkify:char_map|linebreaksbr }}
+{{ form_data|linkify:unihan_map|linebreaksbr }}
           {% elif form.errors %}
           {{ form.errors.field }}
           {% endif %}
@@ -24,11 +33,11 @@
             <input type="submit" value="Submit">
           </form>
         </section>
-        {% if char_map %}
+        {% if unihan_map %}
         <h2 class="v-toggle">Vocabulary</h2>
-        <section class="chars v-toggle">
-          {% for object in char_map.values %}
-{% include "unihan/char.html" with object=object %}
+        <section class="vocab v-toggle">
+          {% for object in unihan_map.values %}
+{% include "unihan/unihan.html" with object=object %}
           {% endfor %}
         </section>
         {% endif %}

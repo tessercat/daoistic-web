@@ -157,9 +157,9 @@ class EntryView(DetailView):
             char_data = content + char_data
 
         # Process the character map.
-        context['char_map'] = None
+        context['unihan_map'] = None
         if publish_vocabulary:
-            context['char_map'] = unihan_map(char_data, False)
+            context['unihan_map'] = unihan_map(char_data, False)
 
         # Refs file to list of links, one per line.
         context['ref_links'] = []

@@ -15,7 +15,7 @@
       <article class="entry">
         <h1>{{ object.title }}</h1>
         <section class="content">
-{{ content|linkify:char_map }}
+{{ content|linkify:unihan_map }}
         </section>
         <section class="copyright">
           © {{ object.first_published.year }} Peter Christensen, CC BY-NC-SA 4.0.
@@ -24,14 +24,14 @@
         {% if notes %}
         <h2>Notes</h2>
         <section class="notes">
-{{ notes|linkify:char_map }}
+{{ notes|linkify:unihan_map }}
         </section>
         {% endif %}
-        {% if char_map %}
+        {% if unihan_map %}
         <h2 class="v-toggle">Vocabulary</h2>
-        <section class="chars v-toggle">
-          {% for object in char_map.values %}
-{% include "unihan/char.html" with object=object %}
+        <section class="vocab v-toggle">
+          {% for object in unihan_map.values %}
+{% include "unihan/unihan.html" with object=object %}
           {% endfor %}
         </section>
         {% endif %}
@@ -52,5 +52,7 @@
         </nav>
       </footer>
     </main>
+    {% if unihan_map %}
     <script defer src="{% static 'common/js/'|add:unihan_script %}"></script>
+    {% endif %}
 {% endblock %}

@@ -9,18 +9,18 @@ register = template.Library()
 
 @register.filter
 @stringfilter
-def linkify(value, char_map):
+def linkify(value, unihan_map):
     """ Convert unihan characters to links. """
     link = '<a class="unihan" href="#%s" title="%s - %s">%s</a>'
     converted = []
-    if char_map:
+    if unihan_map:
         for char in value:
-            if char in char_map:
+            if char in unihan_map:
                 converted.append(link % (
-                    char_map[char].utf8,
-                    char_map[char].mandarin,
-                    char_map[char].definition,
-                    char_map[char].utf8
+                    unihan_map[char].utf8,
+                    unihan_map[char].mandarin,
+                    unihan_map[char].definition,
+                    unihan_map[char].utf8
                 ))
             else:
                 converted.append(char)

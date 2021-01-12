@@ -64,7 +64,7 @@ function addVocabListeners() {
   document.querySelectorAll('.unihan').forEach((link) => {
     link.addEventListener('click', (event) => {
       showPanel(event, panel);
-      return false;
+      event.preventDefault();
     });
   });
 

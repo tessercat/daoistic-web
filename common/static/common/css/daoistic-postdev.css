@@ -547,8 +547,18 @@ article.card section.image a:hover, article.card section.image a:active, article
   border-bottom: 0;
 }
 
-article.card section.details a {
+article.card section.details a.plain {
   font-size: 1.1rem;
+}
+
+article.card section.details a.study {
+  margin-left: 0.3rem;
+  color: transparent;
+}
+
+article.card section.details a.study:hover, article.card section.details a.study:active, article.card section.details a.study:focus {
+  color: white;
+  border-bottom: 0;
 }
 
 article.card section.details p.date {
@@ -564,7 +574,7 @@ article.card section.details p.date {
   article.card section.figure img {
     border-radius: 10px;
   }
-  article.card section.details a {
+  article.card section.details a.plain {
     font-size: 1.4rem;
   }
   article.card section.details p.date {

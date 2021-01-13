@@ -8,7 +8,8 @@
           </a>
         </section>
         <section class="details">
-          <a href="{% url 'entry' object.slug %}" title="Read {{ object.title }}">{{ object.title }}</a>
+          <a class="plain" href="{% url 'entry' object.slug %}" title="Read {{ object.title.strip }}">{{ object.title }}</a>
+          <a class="study" href="{% url 'study' object.slug %}" title="Read {{ object.title.strip }} with notes and vocabulary">文</a>
           <p class="date">
           {{ object.card_date }}
           </p>

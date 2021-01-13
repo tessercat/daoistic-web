@@ -20,7 +20,7 @@
         {% if form_data or form.errors %}
         <section class="output">
           {% if form_data %}
-{{ form_data|linkify:unihan_map|linebreaksbr }}
+          {{ form_data|escape|linkify:unihan_map|linebreaksbr }}
           {% elif form.errors %}
           {{ form.errors.field }}
           {% endif %}

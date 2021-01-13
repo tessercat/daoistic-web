@@ -9,7 +9,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
 from common.views import css_file, unihan_script
 from common.decorators import cache_public
-from unihan.views import is_candidate, unihan_map
+from unihan.views import is_unihan, unihan_map
 from blog.models import Entry
 
 
@@ -148,7 +148,7 @@ class EntryView(DetailView):
         lines = []
         with open(content_file) as content_fd:
             for line in content_fd.readlines():
-                if strip_content and is_candidate(line[0]):
+                if strip_content and is_unihan(line[0]):
                     continue
                 lines.append(line)
         content = ''.join(lines[2:])  # Remove title lines.

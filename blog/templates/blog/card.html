@@ -1,18 +1,20 @@
 {% load static %}
       <article class="card">
         <section class="figure">
-          <a href="{% url 'entry' object.slug %}" title="Read {{ object.title }}">
+          <a href="{% url 'entry' object.slug %}" title="Read {{ object.title.strip }}">
             <figure>
               <img src="{% static 'blog/img/'|add:object.card_img %}" alt="{{ object.card_img }}">
             </figure>
           </a>
         </section>
         <section class="details">
-          <a class="plain" href="{% url 'entry' object.slug %}" title="Read {{ object.title.strip }}">{{ object.title }}</a>
+          <a class="plain" href="{% url 'entry' object.slug %}" title="Read {{ object.title.strip }}">{{ object.title.strip }}</a>
+          {% if not object.allow_hanzi %}
           <a class="study" href="{% url 'study' object.slug %}" title="Read {{ object.title.strip }} with notes and vocabulary">文</a>
+          {% endif %}
           <p class="date">
           {{ object.card_date }}
           </p>
-          <p class="lede">{{ object.lede }}</p>
+          <p class="lede">{{ object.lede.strip }}</p>
         </section>
       </article>

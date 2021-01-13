@@ -13,7 +13,7 @@
         </figure>
       </header>
       <article class="entry">
-        <h1>{{ object.title }}</h1>
+        <h1>{{ object.title.strip }}</h1>
         <section class="content">
 {{ content|linkify:unihan_map }}
         </section>
@@ -43,9 +43,9 @@
             {% for link in ref_links %}<li>{{ link|safe }}</li>
             {% endfor %}
             {% if link == 'plain' %}
-            <li><a title="Without vocabulary or notes" href="{% url 'entry' object.slug %}">Plain</a></li>
+            <li><a title="Without notes or vocabulary" href="{% url 'entry' object.slug %}">Plain</a></li>
             {% elif link == 'study' %}
-            <li><a title="With vocabulary and notes" href="{% url 'study' object.slug %}">Study</a></li>
+            <li><a title="With notes and vocabulary" href="{% url 'study' object.slug %}">Study</a></li>
             {% endif %}
             <li><a href="/" title="Daoistic home">Home</a></li>
           </ul>

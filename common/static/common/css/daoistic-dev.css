@@ -369,11 +369,7 @@ p {
   margin: 0 0 1.5rem 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+h1, h2, h3, h4, h5 {
   margin: 1.5rem 0;
   font-weight: 600;
   font-family: sans-serif;
@@ -381,11 +377,7 @@ h5 {
   color: #ffd479;
 }
 
-h1:not(:first-child),
-h2:not(:first-child),
-h3:not(:first-child),
-h4:not(:first-child),
-h5:not(:first-child) {
+h1:not(:first-child), h2:not(:first-child), h3:not(:first-child), h4:not(:first-child), h5:not(:first-child) {
   margin: 1.5rem 0;
 }
 
@@ -503,6 +495,10 @@ a.unihan {
 
 a.unihan:hover, a.unihan:active, a.unihan:focus {
   border-bottom: inherit;
+}
+
+a.unihan.highlight {
+  background-color: rgba(106, 176, 243, 0.6);
 }
 
 /* Daoistic Unihan character card */

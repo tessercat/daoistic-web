@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block content %}
-    <main>
-      <header class="entry-header">
+    <main class="entry">
+      <header>
         <figure>
           <img src="{% static 'blog/img/'|add:header_img %}" alt="{{ header_img }}">
         </figure>
       </header>
-      <article class="entry">
+      <article>
         <h1>{{ object.title.strip }}</h1>
         <section class="content">
 {{ content|linkify:unihan_map }}
@@ -28,10 +28,10 @@
         </section>
         {% endif %}
         {% if unihan_map %}
-        <h2 class="v-toggle">Vocabulary</h2>
-        <section class="vocab v-toggle">
+        <h2 class="js-hidden">Vocabulary</h2>
+        <section class="js-hidden">
           {% for object in unihan_map.values %}
-{% include "unihan/unihan.html" with object=object %}
+{% include "unihan/character.html" with object=object %}
           {% endfor %}
         </section>
         {% endif %}

@@ -454,27 +454,27 @@ a:hover, a:active, a:focus {
 }
 
 /* Daoistic main */
+main.padded {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 main {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
 
-main.padded {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 main p.error {
   margin-top: 3rem;
-  font-size: 1.1rem;
+  font-size: larger;
   text-align: center;
 }
 
 main footer {
   margin-top: 3rem;
   margin-bottom: 4rem;
-  font-size: 0.9rem;
+  font-size: smaller;
   text-align: center;
 }
 
@@ -491,137 +491,57 @@ main footer ul {
   padding: inherit;
 }
 
-main footer ul li {
+main footer li {
   margin-bottom: 1rem;
 }
 
-@media (min-width: 600px) {
-  main p.error {
-    font-size: 1.4rem;
-  }
-  main footer {
-    font-size: 1rem;
-  }
+/* Daoistic Unihan character link */
+a.unihan {
+  font-weight: inherit;
+  color: inherit;
 }
 
-/* Daoistic list of cards */
-main.cards {
-  line-height: normal;
+a.unihan:hover, a.unihan:active, a.unihan:focus {
+  border-bottom: inherit;
 }
 
-main.cards header {
-  padding: 2rem 0;
-  border-bottom: 4px solid #2d2d31;
-}
-
-main.cards header h1 {
-  margin: initial;
-}
-
-main.cards header section.subtitle {
-  font-style: italic;
-}
-
-/* Daoistic blog entry card */
-article.card {
+/* Daoistic Unihan character card */
+article.character {
   display: flex;
-  padding: 2rem 0;
+  padding: 0.5rem 1rem 0.5rem;
   border-bottom: 4px solid #2d2d31;
 }
 
-article.card section.figure figure {
-  height: 50px;
-  width: 50px;
-  margin-top: 0.2rem;
-  margin-right: 1rem;
+article.character section.utf8 {
+  padding-right: 1rem;
+  font-size: x-large;
 }
 
-article.card section.figure img {
-  max-width: 100%;
-  border-radius: 5px;
+article.character section.refs {
+  text-align: center;
+  padding-right: 1rem;
 }
 
-article.card section.image a:hover, article.card section.image a:active, article.card section.image a:focus {
-  border-bottom: 0;
+article.character div.kangxi {
+  font-size: small;
+  white-space: nowrap;
 }
 
-article.card section.details a.plain {
-  font-size: 1.1rem;
+article.character div.links ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: inherit;
+  margin: 0;
 }
 
-article.card section.details a.study {
-  font-size: smaller;
-  margin-left: 0.3rem;
-  color: transparent;
+article.character div.links li {
+  padding: 0;
+  display: inline-block;
 }
 
-article.card section.details a.study:hover, article.card section.details a.study:active, article.card section.details a.study:focus {
-  color: white;
-  border-bottom: 0;
-}
-
-article.card section.details p.date {
-  font-size: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-@media (min-width: 600px) {
-  article.card section.figure figure {
-    height: 100px;
-    width: 100px;
-  }
-  article.card section.figure img {
-    border-radius: 10px;
-  }
-  article.card section.details a.plain {
-    font-size: 1.4rem;
-  }
-  article.card section.details p.date {
-    font-size: 0.9rem;
-    padding-top: 0.3rem;
-  }
-}
-
-/* Daoistic entry header image */
-header.entry-header figure {
-  height: 0;
-  overflow: hidden;
-  padding-bottom: 33.333%;
-  position: relative;
-}
-
-header.entry-header figure img {
-  width: 100%;
-  height: auto;
-}
-
-/* Daoistic entry */
-article.entry {
-  max-width: 100%;
-  padding: 0 1rem;
-}
-
-article.entry section.content p {
-  font-size: 1.1rem;
-  font-family: serif;
-}
-
-article.entry section.copyright {
-  font-size: 0.8rem;
-}
-
-@media (min-width: 600px) {
-  article.entry section.content p {
-    font-size: 1.35rem;
-  }
-  article.entry section.copyright {
-    font-size: 0.9rem;
-  }
-}
-
-/* Daoistic definition */
+/* Daoistic character definition popup */
 #definition {
-  padding: 0.5rem 1rem 0.5rem;
   border: 4px solid #ced4da;
   border-radius: 20px;
   background-color: black;
@@ -633,6 +553,10 @@ article.entry section.copyright {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
+}
+
+#definition article.character {
+  border-bottom: none;
 }
 
 #definition.show {
@@ -653,29 +577,133 @@ article.entry section.copyright {
   }
 }
 
+/* Daoistic entry */
+main.entry figure {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 33.333%;
+  position: relative;
+}
+
+main.entry img {
+  width: 100%;
+  height: auto;
+}
+
+main.entry > article {
+  max-width: 100%;
+  padding: 0 1rem;
+}
+
+main.entry > article section.content {
+  font-size: 1.1rem;
+  font-family: serif;
+}
+
+main.entry > article section.copyright {
+  font-size: smaller;
+}
+
+@media (min-width: 600px) {
+  main.entry > article section.content {
+    font-size: 1.35rem;
+  }
+}
+
+/* Daoistic list of cards */
+main.cards {
+  line-height: normal;
+}
+
+main.cards header {
+  padding: 2rem 0;
+  border-bottom: 4px solid #2d2d31;
+}
+
+main.cards h1 {
+  margin: initial;
+}
+
+main.cards section.subtitle {
+  font-style: italic;
+}
+
+/* Daoistic blog entry card */
+article.card {
+  display: flex;
+  padding-top: 1rem;
+  border-bottom: 4px solid #2d2d31;
+}
+
+article.card figure {
+  height: 50px;
+  width: 50px;
+  margin-top: 0.2rem;
+  margin-right: 1rem;
+}
+
+article.card figure img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+article.card figure img a:hover, article.card figure img a:active, article.card figure img a:focus {
+  border-bottom: 0;
+}
+
+article.card a.plain {
+  font-size: larger;
+}
+
+article.card a.study {
+  font-size: smaller;
+  margin-left: 0.3rem;
+  color: transparent;
+}
+
+article.card a.study:hover, article.card a.study:active, article.card a.study:focus {
+  color: white;
+  border-bottom: 0;
+}
+
+article.card p.date {
+  font-size: smaller;
+  padding-top: 0.3rem;
+}
+
+@media (min-width: 600px) {
+  article.card figure {
+    height: 100px;
+    width: 100px;
+  }
+  article.card figure img {
+    border-radius: 10px;
+  }
+}
+
 /* Daoistic lookup form */
-article.lookup section.intro {
+main.lookup section.intro {
   margin-bottom: 1.5rem;
   border-bottom: 4px solid #2d2d31;
 }
 
-article.lookup section.output {
+main.lookup section.output {
   font-size: x-large;
   padding-bottom: 1.5rem;
 }
 
-article.lookup section.form form {
+main.lookup form {
   display: grid;
 }
 
-article.lookup section.form form textarea {
+main.lookup form textarea {
   resize: none;
   border-radius: 5px;
   color: #ced4da;
   background-color: #2d2d31;
 }
 
-article.lookup section.form form input {
+main.lookup form input {
   margin-top: 0.5rem;
   width: max-content;
   padding: .4rem .7rem;
@@ -685,54 +713,6 @@ article.lookup section.form form input {
   color: #ced4da;
 }
 
-article.lookup section.form form input:hover {
+main.lookup form input:hover {
   filter: brightness(0.6);
-}
-
-/* Daoistic Unihan character */
-a.unihan {
-  font-weight: inherit;
-  color: inherit;
-}
-
-a.unihan:hover, a.unihan:active, a.unihan:focus {
-  border-bottom: inherit;
-}
-
-section.vocab > article.unihan {
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 4px solid #2d2d31;
-}
-
-article.unihan {
-  display: flex;
-}
-
-article.unihan section.utf8 {
-  padding-right: 1rem;
-  font-size: x-large;
-}
-
-article.unihan section.refs {
-  text-align: center;
-  padding-right: 1rem;
-}
-
-article.unihan section.refs div.kangxi {
-  font-size: small;
-  white-space: nowrap;
-}
-
-article.unihan section.refs div.links ul {
-  display: flex;
-  justify-content: space-around;
-  list-style: none;
-  padding: inherit;
-  margin: 0;
-}
-
-article.unihan section.refs div.links ul li {
-  padding: 0;
-  display: inline-block;
 }

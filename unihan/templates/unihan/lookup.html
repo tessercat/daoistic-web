@@ -2,19 +2,19 @@
 {% load static unihan %}
 
     {% block content %}
-    <main class="padded">
+    <main class="padded lookup">
       <header>
         <h1>Unihan lookup</h1>
       </header>
-      <article class="lookup">
+      <article>
         <section class="intro">
           <p>
-          Submit text containing CJK characters and explore.
-          The form limits the number of unique lookups per request to 100.
-          Vocabulary data is derived from the
-          <a href="https://www.unicode.org/reports/tr38/" title="tr38">Unicode Han Database</a>
-          (Unihan).
-          </p>
+Submit text containing CJK characters and explore.
+The form limits the number of unique lookups per request to 100.
+Vocabulary data is derived from the
+<a href="https://www.unicode.org/reports/tr38/" title="tr38">Unicode Han Database</a>
+(Unihan).
+         </p>
         </section>
         <section id="definition"></section>
         {% if form_data or form.errors %}
@@ -26,7 +26,7 @@
           {% endif %}
         </section>
         {% endif %}
-        <section class="form">
+        <section>
           <form action="" method="POST">
             {% csrf_token %}
 {{ form.field }}
@@ -34,10 +34,10 @@
           </form>
         </section>
         {% if unihan_map %}
-        <h2 class="v-toggle">Vocabulary</h2>
-        <section class="vocab v-toggle">
+        <h2 class="js-hidden">Vocabulary</h2>
+        <section class="js-hidden">
           {% for object in unihan_map.values %}
-{% include "unihan/unihan.html" with object=object %}
+{% include "unihan/character.html" with object=object %}
           {% endfor %}
         </section>
         {% endif %}

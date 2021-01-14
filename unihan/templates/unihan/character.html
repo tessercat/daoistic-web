@@ -1,7 +1,7 @@
-      <article class="unihan" id="{{ object.utf8}}">
+      <article class="character" id="{{ object.utf8}}">
         <section class="utf8">{{ object.utf8 }}</section>
         <section class="refs">
-          <div class="mandarin">{{ object.mandarin }}</div>
+          <div>{{ object.mandarin }}</div>
           <div class="kangxi">{{ object.radical.utf8 }} {{ object.radical.radical_number }} + {{ object.residual_strokes }}</div>
           <div class="links">
             <ul>
@@ -10,7 +10,7 @@
             </ul>
           </div>
         </section>
-        <section class="definition">
+        <section>
           {{ object.definition }}
         </section>
       </article>

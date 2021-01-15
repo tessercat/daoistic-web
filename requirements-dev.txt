@@ -32,7 +32,9 @@ cryptography==3.3.1
     #   service-identity
 daphne==3.0.1
     # via -r requirements-dev.in
-django==3.1.4
+django-prometheus==2.1.0
+    # via -r requirements-dev.in
+django==3.1.5
     # via -r requirements-dev.in
 flake8==3.8.4
     # via -r requirements-dev.in
@@ -42,16 +44,16 @@ httpcore==0.12.2
     # via httpx
 httpx==0.16.1
     # via -r requirements-dev.in
-hyperlink==20.0.1
+hyperlink==21.0.0
     # via
     #   autobahn
     #   twisted
-idna==3.0
+idna==3.1
     # via
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==3.3.0
+importlib-metadata==3.4.0
     # via
     #   flake8
     #   markdown
@@ -67,6 +69,8 @@ mccabe==0.6.1
     # via
     #   flake8
     #   pylint
+prometheus-client==0.9.0
+    # via django-prometheus
 pyasn1-modules==0.2.8
     # via service-identity
 pyasn1==0.4.8
@@ -81,7 +85,7 @@ pyflakes==2.2.0
     # via flake8
 pyhamcrest==2.0.2
     # via twisted
-pylint-django==2.3.0
+pylint-django==2.4.2
     # via -r requirements-dev.in
 pylint-plugin-utils==0.6
     # via pylint-django

@@ -12,7 +12,7 @@ handler400 = custom400
 handler404 = custom404
 
 urlpatterns = [
-    # path('', include('django_prometheus.urls')),
+    path('', include('django_prometheus.urls')),
     path('', include('blog.urls')),
     path('', include('common.urls')),
     path('unihan', include('unihan.urls')),

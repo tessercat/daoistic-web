@@ -1,6 +1,7 @@
 Django
 daphne
 python-memcached
+django-prometheus
 httpx
 markdown
 sh

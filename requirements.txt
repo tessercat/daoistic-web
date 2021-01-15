@@ -30,7 +30,9 @@ cryptography==3.3.1
     #   service-identity
 daphne==3.0.1
     # via -r requirements.in
-django==3.1.4
+django-prometheus==2.1.0
+    # via -r requirements.in
+django==3.1.5
     # via -r requirements.in
 h11==0.12.0
     # via httpcore
@@ -38,21 +40,23 @@ httpcore==0.12.2
     # via httpx
 httpx==0.16.1
     # via -r requirements.in
-hyperlink==20.0.1
+hyperlink==21.0.0
     # via
     #   autobahn
     #   twisted
-idna==3.0
+idna==3.1
     # via
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==3.3.0
+importlib-metadata==3.4.0
     # via markdown
 incremental==17.5.0
     # via twisted
 markdown==3.3.3
     # via -r requirements.in
+prometheus-client==0.9.0
+    # via django-prometheus
 pyasn1-modules==0.2.8
     # via service-identity
 pyasn1==0.4.8

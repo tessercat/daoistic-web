@@ -5,8 +5,12 @@
           <div class="kangxi">{{ object.radical.utf8 }} {{ object.radical.radical_number }} + {{ object.residual_strokes }}</div>
           <div class="links">
             <ul>
-              <li><a href="https://ctext.org/pre-qin-and-han?searchu={{ object.utf8 }}" title="Search ctext" target="_blank" rel="noopener noreferrer nofollow">C</a></li>
-              <li><a href="https://en.wiktionary.org/wiki/{{ object.utf8 }}" title="Search Wiktionary" target="_blank" rel="noopener noreferrer nofollow">W</a></li>
+              {% if object.ctext_target == 'dictionary' %}
+              <li><a href="https://ctext.org/dictionary.pl?char={{ object.utf8 }}" title="ctext dictionary link" target="_blank" rel="noopener noreferrer nofollow">C</a></li>
+              {% elif object.ctext_target == 'search' %}
+              <li><a href="https://ctext.org/pre-qin-and-han?searchu={{ object.utf8 }}" title="ctext search link" target="_blank" rel="noopener noreferrer nofollow">C</a></li>
+              {% endif %}
+              <li><a href="https://en.wiktionary.org/wiki/{{ object.utf8 }}" title="Wiktionary search link" target="_blank" rel="noopener noreferrer nofollow">W</a></li>
             </ul>
           </div>
         </section>

@@ -29,13 +29,13 @@
         {% endif %}
         {% if unihan_map %}
         <h2 class="js-hidden">Vocabulary</h2>
+        <section id="definition"></section>
         <section class="js-hidden">
           {% for object in unihan_map.values %}
 {% include "unihan/character.html" with object=object %}
           {% endfor %}
         </section>
         {% endif %}
-        <section id="definition"></section>
       </article>
       <footer>
         <nav>

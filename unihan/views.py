@@ -55,7 +55,7 @@ def is_unihan(char):
     return False
 
 
-def unihan_map(text, max_lookups=100):
+def unihan_map(text, max_lookups=100, ctext_target='dictionary'):
     """ Return a map of unihan characters to db objects, possibly
     limiting the number of db lookups. """
     objects = {}
@@ -70,6 +70,7 @@ def unihan_map(text, max_lookups=100):
             try:
                 lookups += 1
                 objects[char] = UnihanCharacter.objects.get(pk=ord(char))
+                objects[char].ctext_target = ctext_target
             except UnihanCharacter.DoesNotExist:
                 lookup_failures.append(char)
     # logging.getLogger('django.server').info(lookups)
@@ -101,7 +102,9 @@ class UnihanFormView(FormView):
         if context['form'].is_valid():
             context['form_data'] = context['form'].cleaned_data['field']
             if self.request.user.is_authenticated:
-                context['unihan_map'] = unihan_map(context['form_data'], False)
+                context['unihan_map'] = unihan_map(
+                    context['form_data'], False, 'search'
+                )
             else:
                 context['unihan_map'] = unihan_map(context['form_data'])
         else:

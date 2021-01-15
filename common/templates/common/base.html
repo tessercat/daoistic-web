@@ -5,9 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page_title.strip }}</title>
+    {% include "common/icon.html" %}
     {% block open_graph %}{% endblock %}
-    <link rel="icon" type="image/png" href="{% static 'common/img/favicon.png' %}"/>
-    <link rel="apple-touch-icon" href="{% static 'common/img/touch-icon-152.png' %}">
     <link rel="stylesheet" href="{% static 'common/css/'|add:css_file %}">
   </head>
   <body>

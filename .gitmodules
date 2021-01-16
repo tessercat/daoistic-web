@@ -1,4 +1,0 @@
-[submodule "firewall"]
-	path = firewall
-	url = https://github.com/tessercat/firewall-app
-	branch = stable

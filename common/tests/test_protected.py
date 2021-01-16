@@ -1,10 +1,10 @@
-""" Metrics endpoint test module. """
+""" Protected paths test module. """
 from django.conf import settings
 from common.tests.base import BaseTestCase
 
 
-class MetricsTestCase(BaseTestCase):
-    """ Verify metrics responses. """
+class ProtectedPathsTestCase(BaseTestCase):
+    """ Verify protected path responses. """
 
     def test_metrics_fqdnhost(self):
         """ Assert GET metrics endpoint from not-localhost returns 404. """

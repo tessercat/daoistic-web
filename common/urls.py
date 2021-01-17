@@ -8,7 +8,7 @@ from unihan.sitemaps import UnihanSitemap
 
 
 urlpatterns = [
-    path('about', views.AboutView.as_view(), name='about'),
+    path('about', views.AboutView.as_view(), name='common_about'),
     path(
         'sitemap.xml',
         sitemap,

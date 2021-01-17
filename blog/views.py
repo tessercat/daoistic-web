@@ -44,7 +44,7 @@ class BlogView(ListView):
 
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
-class ArchiveIndexView(ListView):
+class ArchiveView(ListView):
     """ Chronological view of archive dirs and unarchived entries. """
     model = Entry
     template_name = 'blog/archive_index.html'
@@ -76,7 +76,7 @@ class ArchiveIndexView(ListView):
 
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
-class ArchiveView(TemplateView):
+class ArchiveDirectoryView(TemplateView):
     """ Chronological view of an archive dir's entries. """
     template_name = 'blog/archive.html'
 
@@ -125,7 +125,7 @@ class EntryView(DetailView):
             strip_content = False
             context['link'] = None
             publish_vocabulary = True
-        if self.request.resolver_match.url_name == 'study':
+        if self.request.resolver_match.url_name == 'blog_study':
             if obj.allow_hanzi:
                 raise Http404()
             strip_content = False

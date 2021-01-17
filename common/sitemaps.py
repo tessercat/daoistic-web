@@ -13,4 +13,4 @@ class CommonSitemap(Sitemap):
 
     def location(self, obj):
         """ Return entry location. """
-        return reverse('about')
+        return reverse('common_about')

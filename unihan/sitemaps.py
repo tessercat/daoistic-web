@@ -13,4 +13,4 @@ class UnihanSitemap(Sitemap):
 
     def location(self, obj):
         """ Return entry location. """
-        return reverse('lookup')
+        return reverse('unihan_lookup')

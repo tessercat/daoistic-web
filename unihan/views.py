@@ -2,8 +2,8 @@
 import logging
 import string
 from django import forms
+from django.conf import settings
 from django.views.generic.edit import FormView
-from common.views import css_file, unihan_script
 from unihan.models import UnihanCharacter
 
 
@@ -97,8 +97,8 @@ class UnihanFormView(FormView):
         """ Insert template context data. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Unihan lookup'
-        context['css_file'] = css_file()
-        context['unihan_script'] = unihan_script()
+        context['common_css'] = settings.COMMON_CSS
+        context['common_js'] = settings.COMMON_JS
         if context['form'].is_valid():
             context['form_data'] = context['form'].cleaned_data['field']
             if self.request.user.is_authenticated:

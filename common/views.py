@@ -1,5 +1,4 @@
 """ Common views module. """
-from fnmatch import fnmatch
 import os
 import markdown
 from django.conf import settings
@@ -9,46 +8,9 @@ from django.http import (
     HttpResponseNotFound,
 )
 from django.shortcuts import render
-from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
-from common.decorators import cache_public
 
 
-def css_file():
-    """ Return the name of the hashed css file. """
-    if settings.CSS_FILE:
-        import logging
-        logging.getLogger('django.server').info(settings.CSS_FILE)
-        return settings.CSS_FILE
-    pattern = 'daoistic.?????.css'
-    app_dir = os.path.join(
-        settings.BASE_DIR,
-        'common', 'static', 'common', 'css'
-    )
-    for filename in os.listdir(app_dir):
-        if fnmatch(filename, pattern):
-            settings.CSS_FILE = filename
-            return filename
-    return None
-
-
-def unihan_script():
-    """ Return the name of the hashed script file. """
-    if settings.UNIHAN_SCRIPT:
-        return settings.UNIHAN_SCRIPT
-    pattern = 'daoistic.?????.js'
-    app_dir = os.path.join(
-        settings.BASE_DIR,
-        'common', 'static', 'common', 'js'
-    )
-    for filename in os.listdir(app_dir):
-        if fnmatch(filename, pattern):
-            settings.UNIHAN_SCRIPT = filename
-            return filename
-    return None
-
-
-@method_decorator(cache_public(60 * 15), name='dispatch')
 def custom400(request, exception):
     """ Custom 400. """
     # pylint: disable=unused-argument
@@ -56,7 +18,7 @@ def custom400(request, exception):
         request,
         'common/error.html',
         {
-            'css_file': css_file(),
+            'common_css': settings.COMMON_CSS,
             'message': 'Bad Request',
             'page_title': '400 Bad Request',
         },
@@ -70,7 +32,7 @@ def custom403(request, reason=''):
         request,
         'common/error.html',
         {
-            'css_file': css_file(),
+            'common_css': settings.COMMON_CSS,
             'message': 'Forbidden',
             'page_title': '403 Forbidden',
         },
@@ -84,7 +46,7 @@ def custom404(request, exception):
         request,
         'common/error.html',
         {
-            'css_file': css_file(),
+            'common_css': settings.COMMON_CSS,
             'message': 'Not Found',
             'page_title': '404 Not Found',
         },
@@ -99,7 +61,7 @@ class AboutView(TemplateView):
         """ Insert data into template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'About Daoistic'
-        context['css_file'] = css_file()
+        context['common_css'] = settings.COMMON_CSS
         return context
 
     def about(self):

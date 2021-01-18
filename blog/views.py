@@ -7,7 +7,6 @@ from django.utils.decorators import method_decorator
 from django.utils.formats import date_format
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView
-from common.views import css_file, unihan_script
 from common.decorators import cache_public
 from unihan.views import is_unihan, unihan_map
 from blog.models import Entry
@@ -26,7 +25,7 @@ class BlogView(ListView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Daoistic'
-        context['css_file'] = css_file()
+        context['common_css'] = settings.COMMON_CSS
         return context
 
     def get_queryset(self):
@@ -54,7 +53,7 @@ class ArchiveView(ListView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Archive'
-        context['css_file'] = css_file()
+        context['common_css'] = settings.COMMON_CSS
         return context
 
     def get_queryset(self):
@@ -85,7 +84,7 @@ class ArchiveDirectoryView(TemplateView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'A Daoistic page of archived entries'
-        context['css_file'] = css_file()
+        context['common_css'] = settings.COMMON_CSS
         return context
 
 
@@ -109,8 +108,8 @@ class EntryView(DetailView):
         context = super().get_context_data(**kwargs)
         obj = context['object']
         context['page_title'] = obj.title
-        context['css_file'] = css_file()
-        context['unihan_script'] = unihan_script()
+        context['common_css'] = settings.COMMON_CSS
+        context['common_js'] = settings.COMMON_JS
         entry_dir = os.path.join(
             settings.BASE_DIR, 'var', 'data', 'blog', obj.slug,
         )

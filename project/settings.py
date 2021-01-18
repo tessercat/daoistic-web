@@ -2,6 +2,7 @@
 import ast
 import os
 import random
+from common.registries import common_protected_paths_registry
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -43,9 +44,11 @@ TIME_ZONE = SETTINGS['TIME_ZONE']
 
 # Default custom settings
 
-CSS_FILE = None
+COMMON_CSS = None
 
-UNIHAN_SCRIPT = None
+COMMON_JS = None
+
+COMMON_PROTECTED_PATHS = common_protected_paths_registry
 
 
 # Other custom settings
@@ -92,14 +95,14 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'common.middleware.ProtectedPathsMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'common.middleware.ProtectedPathsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'common.middleware.FirewallMiddleware',
+    'common.middleware.AdminKnockMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_prometheus.middleware.PrometheusAfterMiddleware',

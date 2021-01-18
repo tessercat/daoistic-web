@@ -4,8 +4,9 @@ from django.http import Http404
 from common import firewall
 
 
-class FirewallMiddleware:
-    """ Update admin address. Place after AuthenticationMiddleware. """
+class AdminKnockMiddleware:
+    """ Allow SSH access to request IP on admin login. Place after
+    AuthenticationMiddleware. """
     # pylint: disable=too-few-public-methods
 
     def __init__(self, get_response):
@@ -30,7 +31,8 @@ class FirewallMiddleware:
 
 
 class ProtectedPathsMiddleware:
-    """ Drop non-local requests for protected paths. """
+    """ Drop non-local requests for protected paths. Place first in the
+    middleware stack. """
     # pylint: disable=too-few-public-methods
 
     def __init__(self, get_response):
@@ -39,8 +41,13 @@ class ProtectedPathsMiddleware:
 
     def __call__(self, request):
         """ Return 404 for non-local requests to protected paths. """
-        if request.get_host() != 'localhost':
-            for path in settings.PROTECTED_PATHS:
-                if request.path_info.startswith(path):
-                    raise Http404
-        return self.get_response(request)
+        response = self.get_response(request)
+        if (
+                request.resolver_match
+                and hasattr(request.resolver_match, 'url_name')):
+            url_name = request.resolver_match.url_name
+            if (
+                    url_name in settings.COMMON_PROTECTED_PATHS.registry
+                    and request.get_host() != 'localhost'):
+                raise Http404
+        return response

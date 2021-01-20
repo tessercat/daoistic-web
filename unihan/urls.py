@@ -4,5 +4,5 @@ from unihan import views
 
 
 urlpatterns = [
-    path('', views.UnihanFormView.as_view(), name='unihan_lookup'),
+    path('', views.UnihanFormView.as_view(), name='unihan-lookup'),
 ]

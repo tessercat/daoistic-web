@@ -3,6 +3,24 @@ from datetime import date
 from django.db import models
 
 
+class Archive(models.Model):
+    """ An archive of blog entries. """
+    slug = models.SlugField(
+        max_length=15,
+        unique=True,
+    )
+    title = models.CharField(
+        max_length=30,
+    )
+    subtitle = models.CharField(
+        max_length=100,
+    )
+    # Archive.objects.entry_set.all()
+
+    def __str__(self):
+        return self.title
+
+
 class Entry(models.Model):
     """ A blog entry. """
 
@@ -12,6 +30,11 @@ class Entry(models.Model):
 
     allow_hanzi = models.BooleanField(
         default=False,
+    )
+    archive = models.ForeignKey(
+        'Archive',
+        null=True,
+        on_delete=models.SET_NULL
     )
     first_published = models.DateField(
         default=date.today,

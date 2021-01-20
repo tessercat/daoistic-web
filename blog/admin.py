@@ -1,6 +1,23 @@
 """ Daoistic app admin module. """
 from django.contrib import admin
-from blog.models import Entry
+from blog.models import Archive, Entry
+
+
+@admin.register(Archive)
+class ArchiveAdmin(admin.ModelAdmin):
+    """ Archive admin tweaks. """
+
+    fields = (
+        'title',
+        'subtitle',
+        'slug',
+    )
+    list_display = (
+        'title',
+        'subtitle',
+        'slug',
+    )
+    ordering = ('slug',)
 
 
 @admin.register(Entry)
@@ -9,6 +26,7 @@ class EntryAdmin(admin.ModelAdmin):
 
     fields = (
         'title',
+        'archive',
         'lede',
         'first_published',
         'last_update',
@@ -18,6 +36,7 @@ class EntryAdmin(admin.ModelAdmin):
     )
     list_display = (
         'title',
+        'archive',
         'first_published',
         'last_update',
         'slug',

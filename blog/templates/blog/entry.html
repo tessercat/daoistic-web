@@ -2,7 +2,7 @@
 {% load static unihan %}
 
 {% block open_graph %}
-{% include "blog/open_graph.html" %}
+{% include "blog/open-graph.html" %}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
         </figure>
       </header>
       <article>
-        <h1>{{ object.title.strip }}</h1>
+        <h1>{{ object.title }}</h1>
         <section class="content">
 {{ content|linkify:unihan_map }}
         </section>
@@ -40,12 +40,16 @@
       <footer>
         <nav>
           <ul>
-            {% for link in ref_links %}<li>{{ link|safe }}</li>
+            {% for link in ref_links %}
+            <li>{{ link|safe }}</li>
             {% endfor %}
-            {% if link == 'plain' %}
-            <li><a title="Without notes or vocabulary" href="{% url 'blog_entry' object.slug %}">Plain</a></li>
-            {% elif link == 'study' %}
-            <li><a title="With notes and vocabulary" href="{% url 'blog_study' object.slug %}">Study</a></li>
+            {% if plain_link %}
+            <li><a title="Without notes or vocabulary" href="{% url 'blog-entry-plain' object.slug %}">Plain</a></li>
+            {% elif study_link %}
+            <li><a title="With notes and vocabulary" href="{% url 'blog-entry-study' object.slug %}">Study</a></li>
+            {% endif %}
+            {% if object.archive %}
+            <li><a title="{{ object.archive.subtitle }}" href="{% url 'blog-archive-list' object.archive.slug %}">{{ object.archive.title }}</a></li>
             {% endif %}
             <li><a href="/" title="Daoistic home">Home</a></li>
           </ul>

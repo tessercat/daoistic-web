@@ -3,11 +3,14 @@
 {% block content %}
     <main class="padded cards">
       <header>
-        <h1>Archive</h1>
-        <section class="subtitle">Archived entries</section>
+        <h1>{{ page_title }}</h1>
+        <section class="subtitle">Sorting the unsortable</section>
       </header>
+      {% for object in archive_objects %}
+      {% include "blog/archive-card.html" with object=object %}
+      {% endfor %}
       {% for object in object_list %}
-      {% include "blog/card.html" with object=object %}
+      {% include "blog/entry-card.html" with object=object %}
       {% endfor %}
       <footer>
         <nav>

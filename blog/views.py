@@ -3,24 +3,31 @@ import os
 import markdown
 from django.conf import settings
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.formats import date_format
 from django.views.generic import DetailView, ListView
-from django.views.generic.base import TemplateView
 from common.decorators import cache_public
 from unihan.views import is_unihan, unihan_map
-from blog.models import Entry
+from blog.models import Archive, Entry
 
 
-# pylint: disable=too-many-ancestors
+def _set_archive_date(entry):
+    """ Set card_date on an archive entry. """
+    archive_date = date_format(entry.first_published)
+    last_update = date_format(entry.last_update)
+    if last_update != archive_date:
+        archive_date = '%s. Last update %s' % (archive_date, last_update)
+    entry.card_date = archive_date
+
+
 @method_decorator(cache_public(60 * 15), name='dispatch')
-class BlogView(ListView):
+class BlogList(ListView):
     """ Reverse-chronological view of the last nine entries. """
-
+    # pylint: disable=too-many-ancestors
     model = Entry
     template_name = 'blog/blog.html'
 
-    # pylint: disable=arguments-differ
     def get_context_data(self, **kwargs):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
@@ -43,55 +50,91 @@ class BlogView(ListView):
 
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
-class ArchiveView(ListView):
-    """ Chronological view of archive dirs and unarchived entries. """
+class ArchiveIndex(ListView):
+    """ Alphabetical list of archive directories, followed by
+    a chronological list of unarchived entries. """
+    # pylint: disable=too-many-ancestors
     model = Entry
-    template_name = 'blog/archive_index.html'
+    template_name = 'blog/archive-index.html'
 
-    # pylint: disable=arguments-differ
     def get_context_data(self, **kwargs):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Archive'
+        context['page_title'] = 'Daoistic archive'
         context['common_css'] = settings.COMMON_CSS
+        context['archive_objects'] = []
+        for obj in Archive.objects.all().order_by('slug'):
+            entry = obj.entry_set.filter(
+                published=True
+            ).order_by('first_published').first()
+            if entry:
+                obj.card_img = '%s-120.jpg' % entry.slug
+                context['archive_objects'].append(obj)
         return context
 
     def get_queryset(self):
         """ Return entries for the grid. """
         if self.request.user.is_authenticated:
-            entries = Entry.objects.all().order_by('first_published')
+            entries = Entry.objects.filter(
+                archive__isnull=True,
+            ).order_by('first_published')
         else:
             entries = Entry.objects.filter(
+                archive__isnull=True,
                 published=True
             ).order_by('first_published')
         for entry in entries:
-            card_date = date_format(entry.first_published)
-            last_update = date_format(entry.last_update)
-            if last_update != card_date:
-                card_date = '%s. Last update %s' % (card_date, last_update)
-            entry.card_date = card_date
+            _set_archive_date(entry)
             entry.card_img = '%s-120.jpg' % entry.slug
         return entries
 
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
-class ArchiveDirectoryView(TemplateView):
+class ArchiveList(ListView):
     """ Chronological view of an archive dir's entries. """
-    template_name = 'blog/archive.html'
+    # pylint: disable=too-many-ancestors
+    archive = None
+    model = Entry
+    template_name = 'blog/archive-list.html'
 
-    # pylint: disable=arguments-differ
+    def _get_archive(self):
+        """ Return the request's archive or raise 404. """
+        if (
+                self.request.resolver_match
+                and hasattr(self.request.resolver_match, 'kwargs')):
+            slug = self.request.resolver_match.kwargs.get('slug')
+            if slug:
+                return get_object_or_404(Archive, slug=slug)
+        raise Http404()
+
     def get_context_data(self, **kwargs):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
-        context['page_title'] = 'A Daoistic page of archived entries'
+        context['page_title'] = self.archive.title
         context['common_css'] = settings.COMMON_CSS
         return context
 
+    def get_queryset(self):
+        """ Return entries for the grid. """
+        self.archive = self._get_archive()
+        if self.request.user.is_authenticated:
+            entries = Entry.objects.filter(
+                archive=self.archive,
+            ).order_by('first_published')
+        else:
+            entries = Entry.objects.filter(
+                archive=self.archive,
+                published=True
+            ).order_by('first_published')
+        for entry in entries:
+            _set_archive_date(entry)
+            entry.card_img = '%s-120.jpg' % entry.slug
+        return entries
+
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
-class EntryView(DetailView):
+class EntryDetails(DetailView):
     """ Blog entry view. """
-
     model = Entry
     template_name = 'blog/entry.html'
 
@@ -102,7 +145,7 @@ class EntryView(DetailView):
             raise Http404()
         return obj
 
-    # pylint: disable=too-many-locals
+    # pylint: disable=too-many-locals,too-many-statements
     def get_context_data(self, **kwargs):
         """ Insert data into template context. """
         context = super().get_context_data(**kwargs)
@@ -114,23 +157,24 @@ class EntryView(DetailView):
             settings.BASE_DIR, 'var', 'data', 'blog', obj.slug,
         )
 
-        # Set basic state variables.
+        # Set context state variables.
         char_data = ''
         strip_content = True
         publish_notes = False
         publish_vocabulary = False
-        context['link'] = 'study'
+        context['study_link'] = True
         if obj.allow_hanzi:
             strip_content = False
-            context['link'] = None
             publish_vocabulary = True
-        if self.request.resolver_match.url_name == 'blog_study':
+            context['study_link'] = False
+        if self.request.resolver_match.url_name == 'blog-entry-study':
             if obj.allow_hanzi:
                 raise Http404()
             strip_content = False
-            context['link'] = 'plain'
             publish_notes = True
             publish_vocabulary = True
+            context['study_link'] = False
+            context['plain_link'] = True
 
         # Read notes.
         if publish_notes:

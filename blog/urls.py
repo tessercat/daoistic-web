@@ -6,27 +6,27 @@ from blog import views
 urlpatterns = [
     path(
         '',
-        views.BlogView.as_view(),
-        name='blog_index'
+        views.BlogList.as_view(),
+        name='blog-list'
     ),
     path(
         'blog/<slug:slug>',
-        views.EntryView.as_view(),
-        name='blog_entry'
+        views.EntryDetails.as_view(),
+        name='blog-entry-plain'
     ),
     path(
         'blog/<slug:slug>/study',
-        views.EntryView.as_view(),
-        name='blog_study'
+        views.EntryDetails.as_view(),
+        name='blog-entry-study'
     ),
     path(
         'archive/',
-        views.ArchiveView.as_view(),
-        name='archive_index'
+        views.ArchiveIndex.as_view(),
+        name='blog-archive-index'
     ),
     path(
         'archive/<slug:slug>',
-        views.ArchiveDirectoryView.as_view(),
-        name='archive_directory'
+        views.ArchiveList.as_view(),
+        name='blog-archive-list'
     ),
 ]

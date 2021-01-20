@@ -630,6 +630,7 @@ main.cards section.subtitle {
 article.card {
   display: flex;
   padding-top: 1rem;
+  padding-bottom: 1.3rem;
   border-bottom: 4px solid #2d2d31;
 }
 
@@ -664,9 +665,13 @@ article.card a.study:hover, article.card a.study:active, article.card a.study:fo
   border-bottom: 0;
 }
 
+article.card p {
+  margin: 1rem 0 0;
+}
+
 article.card p.date {
   font-size: smaller;
-  padding-top: 0.3rem;
+  margin: 0.5rem 0 0;
 }
 
 @media (min-width: 600px) {

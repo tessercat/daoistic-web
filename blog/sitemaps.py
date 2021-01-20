@@ -18,4 +18,4 @@ class BlogSitemap(Sitemap):
 
     def location(self, obj):
         """ Return entry location. """
-        return reverse('blog_entry', args=[obj.slug])
+        return reverse('blog-entry-plain', args=[obj.slug])

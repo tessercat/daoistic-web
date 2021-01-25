@@ -44,9 +44,9 @@
             <li>{{ link|safe }}</li>
             {% endfor %}
             {% if plain_link %}
-            <li><a title="Without notes or vocabulary" href="{% url 'blog-entry-plain' object.slug %}">Plain</a></li>
+            <li><a title="Without vocab or notes" href="{% url 'blog-entry-plain' object.slug %}">In plain English</a></li>
             {% elif study_link %}
-            <li><a title="With notes and vocabulary" href="{% url 'blog-entry-study' object.slug %}">Study</a></li>
+            <li><a title="Study {{ object.title }}" href="{% url 'blog-entry-study' object.slug %}">With vocab and notes</a></li>
             {% endif %}
             {% if object.archive %}
             <li><a title="{{ object.archive.subtitle }}" href="{% url 'blog-archive-list' object.archive.slug %}">{{ object.archive.title }}</a></li>

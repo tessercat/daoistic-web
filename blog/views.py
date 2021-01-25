@@ -64,9 +64,12 @@ class ArchiveIndex(ListView):
         context['common_css'] = settings.COMMON_CSS
         context['archive_objects'] = []
         for obj in Archive.objects.all().order_by('slug'):
-            entry = obj.entry_set.filter(
-                published=True
-            ).order_by('first_published').first()
+            if self.request.user.is_authenticated:
+                entry = obj.entry_set.all().order_by('first_published').first()
+            else:
+                entry = obj.entry_set.filter(
+                    published=True
+                ).order_by('first_published').first()
             if entry:
                 obj.card_img = '%s-120.jpg' % entry.slug
                 context['archive_objects'].append(obj)

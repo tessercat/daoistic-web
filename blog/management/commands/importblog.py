@@ -22,10 +22,10 @@ class Command(BaseCommand):
         settings.BASE_DIR, 'blog', 'static', 'blog', 'img'
     )
 
-    def _cp_static(self, entry_slug, jpg, resolution=None):
-        """ Copy card and header images to the blog app's static dir. """
+    def _cp_static(self, entry_slug, src_type, resolution=None):
+        """ Copy image to the blog app's static dir. """
         src = os.path.join(
-            self.blog_dir, entry_slug, '%s.jpg' % jpg
+            self.blog_dir, entry_slug, '%s.jpg' % src_type
         )
         if resolution:
             dst = os.path.join(
@@ -41,8 +41,22 @@ class Command(BaseCommand):
             changed = True
         if changed:
             copyfile(src, dst)
-            print('Copied %s' % dst)
+            print('Copied', dst)
         return changed
+
+    def _rm_static(self, entry_slug, resolution=None):
+        """ Remove image from the app's static dir. """
+        if resolution:
+            path = os.path.join(
+                self.img_dir, '%s-%d.jpg' % (entry_slug, resolution)
+            )
+        else:
+            path = os.path.join(self.img_dir, '%s.jpg' % entry_slug)
+        try:
+            os.remove(path)
+            print('Removed', path)
+        except OSError:
+            print('Error removing', path)
 
     def _git_date(self, entry_slug, filename, reverse=False):
         """ Return a date for the file from git log. """
@@ -92,7 +106,7 @@ class Command(BaseCommand):
         first_published = self._git_date(entry_slug, 'content.md', True)
         last_update = self._git_date(entry_slug, 'content.md')
         Entry.objects.create(
-            archive=entry_data.get('archive'),
+            archive=entry_data.get('archive', None),
             first_published=first_published,
             last_update=last_update,
             lede=entry_data['lede'],
@@ -183,12 +197,6 @@ class Command(BaseCommand):
             if entry_obj.slug in entry_map:
                 entry_map[entry_obj.slug]['object'] = entry_obj
                 entry_map[entry_obj.slug]['action'] = 'update'
-                archive_slug = entry_map[entry_obj.slug]['archive']
-                if archive_slug:
-                    archive_obj = archive_map[archive_slug]['object']
-                    entry_map[entry_obj.slug]['archive'] = archive_obj
-                else:
-                    entry_map[entry_obj.slug]['archive'] = None
             else:
                 entry_map[entry_obj.slug] = {
                     'object': entry_obj, 'action': 'delete'
@@ -196,10 +204,18 @@ class Command(BaseCommand):
 
         # Entry CRUD.
         for entry_slug, entry_data in entry_map.items():
+            archive_slug = entry_map[entry_slug].get('archive')
+            if archive_slug:
+                archive_obj = archive_map[archive_slug]['object']
+                entry_map[entry_slug]['archive'] = archive_obj
+            else:
+                entry_map[entry_slug]['archive'] = None
             if entry_data.get('action') == 'update':
                 self._update_entry(entry_data)
             elif entry_data.get('action') == 'delete':
                 entry_data['object'].delete()
-                print('Deleted entry', entry_data.slug)
+                print('Deleted entry', entry_slug)
+                self._rm_static(entry_slug)
+                self._rm_static(entry_slug, '120')
             else:
                 self._create_entry(entry_slug, entry_data)

@@ -7,57 +7,58 @@ from django.views.generic.edit import FormView
 from unihan.models import UnihanCharacter
 
 
-def is_unihan(char):
-    """ Return True if the character's codepoint is in a Unihan block. """
+def get_block(char):
+    """ Return the character's tr38 block number or -1. """
     # pylint: disable=too-many-return-statements
-
-    # Run a cheap test that a character might be unihan. """
-    if char in string.printable:
-        return False
-
-    # Blocks are sorted by character count and table order.
-    # https://www.unicode.org/reports/tr38/#BlockListing
     try:
         codepoint = ord(char)
     except TypeError:
-        return False
+        return -1
 
+    # https://www.unicode.org/reports/tr38/#BlockListing
+    # https://www.unicode.org/reports/tr38/#SortingAlgorithm
     if 0x20000 <= codepoint <= 0x2A6DD:
         # CJK Unified Ideographs Extension B U+20000..U+2A6DD
-        return True
+        return 2
     if 0x4E00 <= codepoint <= 0x9FFC:
         # CJK Unified Ideographs U+4E00..U+9FFC
-        return True
+        return 0
     if 0x3400 <= codepoint <= 0x4DBF:
         # CJK Unified Ideographs Extension A U+3400..U+4DBF
-        return True
+        return 1
     if 0x2A700 <= codepoint <= 0x2B734:
         # CJK Unified Ideographs Extension C U+2A700..U+2B734
-        return True
+        return 3
     if 0x2B740 <= codepoint <= 0x2B81D:
         # CJK Unified Ideographs Extension D U+2B740..U+2B81D
-        return True
+        return 4
     if 0x2B820 <= codepoint <= 0x2CEA1:
         # CJK Unified Ideographs Extension E U+2B820..U+2CEA1
-        return True
+        return 5
     if 0x2CEB0 <= codepoint <= 0x2EBE0:
         # CJK Unified Ideographs Extension F U+2CEB0..U+2EBE0
-        return True
+        return 6
     if 0x30000 <= codepoint <= 0x3134A:
         # CJK Unified Ideographs Extension G U+30000..U+3134A
-        return True
+        return 7
     if 0xF900 <= codepoint <= 0xFAD9:
         # CJK Compatibility Ideographs U+F900..U+FAD9
-        return True
+        return 254
     if 0x2F800 <= codepoint <= 0x2FA1D:
         # CJK Compatibility Supplement U+2F800..U+2FA1D
-        return True
-    return False
+        return 255
+    return -1
+
+
+def is_unihan(char):
+    """ Return True if the character's codepoint is in a Unihan block. """
+    if char in string.printable:
+        return False  # A cheap test up front.
+    return get_block(char) >= 0
 
 
 def unihan_map(text, max_lookups=100, ctext_target='dictionary'):
-    """ Return a map of unihan characters to db objects, possibly
-    limiting the number of db lookups. """
+    """ Return a map of unihan characters to db objects. """
     objects = {}
     lookups = 0
     lookup_failures = []

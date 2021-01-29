@@ -2,8 +2,8 @@
 import ast
 from datetime import date
 import filecmp
+import shutil
 import os
-from shutil import copyfile
 from django.core.management.base import BaseCommand
 from django.conf import settings
 import sh
@@ -40,8 +40,11 @@ class Command(BaseCommand):
         except FileNotFoundError:
             changed = True
         if changed:
-            copyfile(src, dst)
-            print('Copied', dst)
+            try:
+                shutil.copyfile(src, dst)
+                print('Copied', dst)
+            except FileNotFoundError:
+                print('No', src_type, entry_slug)
         return changed
 
     def _rm_static(self, entry_slug, resolution=None):
@@ -58,21 +61,18 @@ class Command(BaseCommand):
         except OSError:
             print('Error removing', path)
 
-    def _git_date(self, entry_slug, filename, reverse=False):
+    def _git_date(self, entry_slug, filename, first=False):
         """ Return a date for the file from git log. """
         path = 'blog/%s/%s' % (entry_slug, filename)
-        cmd = ['--format=%ad', '--date=raw', '--', path]
-        if reverse:
-            cmd.insert(0, '--reverse')
-            # pylint: disable=no-member
-            result = sh.head(self.git.log(cmd), -1)
+        cmd = ['--format=%ad', '--date=raw', '--follow', path]
+        result = self.git.log(cmd)
+        lines = result.stdout.decode().splitlines()
+        if first:
+            logdate = lines[-1]
         else:
-            cmd.insert(0, '-1')
-            result = self.git.log(cmd)
-        if result:
-            parts = result.stdout.decode().strip().split()
-            return date.fromtimestamp(int(parts[0]))
-        return None
+            logdate = lines[0]
+        parts = logdate.strip().split()
+        return date.fromtimestamp(int(parts[0]))
 
     def _title(self, entry_slug):
         """ Return a string for the title field. """
@@ -122,6 +122,9 @@ class Command(BaseCommand):
         """ Update an existing blog entry. """
         entry_obj = entry_data['object']
         entry_data['title'] = self._title(entry_obj.slug)
+        entry_data['first_published'] = self._git_date(
+            entry_obj.slug, 'content.md', True
+        )
         entry_data['last_update'] = self._git_date(
             entry_obj.slug, 'content.md'
         )
@@ -145,7 +148,7 @@ class Command(BaseCommand):
 
         # Read blog config.
         blog_config = {}
-        blog_file = os.path.join(self.blog_dir, 'config.py')
+        blog_file = os.path.join(self.blog_dir, 'meta.py')
         if os.path.isfile(blog_file):
             with open(blog_file) as blog_fd:
                 blog_config = ast.literal_eval(blog_fd.read())
@@ -186,7 +189,7 @@ class Command(BaseCommand):
         entry_map = {}
         for dir_entry in os.scandir(self.blog_dir):
             if os.path.isdir(dir_entry):
-                entry_file = os.path.join(dir_entry, 'config.py')
+                entry_file = os.path.join(dir_entry, 'meta.py')
                 if os.path.isfile(entry_file):
                     with open(entry_file) as entry_fd:
                         entry_config = ast.literal_eval(entry_fd.read())
@@ -216,6 +219,6 @@ class Command(BaseCommand):
                 entry_data['object'].delete()
                 print('Deleted entry', entry_slug)
                 self._rm_static(entry_slug)
-                self._rm_static(entry_slug, '120')
+                self._rm_static(entry_slug, 120)
             else:
                 self._create_entry(entry_slug, entry_data)

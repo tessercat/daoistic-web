@@ -8,7 +8,9 @@ from django.http import (
     HttpResponseNotFound,
 )
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
+from common.decorators import cache_public
 
 
 def custom400(request, exception):
@@ -53,6 +55,7 @@ def custom404(request, exception):
     ))
 
 
+@method_decorator(cache_public(60 * 15), name='dispatch')
 class AboutView(TemplateView):
     """ About Daoistic view. """
     template_name = 'common/about.html'

@@ -599,7 +599,9 @@ main.entry > article section.content {
 }
 
 main.entry > article section.copyright {
+  padding-top: 0.5rem;
   font-size: smaller;
+  font-style: oblique;
 }
 
 @media (min-width: 600px) {

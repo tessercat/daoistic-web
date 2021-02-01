@@ -34,13 +34,13 @@ daphne==3.0.1
     # via -r requirements-dev.in
 django-prometheus==2.1.0
     # via -r requirements-dev.in
-django==3.1.5
+django==3.1.6
     # via -r requirements-dev.in
 flake8==3.8.4
     # via -r requirements-dev.in
 h11==0.12.0
     # via httpcore
-httpcore==0.12.2
+httpcore==0.12.3
     # via httpx
 httpx==0.16.1
     # via -r requirements-dev.in
@@ -98,7 +98,7 @@ pyopenssl==20.0.1
     # via twisted
 python-memcached==1.59
     # via -r requirements-dev.in
-pytz==2020.5
+pytz==2021.1
     # via django
 rfc3986[idna2008]==1.4.0
     # via httpx

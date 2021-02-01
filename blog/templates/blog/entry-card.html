@@ -9,7 +9,7 @@
         </section>
         <section>
           <a class="plain" href="{% url 'blog-entry-plain' object.slug %}" title="Read {{ object.title }}">{{ object.title }}</a>
-          {% if not object.allow_hanzi %}
+          {% if object.entry_type == 'study' %}
           <a class="study" href="{% url 'blog-entry-study' object.slug %}" title="Study {{ object.title }}">文</a>
           {% endif %}
           <p class="date">{{ object.card_date }}</p>

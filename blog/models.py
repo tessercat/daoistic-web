@@ -28,8 +28,9 @@ class Entry(models.Model):
         """ Model meta tweaks. """
         verbose_name_plural = 'Entries'
 
-    allow_hanzi = models.BooleanField(
-        default=False,
+    entry_type = models.CharField(
+        default='study',
+        max_length=16,
     )
     archive = models.ForeignKey(
         'Archive',

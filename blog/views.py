@@ -166,12 +166,12 @@ class EntryDetails(DetailView):
         publish_notes = False
         publish_vocabulary = False
         context['study_link'] = True
-        if obj.allow_hanzi:
+        if obj.entry_type != 'study':
             strip_content = False
             publish_vocabulary = True
             context['study_link'] = False
         if self.request.resolver_match.url_name == 'blog-entry-study':
-            if obj.allow_hanzi:
+            if obj.entry_type != 'study':
                 raise Http404()
             strip_content = False
             publish_notes = True

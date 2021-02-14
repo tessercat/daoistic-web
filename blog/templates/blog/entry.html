@@ -18,7 +18,7 @@
 {{ content|linkify:unihan_map }}
         </section>
         <section class="copyright">
-          Last update {{ object.last_update }}.
+          {{ object.lede }} Last update {{ object.last_update }}.
           © {{ object.first_published.year }} Peter Christensen, CC BY-NC-SA 4.0.
         </section>
         {% if notes %}
@@ -44,12 +44,13 @@
             <li>{{ link|safe }}</li>
             {% endfor %}
             {% if plain_link %}
-            <li><a title="Without vocab or notes" href="{% url 'blog-entry-plain' object.slug %}">In plain English</a></li>
+            <li><a title="Without notes" href="{% url 'blog-entry-plain' object.slug %}">Plain English</a></li>
             {% elif study_link %}
-            <li><a title="Study {{ object.title }}" href="{% url 'blog-entry-study' object.slug %}">With vocab and notes</a></li>
+            <li><a title="Study {{ object.title }}" href="{% url 'blog-entry-study' object.slug %}">Notes</a></li>
             {% endif %}
             {% if object.archive %}
             <li><a title="{{ object.archive.subtitle }}" href="{% url 'blog-archive-list' object.archive.slug %}">{{ object.archive.title }}</a></li>
+            <li><a href="{% url 'blog-archive-index' %}" title="Archive home">Archive</a></li>
             {% endif %}
             <li><a href="/" title="Daoistic home">Home</a></li>
           </ul>

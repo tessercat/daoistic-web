@@ -13,17 +13,17 @@ attrs==20.3.0
     #   automat
     #   service-identity
     #   twisted
-autobahn==20.12.3
+autobahn==21.2.1
     # via daphne
 automat==20.2.0
     # via twisted
 certifi==2020.12.5
     # via httpx
-cffi==1.14.4
+cffi==1.14.5
     # via cryptography
 constantly==15.1.0
     # via twisted
-cryptography==3.3.1
+cryptography==3.4.5
     # via
     #   autobahn
     #   pyopenssl
@@ -82,7 +82,6 @@ sh==1.14.1
 six==1.15.0
     # via
     #   automat
-    #   cryptography
     #   pyopenssl
     #   python-memcached
 sniffio==1.2.0

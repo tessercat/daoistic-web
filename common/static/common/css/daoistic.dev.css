@@ -338,10 +338,6 @@ template {
 }
 
 /* Primitives from Tania Rascia's MIT-licensed primitive-ui. */
-html {
-  box-sizing: border-box;
-}
-
 *,
 *::before,
 *::after {
@@ -353,6 +349,7 @@ figure {
 }
 
 html {
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font: normal normal normal 1rem/1.6 sans-serif;
@@ -369,34 +366,28 @@ p {
   margin: 0 0 1.5rem 0;
 }
 
-h1, h2, h3, h4, h5 {
-  margin: 1.5rem 0;
-  font-weight: 600;
-  font-family: sans-serif;
-  line-height: 1.2;
-  color: #ffd479;
-}
-
-h1:not(:first-child), h2:not(:first-child), h3:not(:first-child), h4:not(:first-child), h5:not(:first-child) {
-  margin: 1.5rem 0;
-}
-
-h1:not(:first-child),
-h2:not(:first-child),
-h3:not(:first-child) {
-  margin-top: 2rem;
-}
-
 h1 {
   font-size: 1.6rem;
+}
+
+h1 :not(:first-child) {
+  margin-top: 2rem;
 }
 
 h2 {
   font-size: 1.45rem;
 }
 
+h2 :not(:first-child) {
+  margin-top: 2rem;
+}
+
 h3 {
   font-size: 1.3rem;
+}
+
+h3 :not(:first-child) {
+  margin-top: 2rem;
 }
 
 h4 {
@@ -407,23 +398,47 @@ h5 {
   font-size: 1rem;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 1.5rem 0;
+  font-weight: 600;
+  font-family: sans-serif;
+  line-height: 1.2;
+  color: #ffd479;
+}
+
+h1:not(:first-child),
+h2:not(:first-child),
+h3:not(:first-child),
+h4:not(:first-child),
+h5:not(:first-child) {
+  margin: 1.5rem 0;
+}
+
 @media (min-width: 600px) {
   body {
     font-size: 1.2rem;
   }
-  h1:not(:first-child),
-  h2:not(:first-child),
-  h3:not(:first-child) {
-    margin-top: 2.5rem;
-  }
   h1 {
     font-size: 1.8rem;
+  }
+  h1 :not(:first-child) {
+    margin-top: 2.5rem;
   }
   h2 {
     font-size: 1.65rem;
   }
+  h2 :not(:first-child) {
+    margin-top: 2.5rem;
+  }
   h3 {
     font-size: 1.5rem;
+  }
+  h3 :not(:first-child) {
+    margin-top: 2.5rem;
   }
   h4 {
     font-size: 1.35rem;
@@ -709,7 +724,7 @@ main.lookup form textarea {
 main.lookup form input {
   margin-top: 0.5rem;
   width: max-content;
-  padding: .4rem .7rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 5px;
   cursor: pointer;
   background-color: green;

@@ -25,7 +25,7 @@ cffi==1.14.5
     # via cryptography
 constantly==15.1.0
     # via twisted
-cryptography==3.4.5
+cryptography==3.4.6
     # via
     #   autobahn
     #   pyopenssl
@@ -89,7 +89,7 @@ pylint-django==2.4.2
     # via -r requirements-dev.in
 pylint-plugin-utils==0.6
     # via pylint-django
-pylint==2.6.0
+pylint==2.6.2
     # via
     #   -r requirements-dev.in
     #   pylint-django

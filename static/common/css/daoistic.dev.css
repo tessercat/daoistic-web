@@ -461,9 +461,26 @@ a:hover, a:active, a:focus {
 }
 
 /* Daoistic main */
-main.padded {
+main.page {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+main.page header {
+  padding: 2rem 0;
+  border-bottom: 4px solid #2d2d31;
+}
+
+main.page header.margin {
+  margin-bottom: 1rem;
+}
+
+main.page h1 {
+  margin: initial;
+}
+
+main.page section.subtitle {
+  font-style: italic;
 }
 
 main {
@@ -628,19 +645,6 @@ main.cards {
   line-height: normal;
 }
 
-main.cards header {
-  padding: 2rem 0;
-  border-bottom: 4px solid #2d2d31;
-}
-
-main.cards h1 {
-  margin: initial;
-}
-
-main.cards section.subtitle {
-  font-style: italic;
-}
-
 /* Daoistic blog entry card */
 article.card {
   display: flex;
@@ -700,11 +704,6 @@ article.card p.date {
 }
 
 /* Daoistic lookup form */
-main.lookup section.intro {
-  margin-bottom: 1.5rem;
-  border-bottom: 4px solid #2d2d31;
-}
-
 main.lookup section.output {
   font-size: x-large;
   padding-bottom: 1.5rem;

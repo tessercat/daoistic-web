@@ -2,22 +2,12 @@
 {% load static unihan %}
 
     {% block content %}
-    <main class="padded lookup">
-      <header>
+    <main class="page lookup">
+      <header class="margin">
         <h1>Unihan lookup</h1>
+        <section class="subtitle">CJK lookup form</section>
       </header>
       <article>
-        <section class="intro">
-          <p>I built to this
-          as a bridge to
-          <a href="https://brill.com/view/title/20918" title="A Student's Dictionary of Classical and Medieval Chinese">Kroll's dictionary</a>
-          when I'm reading passages from
-          <a href="https://ctext.org/dao-de-jing" title="Read the Dao De Jing on ctext">ctext</a>.
-          The form limits the number of unique lookups per request to 100.
-          Dictionary data is from the
-          <a href="https://www.unicode.org/reports/tr38/" title="tr38">Unicode Han Database</a>
-          (Unihan).</p>
-        </section>
         <section id="definition"></section>
         {% if form_data or form.errors %}
         <section class="output">
@@ -47,6 +37,10 @@
       <footer>
         <nav>
           <ul>
+            <li><a href="https://www.unicode.org/reports/tr38/" title="Unihani tr38">Unicode Han Database</a></li>
+            <li><a href="https://ctext.org/dao-de-jing" title="Source code">Dao De Jing</a></li>
+            <li><a href="https://www.ubcpress.ca/outline-of-classical-chinese-grammar" title="Outline of Classical Chinese Grammar">Pulleyblank (grammar)</a></li>
+            <li><a href="https://brill.com/view/title/20918" title="A Student's Dictionary of Classical and Medieval Chinese">Kroll (dictionary)</a></li>
             <li><a href="/" title="Daoistic home">Home</a></li>
           </ul>
         </nav>

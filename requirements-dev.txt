@@ -8,14 +8,14 @@ asgiref==3.3.1
     # via
     #   daphne
     #   django
-astroid==2.4.2
+astroid==2.5.1
     # via pylint
 attrs==20.3.0
     # via
     #   automat
     #   service-identity
     #   twisted
-autobahn==21.2.1
+autobahn==21.2.2
     # via daphne
 automat==20.2.0
     # via twisted
@@ -34,7 +34,7 @@ daphne==3.0.1
     # via -r requirements-dev.in
 django-prometheus==2.1.0
     # via -r requirements-dev.in
-django==3.1.6
+django==3.1.7
     # via -r requirements-dev.in
 flake8==3.8.4
     # via -r requirements-dev.in
@@ -42,7 +42,7 @@ h11==0.12.0
     # via httpcore
 httpcore==0.12.3
     # via httpx
-httpx==0.16.1
+httpx==0.17.0
     # via -r requirements-dev.in
 hyperlink==21.0.0
     # via
@@ -53,7 +53,7 @@ idna==3.1
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==3.4.0
+importlib-metadata==3.7.0
     # via
     #   flake8
     #   markdown
@@ -61,9 +61,9 @@ incremental==17.5.0
     # via twisted
 isort==5.7.0
     # via pylint
-lazy-object-proxy==1.4.3
+lazy-object-proxy==1.5.2
     # via astroid
-markdown==3.3.3
+markdown==3.3.4
     # via -r requirements-dev.in
 mccabe==0.6.1
     # via
@@ -83,13 +83,11 @@ pycparser==2.20
     # via cffi
 pyflakes==2.2.0
     # via flake8
-pyhamcrest==2.0.2
-    # via twisted
 pylint-django==2.4.2
     # via -r requirements-dev.in
 pylint-plugin-utils==0.6
     # via pylint-django
-pylint==2.6.2
+pylint==2.7.2
     # via
     #   -r requirements-dev.in
     #   pylint-django
@@ -108,7 +106,6 @@ sh==1.14.1
     # via -r requirements-dev.in
 six==1.15.0
     # via
-    #   astroid
     #   automat
     #   pyopenssl
     #   python-memcached
@@ -120,9 +117,9 @@ sqlparse==0.4.1
     # via django
 toml==0.10.2
     # via pylint
-twisted[tls]==20.3.0
+twisted[tls]==21.2.0
     # via daphne
-txaio==20.12.1
+txaio==21.2.1
     # via autobahn
 typed-ast==1.4.2
     # via astroid

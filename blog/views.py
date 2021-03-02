@@ -148,9 +148,9 @@ class EntryDetails(DetailView):
             raise Http404()
         return obj
 
-    # pylint: disable=too-many-locals,too-many-statements
     def get_context_data(self, **kwargs):
         """ Insert data into template context. """
+        # pylint: disable=too-many-locals,too-many-statements,too-many-branches
         context = super().get_context_data(**kwargs)
         obj = context['object']
         context['page_title'] = obj.title
@@ -205,7 +205,10 @@ class EntryDetails(DetailView):
         # Process the character map.
         context['unihan_map'] = None
         if publish_vocabulary:
-            context['unihan_map'] = unihan_map(char_data, False)
+            if self.request.user.is_authenticated:
+                context['unihan_map'] = unihan_map(char_data, False, 'search')
+            else:
+                context['unihan_map'] = unihan_map(char_data, False)
 
         # Refs file to list of links, one per line.
         context['ref_links'] = []

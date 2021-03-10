@@ -113,6 +113,7 @@ class Command(BaseCommand):
             published=entry_data.get('is_published', False),
             slug=entry_slug,
             title=title,
+            weight=entry_data.get('weight', 0)
         )
         self._cp_static(entry_slug, 'header')
         self._cp_static(entry_slug, 'card', 120)

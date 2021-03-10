@@ -65,11 +65,13 @@ class ArchiveIndex(ListView):
         context['archive_objects'] = []
         for obj in Archive.objects.all().order_by('slug'):
             if self.request.user.is_authenticated:
-                entry = obj.entry_set.all().order_by('first_published').first()
+                entry = obj.entry_set.all().order_by(
+                    'weight', 'first_published'
+                ).first()
             else:
                 entry = obj.entry_set.filter(
                     published=True
-                ).order_by('first_published').first()
+                ).order_by('weight', 'first_published').first()
             if entry:
                 obj.card_img = '%s-120.jpg' % entry.slug
                 context['archive_objects'].append(obj)
@@ -80,12 +82,12 @@ class ArchiveIndex(ListView):
         if self.request.user.is_authenticated:
             entries = Entry.objects.filter(
                 archive__isnull=True,
-            ).order_by('first_published')
+            ).order_by('weight', 'first_published')
         else:
             entries = Entry.objects.filter(
                 archive__isnull=True,
                 published=True
-            ).order_by('first_published')
+            ).order_by('weight', 'first_published')
         for entry in entries:
             _set_archive_date(entry)
             entry.card_img = '%s-120.jpg' % entry.slug
@@ -123,12 +125,12 @@ class ArchiveList(ListView):
         if self.request.user.is_authenticated:
             entries = Entry.objects.filter(
                 archive=self.archive,
-            ).order_by('first_published')
+            ).order_by('weight', 'first_published')
         else:
             entries = Entry.objects.filter(
                 archive=self.archive,
                 published=True
-            ).order_by('first_published')
+            ).order_by('weight', 'first_published')
         for entry in entries:
             _set_archive_date(entry)
             entry.card_img = '%s-120.jpg' % entry.slug

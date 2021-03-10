@@ -56,6 +56,9 @@ class Entry(models.Model):
     title = models.CharField(
         max_length=100,
     )
+    weight = models.PositiveSmallIntegerField(
+        default=0,
+    )
 
     def get_absolute_url(self):
         """ Return the blog url. """

@@ -12,7 +12,9 @@
           {% if object.entry_type == 'study' %}
           <a class="study" href="{% url 'blog-entry-study' object.slug %}" title="Study {{ object.title }}">文</a>
           {% endif %}
+          {% if object.card_date %}
           <p class="date">{{ object.card_date }}</p>
+          {% endif %}
           <p>{{ object.lede }}</p>
         </section>
       </article>

@@ -12,13 +12,13 @@ from unihan.views import is_unihan, unihan_map
 from blog.models import Archive, Entry
 
 
-def _set_archive_date(entry):
-    """ Set card_date on an archive entry. """
-    archive_date = date_format(entry.first_published)
+def _set_entry_date(entry):
+    """ Set entry_date on entry. """
+    entry_date = date_format(entry.first_published)
     last_update = date_format(entry.last_update)
-    if last_update != archive_date:
-        archive_date = '%s. Last update %s' % (archive_date, last_update)
-    entry.card_date = archive_date
+    if last_update != entry_date:
+        entry_date = '%s. Last update %s.' % (entry_date, last_update)
+    entry.entry_date = entry_date
 
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
@@ -51,14 +51,13 @@ class BlogList(ListView):
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
 class ArchiveIndex(ListView):
-    """ Alphabetical list of archive directories, followed by
-    a chronological list of unarchived entries. """
+    """ List of archive cards. """
     # pylint: disable=too-many-ancestors
     model = Entry
     template_name = 'blog/archive-index.html'
 
     def get_context_data(self, **kwargs):
-        """ Add entry data to the template context. """
+        """ Add archive card data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Daoistic archive'
         context['common_css'] = settings.COMMON_CSS
@@ -89,14 +88,13 @@ class ArchiveIndex(ListView):
                 published=True
             ).order_by('weight', 'first_published')
         for entry in entries:
-            _set_archive_date(entry)
             entry.card_img = '%s-120.jpg' % entry.slug
         return entries
 
 
 @method_decorator(cache_public(60 * 15), name='dispatch')
 class ArchiveList(ListView):
-    """ Chronological view of an archive dir's entries. """
+    """ List of entry cards. """
     # pylint: disable=too-many-ancestors
     archive = None
     model = Entry
@@ -132,7 +130,6 @@ class ArchiveList(ListView):
                 published=True
             ).order_by('weight', 'first_published')
         for entry in entries:
-            _set_archive_date(entry)
             entry.card_img = '%s-120.jpg' % entry.slug
         return entries
 
@@ -158,6 +155,7 @@ class EntryDetails(DetailView):
         context['page_title'] = obj.title
         context['common_css'] = settings.COMMON_CSS
         context['common_js'] = settings.COMMON_JS
+        _set_entry_date(obj)
         entry_dir = os.path.join(
             settings.BASE_DIR, 'var', 'data', 'blog', obj.slug,
         )

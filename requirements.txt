@@ -13,7 +13,7 @@ attrs==20.3.0
     #   automat
     #   service-identity
     #   twisted
-autobahn==21.2.2
+autobahn==21.3.1
     # via daphne
 automat==20.2.0
     # via twisted
@@ -49,9 +49,9 @@ idna==3.1
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==3.7.0
+importlib-metadata==3.7.2
     # via markdown
-incremental==17.5.0
+incremental==21.3.0
     # via twisted
 markdown==3.3.4
     # via -r requirements.in
@@ -94,7 +94,7 @@ txaio==21.2.1
     # via autobahn
 typing-extensions==3.7.4.3
     # via importlib-metadata
-zipp==3.4.0
+zipp==3.4.1
     # via importlib-metadata
 zope.interface==5.2.0
     # via twisted

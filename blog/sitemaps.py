@@ -9,7 +9,9 @@ class BlogSitemap(Sitemap):
 
     def items(self):
         """ Return entry objects. """
-        return Entry.objects.filter(published=True).order_by('-last_update')
+        return Entry.objects.filter(published=True).order_by(
+            '-last_update', '-pk'
+        )
 
     def lastmod(self, obj):
         """ Return entry lastmod. """

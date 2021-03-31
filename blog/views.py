@@ -38,11 +38,11 @@ class BlogList(ListView):
     def get_queryset(self):
         """ Return entries for the grid. """
         if self.request.user.is_authenticated:
-            entries = Entry.objects.all().order_by('-last_update')[:9]
+            entries = Entry.objects.all().order_by('-last_update', '-pk')[:9]
         else:
             entries = Entry.objects.filter(
                 published=True
-            ).order_by('-last_update')[:9]
+            ).order_by('-last_update', '-pk')[:9]
         for entry in entries:
             entry.card_date = 'Last update %s' % date_format(entry.last_update)
             entry.card_img = '%s-120.jpg' % entry.slug

@@ -139,6 +139,8 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Cache
 # https://docs.djangoproject.com/en/2.1/topics/cache/

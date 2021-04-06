@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements.in
 #
-asgiref==3.3.1
+asgiref==3.3.2
     # via
     #   daphne
     #   django
@@ -23,7 +23,7 @@ cffi==1.14.5
     # via cryptography
 constantly==15.1.0
     # via twisted
-cryptography==3.4.6
+cryptography==3.4.7
     # via
     #   autobahn
     #   pyopenssl
@@ -32,7 +32,7 @@ daphne==3.0.1
     # via -r requirements.in
 django-prometheus==2.1.0
     # via -r requirements.in
-django==3.1.7
+django==3.2
     # via -r requirements.in
 h11==0.12.0
     # via httpcore
@@ -49,13 +49,13 @@ idna==3.1
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==3.7.3
+importlib-metadata==3.10.0
     # via markdown
 incremental==21.3.0
     # via twisted
 markdown==3.3.4
     # via -r requirements.in
-prometheus-client==0.9.0
+prometheus-client==0.10.0
     # via django-prometheus
 pyasn1-modules==0.2.8
     # via service-identity
@@ -93,7 +93,9 @@ twisted[tls]==21.2.0
 txaio==21.2.1
     # via autobahn
 typing-extensions==3.7.4.3
-    # via importlib-metadata
+    # via
+    #   asgiref
+    #   importlib-metadata
 zipp==3.4.1
     # via importlib-metadata
 zope.interface==5.3.0

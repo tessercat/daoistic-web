@@ -4,11 +4,11 @@
 #
 #    pip-compile requirements-dev.in
 #
-asgiref==3.3.1
+asgiref==3.3.2
     # via
     #   daphne
     #   django
-astroid==2.5.1
+astroid==2.5.2
     # via pylint
 attrs==20.3.0
     # via
@@ -25,7 +25,7 @@ cffi==1.14.5
     # via cryptography
 constantly==15.1.0
     # via twisted
-cryptography==3.4.6
+cryptography==3.4.7
     # via
     #   autobahn
     #   pyopenssl
@@ -34,7 +34,7 @@ daphne==3.0.1
     # via -r requirements-dev.in
 django-prometheus==2.1.0
     # via -r requirements-dev.in
-django==3.1.7
+django==3.2
     # via -r requirements-dev.in
 flake8==3.9.0
     # via -r requirements-dev.in
@@ -53,7 +53,7 @@ idna==3.1
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==3.7.3
+importlib-metadata==3.10.0
     # via
     #   flake8
     #   markdown
@@ -69,7 +69,7 @@ mccabe==0.6.1
     # via
     #   flake8
     #   pylint
-prometheus-client==0.9.0
+prometheus-client==0.10.0
     # via django-prometheus
 pyasn1-modules==0.2.8
     # via service-identity
@@ -81,13 +81,13 @@ pycodestyle==2.7.0
     # via flake8
 pycparser==2.20
     # via cffi
-pyflakes==2.3.0
+pyflakes==2.3.1
     # via flake8
 pylint-django==2.4.2
     # via -r requirements-dev.in
 pylint-plugin-utils==0.6
     # via pylint-django
-pylint==2.7.2
+pylint==2.7.4
     # via
     #   -r requirements-dev.in
     #   pylint-django
@@ -124,7 +124,9 @@ txaio==21.2.1
 typed-ast==1.4.2
     # via astroid
 typing-extensions==3.7.4.3
-    # via importlib-metadata
+    # via
+    #   asgiref
+    #   importlib-metadata
 wrapt==1.12.1
     # via astroid
 zipp==3.4.1

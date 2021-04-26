@@ -2,7 +2,7 @@
 import ast
 import os
 import random
-from common.registries import common_protected_paths_registry
+from common.registries import protected_paths_registry
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -47,8 +47,6 @@ TIME_ZONE = SETTINGS['TIME_ZONE']
 COMMON_CSS = None
 
 COMMON_JS = None
-
-COMMON_PROTECTED_PATHS = common_protected_paths_registry
 
 
 # Other custom settings

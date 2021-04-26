@@ -3,19 +3,17 @@ from fnmatch import fnmatch
 import os
 from django.apps import AppConfig
 from django.utils.module_loading import autodiscover_modules
-from common.registries import common_protected_paths_registry
 
 
 class CommonConfig(AppConfig):
+    """ Common app config. """
     name = 'common'
 
     def ready(self):
         """ Populated paths registry and configure CSS file. """
 
         # Autodiscover protected paths configuration.
-        autodiscover_modules(
-            'protected_paths', register_to=common_protected_paths_registry
-        )
+        autodiscover_modules('protected_paths')
 
         # Configure common CSS file.
         # pylint: disable=import-outside-toplevel

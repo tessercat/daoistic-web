@@ -1,7 +1,7 @@
 """ Common middleware module. """
-from django.conf import settings
 from django.http import Http404
 from common import firewall
+from common.registries import protected_paths_registry
 
 
 class AdminKnockMiddleware:
@@ -47,7 +47,7 @@ class ProtectedPathsMiddleware:
                 and hasattr(request.resolver_match, 'url_name')):
             url_name = request.resolver_match.url_name
             if (
-                    url_name in settings.COMMON_PROTECTED_PATHS.registry
+                    url_name in protected_paths_registry
                     and request.get_host() != 'localhost'):
                 raise Http404
         return response

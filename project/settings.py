@@ -2,7 +2,6 @@
 import ast
 import os
 import random
-from common.registries import protected_paths_registry
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,13 +39,6 @@ FIREWALL_API_PORT = SETTINGS['FIREWALL_API_PORT']
 SERVER_EMAIL = SETTINGS['SERVER_EMAIL']
 
 TIME_ZONE = SETTINGS['TIME_ZONE']
-
-
-# Default custom settings
-
-COMMON_CSS = None
-
-COMMON_JS = None
 
 
 # Other custom settings

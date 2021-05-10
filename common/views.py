@@ -10,6 +10,7 @@ from django.http import (
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
+from common.apps import common_settings
 from common.decorators import cache_public
 
 
@@ -20,7 +21,7 @@ def custom400(request, exception):
         request,
         'common/error.html',
         {
-            'common_css': settings.COMMON_CSS,
+            'css': common_settings.get('css'),
             'message': 'Bad Request',
             'page_title': '400 Bad Request',
         },
@@ -34,7 +35,7 @@ def custom403(request, reason=''):
         request,
         'common/error.html',
         {
-            'common_css': settings.COMMON_CSS,
+            'css': common_settings.get('css'),
             'message': 'Forbidden',
             'page_title': '403 Forbidden',
         },
@@ -48,7 +49,7 @@ def custom404(request, exception):
         request,
         'common/error.html',
         {
-            'common_css': settings.COMMON_CSS,
+            'css': common_settings.get('css'),
             'message': 'Not Found',
             'page_title': '404 Not Found',
         },
@@ -64,7 +65,7 @@ class AboutView(TemplateView):
         """ Insert data into template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'About Daoistic'
-        context['common_css'] = settings.COMMON_CSS
+        context['css'] = common_settings.get('css')
         return context
 
     def about(self):

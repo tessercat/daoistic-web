@@ -1,8 +1,12 @@
 """ Common app config module. """
+import logging
 from fnmatch import fnmatch
 import os
 from django.apps import AppConfig
 from django.utils.module_loading import autodiscover_modules
+
+
+common_settings = {}
 
 
 class CommonConfig(AppConfig):
@@ -11,35 +15,34 @@ class CommonConfig(AppConfig):
 
     def ready(self):
         """ Populated paths registry and configure CSS file. """
+        # pylint: disable=import-outside-toplevel
+        from django.conf import settings
 
         # Autodiscover protected paths configuration.
         autodiscover_modules('protected_paths')
 
-        # Configure common CSS file.
-        # pylint: disable=import-outside-toplevel
-        import logging
-        from django.conf import settings
+        # Configure app settings.
+        logger = logging.getLogger('django.server')
+        static_dir = os.path.join(
+            settings.BASE_DIR, self.name, 'static', self.name
+        )
 
+        # Configure css setting.
         pattern = 'daoistic.?????.css'
-        app_dir = os.path.join(
-            settings.BASE_DIR, 'common', 'static', 'common', 'css'
-        )
-        logging.getLogger('django.server').info('Configuring COMMON_CSS')
-        for filename in os.listdir(app_dir):
+        css_dir = os.path.join(static_dir, 'css')
+        logger.info('%s css', self.name)
+        for filename in os.listdir(css_dir):
             if fnmatch(filename, pattern):
-                settings.COMMON_CSS = filename
-                logging.getLogger('django.server').info(
-                    'Configured COMMON_CSS %s', filename
-                )
+                common_settings['css'] = filename
+                logger.info('%s css %s', self.name, filename)
+                break
 
+        # Configure js setting.
         pattern = 'daoistic.?????.js'
-        app_dir = os.path.join(
-            settings.BASE_DIR, 'common', 'static', 'common', 'js'
-        )
-        logging.getLogger('django.server').info('Configuring COMMON_JS')
-        for filename in os.listdir(app_dir):
+        js_dir = os.path.join(static_dir, 'js')
+        logger.info('%s css', self.name)
+        for filename in os.listdir(js_dir):
             if fnmatch(filename, pattern):
-                settings.COMMON_JS = filename
-                logging.getLogger('django.server').info(
-                    'Configured COMMON_JS %s', filename
-                )
+                common_settings['js'] = filename
+                logger.info('%s css %s', self.name, filename)
+                break

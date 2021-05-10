@@ -7,9 +7,10 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.formats import date_format
 from django.views.generic import DetailView, ListView
+from blog.models import Archive, Entry
+from common.apps import common_settings
 from common.decorators import cache_public
 from unihan.views import is_unihan, unihan_map
-from blog.models import Archive, Entry
 
 
 def _set_entry_date(entry):
@@ -32,7 +33,7 @@ class BlogList(ListView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Daoistic'
-        context['common_css'] = settings.COMMON_CSS
+        context['css'] = common_settings.get('css')
         return context
 
     def get_queryset(self):
@@ -60,7 +61,7 @@ class ArchiveIndex(ListView):
         """ Add archive card data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Daoistic archive'
-        context['common_css'] = settings.COMMON_CSS
+        context['css'] = common_settings.get('css')
         context['archive_objects'] = []
         for obj in Archive.objects.all().order_by('slug'):
             if self.request.user.is_authenticated:
@@ -114,7 +115,7 @@ class ArchiveList(ListView):
         """ Add entry data to the template context. """
         context = super().get_context_data(**kwargs)
         context['page_title'] = self.archive.title
-        context['common_css'] = settings.COMMON_CSS
+        context['css'] = common_settings.get('css')
         return context
 
     def get_queryset(self):
@@ -153,8 +154,8 @@ class EntryDetails(DetailView):
         context = super().get_context_data(**kwargs)
         obj = context['object']
         context['page_title'] = obj.title
-        context['common_css'] = settings.COMMON_CSS
-        context['common_js'] = settings.COMMON_JS
+        context['css'] = common_settings.get('css')
+        context['js'] = common_settings.get('js')
         _set_entry_date(obj)
         entry_dir = os.path.join(
             settings.BASE_DIR, 'var', 'data', 'blog', obj.slug,

@@ -34,7 +34,7 @@ daphne==3.0.2
     # via -r requirements-dev.in
 django-prometheus==2.1.0
     # via -r requirements-dev.in
-django==3.2.2
+django==3.2.3
     # via -r requirements-dev.in
 flake8==3.9.2
     # via -r requirements-dev.in
@@ -102,7 +102,7 @@ rfc3986[idna2008]==1.5.0
     # via httpx
 service-identity==21.1.0
     # via twisted
-sh==1.14.1
+sh==1.14.2
     # via -r requirements-dev.in
 six==1.16.0
     # via

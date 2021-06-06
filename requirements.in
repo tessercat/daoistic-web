@@ -5,3 +5,6 @@ django-prometheus
 httpx
 markdown
 sh
+flake8
+pylint
+pylint-django

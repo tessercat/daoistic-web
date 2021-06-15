@@ -22,7 +22,6 @@ class CommonConfig(AppConfig):
         autodiscover_modules('protected_paths')
 
         # Configure app settings.
-        logger = logging.getLogger('django.server')
         static_dir = os.path.join(
             settings.BASE_DIR, self.name, 'static', self.name
         )
@@ -30,19 +29,19 @@ class CommonConfig(AppConfig):
         # Configure css setting.
         pattern = 'daoistic.?????.css'
         css_dir = os.path.join(static_dir, 'css')
-        logger.info('%s css', self.name)
         for filename in os.listdir(css_dir):
             if fnmatch(filename, pattern):
                 common_settings['css'] = filename
-                logger.info('%s css %s', self.name, filename)
                 break
 
         # Configure js setting.
         pattern = 'daoistic.?????.js'
         js_dir = os.path.join(static_dir, 'js')
-        logger.info('%s css', self.name)
         for filename in os.listdir(js_dir):
             if fnmatch(filename, pattern):
                 common_settings['js'] = filename
-                logger.info('%s css %s', self.name, filename)
                 break
+
+        logger = logging.getLogger('django.server')
+        for key, value in common_settings.items():
+            logger.info('%s %s %s', self.name, key, value)

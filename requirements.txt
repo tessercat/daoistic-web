@@ -4,6 +4,8 @@
 #
 #    pip-compile requirements.in
 #
+anyio==3.2.0
+    # via httpcore
 asgiref==3.3.4
     # via
     #   daphne
@@ -40,9 +42,9 @@ flake8==3.9.2
     # via -r requirements.in
 h11==0.12.0
     # via httpcore
-httpcore==0.13.3
+httpcore==0.13.6
     # via httpx
-httpx==0.18.1
+httpx==0.18.2
     # via -r requirements.in
 hyperlink==21.0.0
     # via
@@ -50,6 +52,7 @@ hyperlink==21.0.0
     #   twisted
 idna==3.2
     # via
+    #   anyio
     #   hyperlink
     #   rfc3986
     #   twisted
@@ -112,6 +115,7 @@ six==1.16.0
     #   service-identity
 sniffio==1.2.0
     # via
+    #   anyio
     #   httpcore
     #   httpx
 sqlparse==0.4.1
@@ -126,6 +130,7 @@ typed-ast==1.4.3
     # via astroid
 typing-extensions==3.10.0.0
     # via
+    #   anyio
     #   asgiref
     #   importlib-metadata
 wrapt==1.12.1

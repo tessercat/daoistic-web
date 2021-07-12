@@ -23,7 +23,7 @@ automat==20.2.0
     # via twisted
 certifi==2021.5.30
     # via httpx
-cffi==1.14.5
+cffi==1.14.6
     # via cryptography
 constantly==15.1.0
     # via twisted
@@ -56,13 +56,13 @@ idna==3.2
     #   hyperlink
     #   rfc3986
     #   twisted
-importlib-metadata==4.6.0
+importlib-metadata==4.6.1
     # via
     #   flake8
     #   markdown
 incremental==21.3.0
     # via twisted
-isort==5.9.1
+isort==5.9.2
     # via pylint
 lazy-object-proxy==1.6.0
     # via astroid
@@ -136,7 +136,7 @@ typing-extensions==3.10.0.0
     #   importlib-metadata
 wrapt==1.12.1
     # via astroid
-zipp==3.4.1
+zipp==3.5.0
     # via importlib-metadata
 zope.interface==5.4.0
     # via twisted

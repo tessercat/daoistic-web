@@ -1,0 +1,153 @@
+/** A few fixes from normalize.css v8.0.1.
+ * Remove the gray background on active links in IE 10.
+ * Remove the border on images inside links in IE 10.
+ * Change input/textarea font styles in all browsers.
+ * Remove input/textarea margin in Firefox and Safari.
+ * Show input overflow in IE.
+ * Show input overflow in Edge.
+ * Remove textarea default vertical scrollbar in IE 10+.
+ * Add correct hidden display in IE 10.
+ */
+main {
+  display: grid;
+  justify-content: center;
+}
+a {
+  background-color: transparent;
+}
+img {
+  border-style: none;
+}
+input,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+input {
+  overflow: visible;
+}
+textarea {
+  overflow: auto;
+}
+[hidden] {
+  display: none;
+}
+
+/* Base style */
+html {
+  box-sizing: border-box;
+  font: normal normal normal 1rem/1.6 sans-serif;
+}
+body {
+  margin: 0;
+  color: #ced4da;
+  background: #1f2022;
+}
+main {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+p {
+  margin: 0 0 1.5rem 0;
+}
+h1 {
+  font-size: 1.6rem;
+}
+h1 :not(:first-child) {
+  margin-top: 2rem;
+}
+h2 {
+  font-size: 1.45rem;
+}
+h2 :not(:first-child) {
+  margin-top: 2rem;
+}
+h1,
+h2 {
+  margin: 1.5rem 0;
+  font-weight: bolder;
+  font-family: sans-serif;
+  line-height: 1.2;
+  color: #ffd479;
+}
+h1:not(:first-child),
+h2:not(:first-child) {
+  margin: 1.5rem 0;
+}
+a {
+  color: #6ab0f3;
+  font-weight: 600;
+  text-decoration: none;
+}
+a:hover,
+a:active,
+a:focus {
+  color: white;
+}
+
+/* Base style media tweaks */
+@media (min-width: 600px) {
+  body {
+    font-size: 1.2rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  h1 :not(:first-child) {
+    margin-top: 2.5rem;
+  }
+  h2 {
+    font-size: 1.65rem;
+  }
+  h2 :not(:first-child) {
+    margin-top: 2.5rem;
+  }
+}
+
+/* Headers */
+header {
+  padding: 2rem 0 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+header h1 {
+  margin: initial;
+}
+header section.subtitle {
+  font-style: italic;
+}
+
+/* Footers */
+footer {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: smaller;
+  text-align: center;
+}
+footer a {
+  font-weight: 500;
+}
+/* Bootstrap box-arrow-up-right v1.7.2 MIT */
+footer a.external:after {
+  content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='azure' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z'/><path fill-rule='evenodd' d='M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z'/></svg>");
+  margin-left: 0.5em;
+}
+footer ul {
+  list-style: none;
+  padding: inherit;
+}
+footer li {
+  margin-bottom: 1rem;
+}
+
+/* Errors */
+.error {
+  margin-top: 3rem;
+  font-size: larger;
+  text-align: center;
+}

@@ -1,0 +1,57 @@
+{% extends "common/base.html" %}
+{% load static unihan %}
+
+{% block style %}
+{% include "unihan/unihan.css" %}
+{% include "unihan/lookup.css" %}
+{% endblock %}
+
+    {% block content %}
+    <main>
+      <header>
+        <h1>Unihan Lookup</h1>
+        <section class="subtitle">CJK lookup form</section>
+      </header>
+      <section id="definition"></section>
+      {% if form_data or form.errors %}
+      <section id="output">
+        {% if form_data %}
+        {{ form_data|escape|linkify:unihan_map|linebreaksbr }}
+        {% elif form.errors %}
+        {{ form.errors.field }}
+        {% endif %}
+      </section>
+      {% endif %}
+      <section>
+        <form action="" method="POST">
+          {% csrf_token %}
+{{ form.field }}
+          <div class="controls">
+            <input type="submit" id="submit" value="Submit" />
+            <input type="reset" id="reset" value="Clear" disabled />
+          </div>
+        </form>
+      </section>
+      {% if unihan_map %}
+      <h2 class="js-hidden">Vocabulary</h2>
+      <section class="js-hidden">
+        {% for object in unihan_map.values %}
+{% include "unihan/character.html" with object=object %}
+        {% endfor %}
+      </section>
+      {% endif %}
+      <footer>
+        <nav>
+          <ul>
+            <li><a class="external" href="https://www.unicode.org/reports/tr38/" title="Unihan tr38">Unicode Han Database</a></li>
+            <li><a class="external" href="https://ctext.org/dao-de-jing" title="Source code">Daodejing</a></li>
+            <li><a class="external" href="https://brill.com/view/title/20918" title="A Student's Dictionary of Classical and Medieval Chinese">Kroll</a></li>
+            <li><a href="/" title="Daoistic home">Home</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
+    <script>
+{% include "unihan/popup.js" %}
+    </script>
+    {% endblock %}

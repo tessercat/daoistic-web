@@ -1,0 +1,43 @@
+/* Unihan lookup page */
+#output {
+  padding-bottom: 1.5rem;
+}
+#output a.unihan {
+  font-size: larger;
+}
+form {
+  display: grid;
+}
+form textarea {
+  resize: none;
+  border-radius: 5px;
+  color: #ced4da;
+  background-color: #2d2d31;
+}
+form input {
+  width: 6rem;
+  margin: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ced4da;
+}
+form input:hover {
+  filter: brightness(0.6);
+}
+.controls {
+  padding-top: 1rem;
+  display: inline;
+  text-align: center;
+}
+#submit {
+  background-color: green;
+}
+#reset {
+  background-color: #ad4f00;
+}
+#reset:disabled {
+  cursor: revert;
+  filter: brightness(0.6);
+  opacity: 1;
+}

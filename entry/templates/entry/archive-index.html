@@ -1,0 +1,25 @@
+{% extends "common/base.html" %}
+
+{% block style %}
+{% include "entry/cards.css" %}
+{% endblock %}
+
+{% block content %}
+    <main class="cards">
+      <header>
+        <h1>{{ page_title }}</h1>
+      </header>
+      {% for object in object_list %}
+      {% include "entry/archive-card.html" with object=object %}
+      {% endfor %}
+      <footer>
+        <nav>
+          <ul>
+            <li><a href="{% url 'unihan-lookup' %}" title="Unihan database lookup tool">Unihan Lookup</a></li>
+            <li><a href="{% url 'common-about' %}" title="About this site">About</a></li>
+            <li><a href="{% url 'blog-index' %}" title="By last update">Blog</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
+{% endblock %}

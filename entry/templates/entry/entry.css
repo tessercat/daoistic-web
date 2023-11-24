@@ -1,0 +1,41 @@
+/* Entries */
+.entry {
+  padding-left: 0;
+  padding-right: 0;
+}
+.entry header {
+  padding: 0;
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+.entry figure {
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 33.333%;
+  position: relative;
+}
+.entry img {
+  width: 100%;
+  height: auto;
+}
+.entry > article {
+  max-width: 100%;
+  padding: 0 1rem 1rem;
+}
+.entry .content {
+  font-size: 1.1rem;
+  font-family: serif;
+}
+.entry .copyright {
+  padding-top: 0.5rem;
+  font-size: smaller;
+  font-style: oblique;
+}
+
+/* Entry media tweaks */
+@media (min-width: 600px) {
+  .entry .content {
+    font-size: 1.35rem;
+  }
+}

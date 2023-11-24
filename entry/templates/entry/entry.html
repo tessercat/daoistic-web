@@ -1,0 +1,72 @@
+{% extends "common/base.html" %}
+{% load static unihan %}
+
+{% block head %}
+{% include "entry/entry-graph.html" %}
+{% endblock %}
+
+{% block style %}
+{% include "entry/entry.css" %}
+{% if is_study or object.entry_type == 'notes' %}
+{% include "unihan/unihan.css" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    <main class="entry">
+      <header>
+        <figure>
+          <img src="{% static 'entry/img/'|add:header_img %}" alt="{{ header_img }}">
+        </figure>
+      </header>
+      <article>
+        <h1>{{ object.title }}</h1>
+        <section class="content">
+{{ entry|linkify:unihan_map }}
+        </section>
+        <section class="copyright">
+          {{ object.lede }}
+          © {{ object.copyright_year }} Tessercat, CC BY-NC-SA 4.0.
+          {{ entry_date }}
+        </section>
+        {% if notes %}
+        <h2 id="notes">Notes</h2>
+        <section class="notes">
+{{ notes|linkify:unihan_map }}
+        </section>
+        {% endif %}
+        {% if unihan_map %}
+        <h2 class="js-hidden">Vocabulary</h2>
+        <section id="definition"></section>
+        <section class="js-hidden">
+          {% for object in unihan_map.values %}
+{% include "unihan/character.html" with object=object %}
+          {% endfor %}
+        </section>
+        {% endif %}
+      </article>
+      <footer>
+        <nav>
+          <ul>
+            {% for link in ref_links %}
+            <li>{{ link|safe }}</li>
+            {% endfor %}
+            {% if is_study %}
+            <li><a title="Without notes" href="{% url 'entry-plain' object.slug %}">Plain English</a></li>
+            {% elif is_plain %}
+            <li><a title="{{ object.title }} notes" href="{% url 'entry-study' object.slug %}#notes">Notes</a></li>
+            {% endif %}
+            {% if object.archive %}
+            <li><a title="Browse {{ object.archive.subtitle }}" href="{% url 'archive-list' object.archive.slug %}">{{ object.archive.title }}</a></li>
+            {% endif %}
+            <li><a href="/" title="Daoistic home">Home</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
+{% if unihan_map %}
+    <script>
+{% include "unihan/popup.js" %}
+    </script>
+{% endif %}
+{% endblock %}

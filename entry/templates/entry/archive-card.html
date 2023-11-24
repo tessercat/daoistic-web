@@ -1,0 +1,14 @@
+{% load static %}
+      <article class="card">
+        <section>
+          <a href="{% url 'archive-list' object.slug %}" title="Browse {{ object.title }}">
+            <figure>
+              <img src="{% static 'entry/img/'|add:object.card_img %}" alt="{{ object.card_img }}">
+            </figure>
+          </a>
+        </section>
+        <section>
+          <a class="plain" href="{% url 'archive-list' object.slug %}" title="Browse {{ object.title }}">{{ object.title }}</a>
+          <p>{{ object.subtitle }}</p>
+        </section>
+      </article>

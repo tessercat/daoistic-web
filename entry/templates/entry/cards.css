@@ -1,0 +1,64 @@
+/* Cards */
+.cards {
+  line-height: normal;
+}
+.card {
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 1.3rem;
+  max-width: 600px;
+}
+.card figure {
+  height: 50px;
+  width: 50px;
+  margin-left: 0;
+  margin-right: 1rem;
+  margin-top: 0.2rem;
+}
+.card figure img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+.card figure img a:hover,
+.card figure img a:active,
+.card figure img a:focus {
+  border-bottom: 0;
+}
+.card a.plain {
+  font-size: larger;
+}
+.card a.study {
+  font-size: smaller;
+  margin-left: 0.3rem;
+  color: transparent;
+}
+.card a.study:hover,
+.card a.study:active,
+.card a.study:focus {
+  color: white;
+  border-bottom: 0;
+}
+.card p {
+  margin: 0.5rem 0 0;
+}
+.card p.date {
+  font-size: smaller;
+  margin: 0.2rem 0 0;
+}
+
+/* Card media tweaks */
+@media (min-width: 600px) {
+  .card p {
+    margin: 1rem 0 0;
+  }
+  .card p.date {
+    margin: 0.5rem 0 0;
+  }
+  .card figure {
+    height: 100px;
+    width: 100px;
+  }
+  .card figure img {
+    border-radius: 10px;
+  }
+}

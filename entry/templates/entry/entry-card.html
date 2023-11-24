@@ -1,0 +1,20 @@
+{% load static %}
+      <article class="card">
+        <section>
+          <a href="{% url 'entry-plain' object.slug %}" title="Read {{ object.title }}">
+            <figure>
+              <img src="{% static 'entry/img/'|add:object.card_img %}" alt="{{ object.card_img }}">
+            </figure>
+          </a>
+        </section>
+        <section>
+          <a class="plain" href="{% url 'entry-plain' object.slug %}" title="Read {{ object.title }}">{{ object.title }}</a>
+          {% if object.entry_type == 'study' %}
+          <a class="study" href="{% url 'entry-study' object.slug %}" title="Study {{ object.title }}">文</a>
+          {% endif %}
+          {% if object.card_date %}
+          <p class="date">{{ object.card_date }}</p>
+          {% endif %}
+          <p>{{ object.lede }}</p>
+        </section>
+      </article>

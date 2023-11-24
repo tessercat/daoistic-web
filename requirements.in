@@ -1,0 +1,8 @@
+Django
+daphne
+pymemcache
+httpx
+markdown
+flake8
+pylint
+pylint-django

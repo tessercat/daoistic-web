@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title.strip }}</title>
+    {% include "common/icon.html" %}
+    {% block head %}{% endblock %}
+    <style>
+{% include "common/base.css" %}
+{% block style %}{% endblock %}
+    </style>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

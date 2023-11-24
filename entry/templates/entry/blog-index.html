@@ -1,0 +1,28 @@
+{% extends "common/base.html" %}
+
+{% block head %}
+{% include "entry/rss.html" %}
+{% endblock %}
+
+{% block style %}
+{% include "entry/cards.css" %}
+{% endblock %}
+r
+{% block content %}
+    <main class="cards">
+      <header>
+        <h1>{{ page_title }}</h1>
+        <section class="subtitle">By last update</section>
+      </header>
+      {% for object in object_list %}
+      {% include "entry/entry-card.html" with object=object %}
+      {% endfor %}
+      <footer>
+        <nav>
+          <ul>
+            <li><a href="/" title="Daoistic home">Home</a></li>
+          </ul>
+        </nav>
+      </footer>
+    </main>
+{% endblock %}
